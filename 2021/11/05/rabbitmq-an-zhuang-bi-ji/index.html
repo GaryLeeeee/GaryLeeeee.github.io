@@ -465,29 +465,21 @@
 <li>配置环境变量<ul>
 <li>第一步：此电脑-&gt;鼠标邮件”属性”-&gt;高级系统设置-&gt;环境变量-&gt;系统变量”新建”<ul>
 <li>变量名：ERLANG_HOME</li>
-<li>变量值：erlang安装目录(我的是<code>G:\software\erlang</code>)</li>
+<li>变量值：erlang安装目录(我的是<code>G:\software\erlang</code>)<br><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="erlang环境变量"></li>
 </ul>
 </li>
+<li>第二步：系统变量双击”path”-&gt;新建-&gt;添加<code>%ERLANG_HOME%\bin</code><br><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.png" alt="erlang环境变量2"><br><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F3.png" alt="erlang环境变量3"></li>
 </ul>
 </li>
-</ul>
-<p><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="erlang环境变量"><br>    * 第二步：系统变量双击”path”-&gt;新建-&gt;添加<code>%ERLANG_HOME%\bin</code><br><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.png" alt="erlang环境变量2"><br><img src="/images/erlang%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F3.png" alt="erlang环境变量3"></p>
-<ul>
 <li>win+R-&gt;输入cmd-&gt;输入erl，显示版本号就说明安装成功了<br><img src="/images/erlang%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC.png" alt="erlang查看版本"></li>
 </ul>
 <h2 id="下载并安装RabbitMQ"><a href="#下载并安装RabbitMQ" class="headerlink" title="下载并安装RabbitMQ"></a>下载并安装RabbitMQ</h2><ul>
-<li><p>下载地址：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/download.html">http://www.rabbitmq.com/download.html</a><br><img src="/images/RabbitMQ%E4%B8%8B%E8%BD%BD.png" alt="RabbitMQ下载"></p>
-</li>
-<li><p>win+R-&gt;输入cmd-&gt;cd到RabbitMQ的sbin目录-&gt;输入<code>rabbitmq-plugins enable rabbitmq_management</code><br><img src="/images/RabbitMQ%E5%AE%89%E8%A3%85.png" alt="RabbitMQ安装">  </p>
-</li>
-<li><p>打开sbin目录-&gt;双击<code>rabbitmq-server.bat</code><br><img src="/images/RabbitMQ%E5%90%AF%E5%8A%A8.png" alt="RabbitMQ启动"></p>
-</li>
-<li><p>过一会出现这个页面，说明启动成功了，这时候可访问<code>http://localhost:15672</code><br><img src="/images/RabbitMQ%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F.png" alt="RabbitMQ启动成功"></p>
-</li>
-<li><p>这是RabbitMQ的后台，username和password默认是<code>guest</code><br><img src="/images/RabbitMQ%E5%90%8E%E5%8F%B0.png" alt="RabbitMQ后台"></p>
-</li>
-<li><p>end</p>
-</li>
+<li>下载地址：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/download.html">http://www.rabbitmq.com/download.html</a><br><img src="/images/RabbitMQ%E4%B8%8B%E8%BD%BD.png" alt="RabbitMQ下载"></li>
+<li>win+R-&gt;输入cmd-&gt;cd到RabbitMQ的sbin目录-&gt;输入<code>rabbitmq-plugins enable rabbitmq_management</code><br><img src="/images/RabbitMQ%E5%AE%89%E8%A3%85.png" alt="RabbitMQ安装">  </li>
+<li>打开sbin目录-&gt;双击<code>rabbitmq-server.bat</code><br><img src="/images/RabbitMQ%E5%90%AF%E5%8A%A8.png" alt="RabbitMQ启动"></li>
+<li>过一会出现这个页面，说明启动成功了，这时候可访问<code>http://localhost:15672</code><br><img src="/images/RabbitMQ%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F.png" alt="RabbitMQ启动成功"></li>
+<li>这是RabbitMQ的后台，username和password默认是<code>guest</code><br><img src="/images/RabbitMQ%E5%90%8E%E5%8F%B0.png" alt="RabbitMQ后台"></li>
+<li>end</li>
 </ul>
 
                 
@@ -1019,7 +1011,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

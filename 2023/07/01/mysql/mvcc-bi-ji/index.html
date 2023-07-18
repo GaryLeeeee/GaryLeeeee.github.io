@@ -430,7 +430,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    931
+                    928
                 </div>
                 
 
@@ -487,7 +487,7 @@
 <li><strong>如果不成立</strong>：则走下一个判断</li>
 </ul>
 </li>
-<li>b、然后判断<code>DB_TRX_ID</code>&gt;&#x3D;<code>max_trx_id</code><ul>
+<li>b、然后判断<code>DB_TRX_ID</code>&gt;=<code>max_trx_id</code><ul>
 <li><strong>如果成立</strong>：说明当前事务不可以看到<code>DB_TRX_ID</code>所在的记录（因为<code>DB_TRX_ID</code>所在的记录是在Read View生成后才出现的，所以不可见） </li>
 <li><strong>如果不成立</strong>：则走下一个判断</li>
 </ul>
@@ -508,7 +508,7 @@
 <li><strong>当前读</strong>：insert、update、delete、select … for update、select … lock in share mode</li>
 </ul>
 <h2 id="四、undo-log详解"><a href="#四、undo-log详解" class="headerlink" title="四、undo log详解"></a>四、undo log详解</h2><h3 id="1、如果undo-log被删除了，版本链不就断了吗？"><a href="#1、如果undo-log被删除了，版本链不就断了吗？" class="headerlink" title="1、如果undo log被删除了，版本链不就断了吗？"></a>1、如果undo log被删除了，版本链不就断了吗？</h3><p>undo log版本链不是立即删除，MySQL确保版本链数据不再被<font color=red>引用</font>后再进行删除</p>
-<p>&#x2F;&#x2F;TODO</p>
+<p>//TODO</p>
 <h2 id="五、问题"><a href="#五、问题" class="headerlink" title="五、问题"></a>五、问题</h2><h3 id="1、RR隔离级别下使用MVCC能避免幻读吗？"><a href="#1、RR隔离级别下使用MVCC能避免幻读吗？" class="headerlink" title="1、RR隔离级别下使用MVCC能避免幻读吗？"></a>1、RR隔离级别下使用MVCC能避免幻读吗？</h3><p>能，但不完全能。RR用的是快照读，仅第一次生成，后面使用的ReadView会复用第一次的<br><strong>特例</strong>：当两次<font color=red>快照读</font>之间存在<font color=red>当前读</font>，ReadView会重新生成，从而产生幻读</p>
 
                 
@@ -1048,7 +1048,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

@@ -419,14 +419,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-07-15
+                    2023-07-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    736
+                    1.4k
                 </div>
                 
 
@@ -458,16 +458,14 @@
 <li>hexo(本文会介绍怎么安装)</li>
 </ul>
 <h2 id="2-搭建博客项目-h5"><a href="#2-搭建博客项目-h5" class="headerlink" title="2.搭建博客项目(h5)"></a>2.搭建博客项目(h5)</h2><ul>
-<li><p>创建github仓库<br>新建一个名为 <strong>{用户名}.github.io</strong>的仓库</p>
-</li>
-<li><p>在settings-pages可以看到博客部署的地址<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/github%20page.png"></p>
-</li>
+<li>创建github仓库<br>新建一个名为 <strong>{用户名}.github.io</strong>的仓库</li>
+<li>在settings-pages可以看到博客部署的地址<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/github%20page.png"></li>
 </ul>
 <h2 id="3-如何使用hexo"><a href="#3-如何使用hexo" class="headerlink" title="3.如何使用hexo"></a>3.如何使用hexo</h2><h3 id="3-1-install-安装"><a href="#3-1-install-安装" class="headerlink" title="3.1 install(安装)"></a>3.1 install(安装)</h3><p><code>npm install -g hexo</code></p>
-<h3 id="3-2-hexo-init-初始化"><a href="#3-2-hexo-init-初始化" class="headerlink" title="3.2 hexo init(初始化)"></a>3.2 hexo init(初始化)</h3><p>随便找一个目录放代码(后面发博客内容等需要修改) 如d:&#x2F;hexo<br>并初始化为hexo项目<br><code>cd d:/hexo</code><br><code>hexo init</code><br>这时候会自动生成一些文件<br>  <img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-init.png" alt="hexo init"></p>
+<h3 id="3-2-hexo-init-初始化"><a href="#3-2-hexo-init-初始化" class="headerlink" title="3.2 hexo init(初始化)"></a>3.2 hexo init(初始化)</h3><p>随便找一个目录放代码(后面发博客内容等需要修改) 如d:/hexo<br>并初始化为hexo项目<br><code>cd d:/hexo</code><br><code>hexo init</code><br>这时候会自动生成一些文件<br>  <img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-init.png" alt="hexo init"></p>
 <h3 id="3-3-hexo-g-生成"><a href="#3-3-hexo-g-生成" class="headerlink" title="3.3 hexo g(生成)"></a>3.3 hexo g(生成)</h3><p>hexo g是hexo generate的缩写，用于在public文件夹生成最终的文件(.md文件会被生成.html文件)<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-g.png" alt="hexo g"></p>
 <h3 id="3-4-hexo-s-启动服务"><a href="#3-4-hexo-s-启动服务" class="headerlink" title="3.4 hexo s(启动服务)"></a>3.4 hexo s(启动服务)</h3><p>hexo s是hexo server的缩写，用于本地启动服务，可以通过<a href="http://localhost:4000访问">http://localhost:4000访问</a><br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-s.png" alt="hexo s"></p>
-<h3 id="3-5-重要目录-文件的作用"><a href="#3-5-重要目录-文件的作用" class="headerlink" title="3.5 重要目录&#x2F;文件的作用"></a>3.5 重要目录&#x2F;文件的作用</h3><table>
+<h3 id="3-5-重要目录-文件的作用"><a href="#3-5-重要目录-文件的作用" class="headerlink" title="3.5 重要目录/文件的作用"></a>3.5 重要目录/文件的作用</h3><table>
 <thead>
 <tr>
 <th>文件夹</th>
@@ -489,12 +487,10 @@
 </tbody></table>
 <h2 id="4-使用主题并写博客"><a href="#4-使用主题并写博客" class="headerlink" title="4.使用主题并写博客"></a>4.使用主题并写博客</h2><p>一般我们下载网上的主题，就可以直接修改配置文件(_config.yml)来自定义页面内容</p>
 <ul>
-<li><p>找一个主题并下载到<code>/themes</code>目录下<br>比如我的主题是<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
-</li>
-<li><p>修改<code>_config.yml</code>的<code>theme: landscape</code>为<code>theme: matery</code></p>
-</li>
+<li>找一个主题并下载到<code>/themes</code>目录下<br>比如我的主题是<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></li>
+<li>修改<code>_config.yml</code>的<code>theme: landscape</code>为<code>theme: matery</code></li>
 </ul>
-<h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a>:GaryLeeeee&#x2F;garyleeeee.github.io.git<br>  branch: master</p>
+<h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#104;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#104;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:GaryLeeeee/garyleeeee.github.io.git<br>  branch: master</p>
 <h3 id="5-2-安装deployer插件"><a href="#5-2-安装deployer插件" class="headerlink" title="5.2 安装deployer插件"></a>5.2 安装deployer插件</h3><p><code>npm install hexo-deployer-git --save</code><br>如果没安装的话<code>hexo d</code>一般会报错”Deployer not found: github”或者”Deployer not found: git”</p>
 <h3 id="5-3-hexo-d-部署"><a href="#5-3-hexo-d-部署" class="headerlink" title="5.3 hexo d(部署)"></a>5.3 hexo d(部署)</h3><p>hexo d是hexo doploy的缩写，用来部署服务到远程</p>
 <h2 id="6-如何写博客"><a href="#6-如何写博客" class="headerlink" title="6.如何写博客"></a>6.如何写博客</h2><h3 id="6-1-hexo-new-xxx-新建博客"><a href="#6-1-hexo-new-xxx-新建博客" class="headerlink" title="6.1 hexo new xxx(新建博客)"></a>6.1 hexo new xxx(新建博客)</h3><p>通过hexo new ‘my-first-blog’即可创建一个名字为my-first-blog的微博文件<br><img src="http://image.liuxianan.com/201608/20160823_183325_470_9306.png"></p>
@@ -523,7 +519,7 @@
 <td>分类名(后面有讲)</td>
 </tr>
 </tbody></table>
-<h2 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.常见问题"></a>7.常见问题</h2><h3 id="matery主题如果没有tags-categories-about页面？"><a href="#matery主题如果没有tags-categories-about页面？" class="headerlink" title="matery主题如果没有tags&#x2F;categories&#x2F;about页面？"></a>matery主题如果没有tags&#x2F;categories&#x2F;about页面？</h3><p>新增标签tags页面(categories&#x2F;about类似)<br><code>tags</code>页是用来展示所有标签的页面，如果在你的博客<code>source</code>目录下还没有<code>tags/index.md</code>文件，那么你就需要新建一个，命令如下：</p>
+<h2 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.常见问题"></a>7.常见问题</h2><h3 id="matery主题如果没有tags-categories-about页面？"><a href="#matery主题如果没有tags-categories-about页面？" class="headerlink" title="matery主题如果没有tags/categories/about页面？"></a>matery主题如果没有tags/categories/about页面？</h3><p>新增标签tags页面(categories/about类似)<br><code>tags</code>页是用来展示所有标签的页面，如果在你的博客<code>source</code>目录下还没有<code>tags/index.md</code>文件，那么你就需要新建一个，命令如下：</p>
 <blockquote>
 <p>hexo new page “tags”</p>
 </blockquote>
@@ -533,7 +529,91 @@
 </blockquote>
 <h3 id="部署远程后没更新"><a href="#部署远程后没更新" class="headerlink" title="部署远程后没更新"></a>部署远程后没更新</h3><p>删除本地.deploy_git目录，重新执行<code>hexo d -g</code></p>
 <h3 id="如何上传本地图片"><a href="#如何上传本地图片" class="headerlink" title="如何上传本地图片"></a>如何上传本地图片</h3><p>在source目录新建一个图片目录(如images)，然后在博客里引用(参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/104996801">https://zhuanlan.zhihu.com/p/104996801</a>)<br><code>![img.png](/images/img.png)</code></p>
-<h3 id="如何代码格式化"><a href="#如何代码格式化" class="headerlink" title="如何代码格式化"></a>如何代码格式化</h3><p><img src="/source/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%89%8D.png" alt="img.png"><br><img src="/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%90%8E.png" alt="代码高亮优化后"></p>
+<h3 id="如何代码格式化"><a href="#如何代码格式化" class="headerlink" title="如何代码格式化"></a>如何代码格式化</h3><p><img src="source/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%89%8D.png" alt="img.png"><br><img src="/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%90%8E.png" alt="代码高亮优化后"></p>
+<h3 id="部署异常（鉴权失败）"><a href="#部署异常（鉴权失败）" class="headerlink" title="部署异常（鉴权失败）"></a>部署异常（鉴权失败）</h3><p>执行指令<code>hexo d -g</code>报错</p>
+<pre class="line-numbers language-none"><code class="language-none">On branch master
+nothing to commit, working tree clean
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
+Please contact your system administrator.
+Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.
+Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1
+RSA host key for github.com has changed and you have requested strict checking.
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+FATAL &#123;
+  err: Error: Spawn failed
+      at ChildProcess.&lt;anonymous&gt; (E:\workplace\lee-blog\node_modules\hexo-util\lib\spawn.js:51:21)
+      at ChildProcess.emit (node:events:513:28)
+      at cp.emit (E:\workplace\lee-blog\node_modules\cross-spawn\lib\enoent.js:34:29)
+      at ChildProcess._handle.onexit (node:internal&#x2F;child_process:291:12) &#123;
+    code: 128
+  &#125;
+&#125; Something&#39;s wrong. Maybe you can find the solution here: %s https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>检查了本地ssh和远程github的ssh匹配，排除不匹配的可能性<br>执行<code>ssh -T git@github.com</code>，验证主机是否与github网站之间的ssh通信是否连接成功</p>
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+$ ssh -T git@github.com
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
+Please contact your system administrator.
+Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.
+Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1
+RSA host key for github.com has changed and you have requested strict checking.
+Host key verification failed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>发现<code>known_hosts</code>文件异常，尝试删除文件，并重新生成</p>
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+$ ssh -T git@github.com
+The authenticity of host &#39;github.com (20.205.243.166)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98&#x2F;R1BUFWu3&#x2F;LiyKgUfQM.
+Are you sure you want to continue connecting (yes&#x2F;no)? y
+Please type &#39;yes&#39; or &#39;no&#39;: yes
+Warning: Permanently added &#39;github.com,20.205.243.166&#39; (ECDSA) to the list of known hosts.
+Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+
+Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+$ ssh -T git@github.com
+Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到校验成功了，重新执行<code>hexo d -g</code></p>
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+$ hexo d -g
+INFO  Validating config
+INFO  Start processing
+INFO  Files loaded in 640 ms
+
+...
+
+On branch master
+nothing to commit, working tree clean
+Counting objects: 1167, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (738&#x2F;738), done.
+Writing objects: 100% (1167&#x2F;1167), 7.87 MiB | 254.00 KiB&#x2F;s, done.
+Total 1167 (delta 397), reused 0 (delta 0)
+remote: Resolving deltas: 100% (397&#x2F;397), done.
+To github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git
+ + 06ab1b8...af6b499 HEAD -&gt; master (forced update)
+Branch master set up to track remote branch master from git@github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git.
+INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>搞定！</p>
 
                 
             </div>
@@ -1064,7 +1144,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

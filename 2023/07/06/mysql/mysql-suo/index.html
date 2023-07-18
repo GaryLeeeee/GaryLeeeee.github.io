@@ -423,7 +423,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-07-07
+                    2023-07-15
                 </div>
                 
 
@@ -471,13 +471,13 @@
 <h3 id="1、使用场景"><a href="#1、使用场景" class="headerlink" title="1、使用场景"></a>1、使用场景</h3><ul>
 <li><strong>读多写少</strong>：因为表级读锁不会阻塞其他的读锁，所以这种场景下表锁能够提供很高的性能</li>
 <li><strong>数据量少</strong>：由于数据量少，那么即使在写操作中，由于锁定整张表，对性能的影响也不大</li>
-<li><strong>全表更新&#x2F;删除</strong>：例如更新表中所有记录的某个字段的值，或删除表中的所有记录，那么使用表级锁是最合适的</li>
+<li><strong>全表更新/删除</strong>：例如更新表中所有记录的某个字段的值，或删除表中的所有记录，那么使用表级锁是最合适的</li>
 </ul>
 <h3 id="2、MySQL哪些命令会发生表级锁"><a href="#2、MySQL哪些命令会发生表级锁" class="headerlink" title="2、MySQL哪些命令会发生表级锁"></a>2、MySQL哪些命令会发生表级锁</h3><ul>
 <li>ALTER TABLE</li>
-<li>DROP TABLE&#x2F;TRUNCATE TABLE</li>
+<li>DROP TABLE/TRUNCATE TABLE</li>
 <li>LOCK TABLES：如<code>LOCK TABLES t1 WRITE, t2 READ</code></li>
-<li>全表扫描&#x2F;大范围扫描：针对MyISAM存储引擎，全局扫描&#x2F;大范围扫描会触发表级锁</li>
+<li>全表扫描/大范围扫描：针对MyISAM存储引擎，全局扫描/大范围扫描会触发表级锁</li>
 <li>FLUSH TABLES WITH READ LOCK：可以给所有表加上全局读锁</li>
 </ul>
 <h3 id="3、不同的存储引擎主要用哪些锁？"><a href="#3、不同的存储引擎主要用哪些锁？" class="headerlink" title="3、不同的存储引擎主要用哪些锁？"></a>3、不同的存储引擎主要用哪些锁？</h3><ul>
@@ -545,7 +545,7 @@
 <td>排它锁</td>
 </tr>
 </tbody></table>
-<h3 id="7、行锁有哪些风险点？"><a href="#7、行锁有哪些风险点？" class="headerlink" title="7、行锁有哪些风险点？"></a>7、行锁有哪些风险点？</h3><p>&#x2F;&#x2F;TODO</p>
+<h3 id="7、行锁有哪些风险点？"><a href="#7、行锁有哪些风险点？" class="headerlink" title="7、行锁有哪些风险点？"></a>7、行锁有哪些风险点？</h3><p>//TODO</p>
 
                 
             </div>
@@ -1080,7 +1080,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

@@ -451,7 +451,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h3 id="1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？"><a href="#1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？" class="headerlink" title="1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？"></a>1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？</h3><p><strong>分析</strong>：Dubbo默认会在启动时检查依赖的服务是否可用，不可用时会抛出异常(No provider…)<br><strong>解决</strong>：关闭启动时依赖检查</p>
+                <h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h3 id="1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？"><a href="#1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？" class="headerlink" title="1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？"></a>1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？</h3><p><strong>分析</strong>：Dubbo默认会在启动时检查依赖的服务是否可用，不可用时会抛出异常(No provider…)<br><strong>解决</strong>：关闭启动时依赖检查</p>
 <ul>
 <li><strong>方案a：配置spring配置文件</strong><ul>
 <li>关闭某个服务的启动时检查(没有提供者时报错)<br><code>&lt;dubbo:reference interface=&quot;com.demo.UserService&quot; check=&quot;false&quot; /&gt;</code></li>
@@ -1010,7 +1010,7 @@ java -Ddubbo.registry.check&#x3D;false<span aria-hidden="true" class="line-numbe
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

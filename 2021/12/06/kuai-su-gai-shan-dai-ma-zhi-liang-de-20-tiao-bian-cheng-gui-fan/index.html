@@ -460,10 +460,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="快速改善代码质量的20条编程规范"><a href="#快速改善代码质量的20条编程规范" class="headerlink" title="快速改善代码质量的20条编程规范"></a>快速改善代码质量的20条编程规范</h1><h2 id="1-关于命名"><a href="#1-关于命名" class="headerlink" title="1.关于命名"></a>1.关于命名</h2><ul>
-<li><p>命名的关键是能准确达意（不要刻意选择一些缩写命名 不好理解）</p>
-</li>
-<li><p>借助类的信息来简化属性、函数命名</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//优化前</span>
+<li>命名的关键是能准确达意（不要刻意选择一些缩写命名 不好理解）</li>
+<li>借助类的信息来简化属性、函数命名<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//优化前</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> userName<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> userPassword<span class="token punctuation">;</span>
@@ -475,14 +473,12 @@
     <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>命名要可读、可搜索</p>
-<ul>
+<li>命名要可读、可搜索<ul>
 <li>比如查询方法统一用<code>getxxx()</code>方便输入.get的时候联想搜索</li>
 <li>统一规范，比如统一用<code>addxxx()</code>而不是<code>insertxxx()</code>来表示插入一条数据</li>
 </ul>
 </li>
-<li><p>接口和抽象类特殊命名</p>
-<ul>
+<li>接口和抽象类特殊命名<ul>
 <li><strong>接口</strong>：一种是在接口中带前缀”I”，另一种是在接口的实现类中带后缀”Impl”</li>
 <li><strong>抽象类</strong>：可以加上”abstract”前缀<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//接口命名1</span>
 <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IUserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
@@ -495,22 +491,19 @@
 </li>
 </ul>
 <h2 id="2-关于注释"><a href="#2-关于注释" class="headerlink" title="2.关于注释"></a>2.关于注释</h2><ul>
-<li><p>注释需要写什么内容？</p>
-<ul>
+<li>注释需要写什么内容？<ul>
 <li>做什么</li>
 <li>为什么</li>
 <li>怎么做</li>
 <li>如何用(针对较复杂的类和接口)</li>
 </ul>
 </li>
-<li><p>注释是不是越多越好？</p>
-<ul>
+<li>注释是不是越多越好？<ul>
 <li>注释太多，会影响代码的阅读</li>
 <li>注释太多，会影响后期的维护成本（改代码需要同步修改注释，否则会对不上）</li>
 </ul>
 </li>
-<li><p>哪里写注释比较好？</p>
-<ul>
+<li>哪里写注释比较好？<ul>
 <li>类和函数一定要写注释（尽可能全面、详细）</li>
 <li>函数内部注释相对少一点（依赖好的命名、提炼函数等提高代码可读性）</li>
 </ul>
@@ -554,7 +547,7 @@
 </ul>
 <h2 id="6-四格缩进还是两格缩进？"><a href="#6-四格缩进还是两格缩进？" class="headerlink" title="6.四格缩进还是两格缩进？"></a>6.四格缩进还是两格缩进？</h2><ul>
 <li><strong>推荐</strong>用两格缩进(节省空间，Java倾向于两格)</li>
-<li>取决个人喜好&#x2F;团队统一即可</li>
+<li>取决个人喜好/团队统一即可</li>
 </ul>
 <h2 id="7-大括号是否要另起一行？"><a href="#7-大括号是否要另起一行？" class="headerlink" title="7.大括号是否要另起一行？"></a>7.大括号是否要另起一行？</h2><ul>
 <li><strong>不另起一行</strong>：节省代码行数(<strong>推荐</strong>)</li>
@@ -562,7 +555,7 @@
 </ul>
 <h2 id="8-类中成员的排列顺序"><a href="#8-类中成员的排列顺序" class="headerlink" title="8.类中成员的排列顺序"></a>8.类中成员的排列顺序</h2><ul>
 <li><strong>类</strong>：成员变量-&gt;函数</li>
-<li><strong>成员变量&#x2F;函数</strong>：静态成员变量&#x2F;函数-&gt;普通函数&#x2F;函数</li>
+<li><strong>成员变量/函数</strong>：静态成员变量/函数-&gt;普通函数/函数</li>
 <li><strong>个人习惯</strong>：比较喜欢把成员变量放前面，函数放后面(每个public和依赖的private方法放一起)</li>
 </ul>
 <h2 id="9-把代码分割成更小的单元快"><a href="#9-把代码分割成更小的单元快" class="headerlink" title="9.把代码分割成更小的单元快"></a>9.把代码分割成更小的单元快</h2><ul>
@@ -618,8 +611,7 @@
   <span class="token comment">//优化后</span>
   <span class="token class-name">User</span> <span class="token function">getUserByUsername</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token class-name">User</span> <span class="token function">getUserByPhone</span><span class="token punctuation">(</span><span class="token class-name">String</span> phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>将函数参数封装成对象</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">//优化前</span>
@@ -648,7 +640,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="12-移除过深的嵌套层次"><a href="#12-移除过深的嵌套层次" class="headerlink" title="12.移除过深的嵌套层次"></a>12.移除过深的嵌套层次</h2><ul>
-<li>去掉多余的if&#x2F;else语句</li>
+<li>去掉多余的if/else语句</li>
 <li>使用continue、break、return等提前退出嵌套</li>
 <li>调整执行顺序来减少嵌套(如提前判空再执行正常逻辑)</li>
 <li>for循环独立逻辑可抽出为一个个函数(参考自<code>《重构改善既有代码的设计》</code>)</li>
@@ -657,11 +649,10 @@
 <li><p>常量取代魔法数字</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">//计算不同单位的毫秒值</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">ONE_DAY</span> <span class="token operator">=</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">ONE_HOUR</span> <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">ONE_MINUTE</span> <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_DAY <span class="token operator">=</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_HOUR <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_MINUTE <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>使用解释性变量来解释复杂表达式</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//比如该例子的isToday就是解释性变量</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
@@ -1224,7 +1215,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

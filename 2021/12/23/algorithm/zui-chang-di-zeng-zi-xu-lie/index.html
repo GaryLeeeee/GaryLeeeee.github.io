@@ -442,7 +442,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    575
+                    569
                 </div>
                 
 
@@ -471,15 +471,15 @@
 <p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，<code>[3,6,2,7]</code> 是数组 <code>[0,3,1,6,2,2,7]</code> 的子序列。</p>
 <p><strong>示例一</strong>：</p>
 <blockquote>
-<p><strong>输入</strong>：nums &#x3D; [10,9,2,5,3,7,101,18]<br><strong>输出</strong>：4<br><strong>解释</strong>：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p>
+<p><strong>输入</strong>：nums = [10,9,2,5,3,7,101,18]<br><strong>输出</strong>：4<br><strong>解释</strong>：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p>
 </blockquote>
 <p><strong>示例二</strong>：</p>
 <blockquote>
-<p><strong>输入</strong>：nums &#x3D; [0,1,0,3,2,3]<br><strong>输出</strong>：4</p>
+<p><strong>输入</strong>：nums = [0,1,0,3,2,3]<br><strong>输出</strong>：4</p>
 </blockquote>
 <p><strong>示例三</strong>：</p>
 <blockquote>
-<p><strong>输入</strong>：nums &#x3D; [7,7,7,7,7,7,7]<br><strong>输出</strong>：1</p>
+<p><strong>输入</strong>：nums = [7,7,7,7,7,7,7]<br><strong>输出</strong>：1</p>
 </blockquote>
 <h2 id="二、相关链接"><a href="#二、相关链接" class="headerlink" title="二、相关链接"></a>二、相关链接</h2><ul>
 <li><strong>题目链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">https://leetcode-cn.com/problems/longest-increasing-subsequence/</a></li>
@@ -489,11 +489,11 @@
 <li><strong>解法</strong>：动态规划+回溯算法</li>
 <li><strong>思路</strong>：遍历数组从左到右，用dp[]数组存储截止当前位置的max值</li>
 <li><strong>步骤</strong>：<ul>
-<li>1.遍历数组，判断当前数和之前数大小</li>
-<li>2.如果之前数没有比当前数大的，则当前位置dp[i]&#x3D;1(代表最长子序列长度为1)</li>
-<li>3.如果之前数有比当前数大的，就判断之前数dp[i]&#x3D;Math.max(dp[pre],dp[i])</li>
-<li>4.每遍历一次数组，就更新max&#x3D;Math.max(max,dp[i])</li>
-<li>5.返回max</li>
+<li> 1.遍历数组，判断当前数和之前数大小</li>
+<li> 2.如果之前数没有比当前数大的，则当前位置dp[i]=1(代表最长子序列长度为1)</li>
+<li> 3.如果之前数有比当前数大的，就判断之前数dp[i]=Math.max(dp[pre],dp[i])</li>
+<li> 4.每遍历一次数组，就更新max=Math.max(max,dp[i])</li>
+<li> 5.返回max</li>
 </ul>
 </li>
 </ul>
@@ -1101,7 +1101,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

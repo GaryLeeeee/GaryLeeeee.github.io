@@ -426,7 +426,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    330
+                    328
                 </div>
                 
 
@@ -455,40 +455,20 @@
 <h2 id="二、可视化工具"><a href="#二、可视化工具" class="headerlink" title="二、可视化工具"></a>二、可视化工具</h2><p>下载链接：<a target="_blank" rel="noopener" href="https://robomongo.org/download">https://robomongo.org/download</a><br>使用指引：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wangmx1993328/article/details/82628805">https://blog.csdn.net/wangmx1993328/article/details/82628805</a></p>
 <h2 id="三、常见指令-随用随更新"><a href="#三、常见指令-随用随更新" class="headerlink" title="三、常见指令(随用随更新)"></a>三、常见指令(随用随更新)</h2><h3 id="1-查询文档"><a href="#1-查询文档" class="headerlink" title="1.查询文档"></a>1.查询文档</h3><p>如查询collection为user的uid为123456的文档，则<br>完整：<code>db.getCollection(&quot;user&quot;).find(&#123;&quot;user&quot;:123456&#125;)</code><br>简化：<code>db.user.find(&#123;&quot;user&quot;:123456&#125;)</code></p>
 <h2 id="四、常见问题"><a href="#四、常见问题" class="headerlink" title="四、常见问题"></a>四、常见问题</h2><h3 id="1-linux如何连接mongo？"><a href="#1-linux如何连接mongo？" class="headerlink" title="1.linux如何连接mongo？"></a>1.linux如何连接mongo？</h3><ul>
-<li>a.下载mongo指令</li>
+<li>a.下载mongo指令<br><code>wget https://fastdl.mongodb.org/linux/mongodb-shell-linux-x86_64-ubuntu1604-4.0.28.tgz</code></li>
+<li>b.解压<br><code>tar zxvf mongodb-shell-linux-x86_64-ubuntu1604-4.0.28.tgz</code></li>
+<li>c.跳转到指令目录<br><code>cd mongodb-linux-x86_64-ubuntu1604-4.0.28/bin</code></li>
+<li>d.连接<br><code>mongo --host $&#123;host&#125; --port $&#123;port&#125; -u $&#123;username&#125; -p $&#123;password&#125;&quot; </code></li>
 </ul>
-<p><code>wget https://fastdl.mongodb.org/linux/mongodb-shell-linux-x86_64-ubuntu1604-4.0.28.tgz</code></p>
-<ul>
-<li>b.解压</li>
-</ul>
-<p><code>tar zxvf mongodb-shell-linux-x86_64-ubuntu1604-4.0.28.tgz</code></p>
-<ul>
-<li>c.跳转到指令目录</li>
-</ul>
-<p><code>cd mongodb-linux-x86_64-ubuntu1604-4.0.28/bin</code></p>
-<ul>
-<li>d.连接</li>
-</ul>
-<p><code>mongo --host $&#123;host&#125; --port $&#123;port&#125; -u $&#123;username&#125; -p $&#123;password&#125;&quot; </code></p>
 <h3 id="2-linux如何导出mongo数据？"><a href="#2-linux如何导出mongo数据？" class="headerlink" title="2.linux如何导出mongo数据？"></a>2.linux如何导出mongo数据？</h3><ul>
-<li>a.下载mongoexport指令</li>
-</ul>
-<p><code>wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel70-x86_64-100.3.1.tgz</code></p>
-<ul>
-<li>b.解压</li>
-</ul>
-<p><code>tar zxvf mongodb-database-tools-rhel70-x86_64-100.3.1.tgz</code></p>
-<ul>
-<li>c.跳转到指令目录</li>
-</ul>
-<p><code>cd mongodb-database-tools-rhel70-x86_64-100.3.1/bin</code></p>
-<ul>
-<li>d.导出数据</li>
-</ul>
-<p><code>mongoexport -d $&#123;database&#125; -c $&#123;collection&#125; -q $&#123;queryJson&#125; --out $&#123;exportFilePath&#125;</code></p>
-<ul>
+<li>a.下载mongoexport指令<br><code>wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel70-x86_64-100.3.1.tgz</code></li>
+<li>b.解压<br><code>tar zxvf mongodb-database-tools-rhel70-x86_64-100.3.1.tgz</code></li>
+<li>c.跳转到指令目录<br><code>cd mongodb-database-tools-rhel70-x86_64-100.3.1/bin</code></li>
+<li>d.导出数据<br><code>mongoexport -d $&#123;database&#125; -c $&#123;collection&#125; -q $&#123;queryJson&#125; --out $&#123;exportFilePath&#125;</code><ul>
 <li><strong>导出类型</strong>：<code>--type</code>默认是<code>json</code>，对应的<code>--out</code>需要是<code>.json</code>后缀，<code>--type</code>也可以是<code>csv</code>，对应的<code>--out</code>需要是<code>.csv</code>后缀.csv类型必须指定导出字段<code>--fields</code></li>
 <li><strong>查询语句</strong>：必须是json语句，且外层用单引号，如<code>-q &#39;&#123;&quot;uid&quot;:123456&#125;&#39;&#39;</code></li>
+</ul>
+</li>
 </ul>
 
                 
@@ -1028,7 +1008,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

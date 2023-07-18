@@ -585,7 +585,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h3 id="常见的Anti-Patterns-反面模式"><a href="#常见的Anti-Patterns-反面模式" class="headerlink" title="常见的Anti-Patterns(反面模式)"></a>常见的Anti-Patterns(反面模式)</h3><ul>
-<li><p>1.代码中包含未决行为逻辑(代码return是随机&#x2F;不确定的)</p>
+<li><p>1.代码中包含未决行为逻辑(代码return是随机/不确定的)</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">/**
    * 计算入参早于当前时间多少天
@@ -602,8 +602,7 @@
     <span class="token keyword">long</span> delayDays <span class="token operator">=</span> delayTime <span class="token operator">/</span> <span class="token number">86400</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> delayDays<span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>2.滥用可变全局变量(容易影响其他测试用例)<br>如果单元测试方法testAdd()和testReduce()是并发执行的，那么可能在assertEquals执行之前value就执行了一次add()和一次reduce()，那么结果就跟我们预期的不一样了</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 简易计算器
@@ -639,8 +638,7 @@
     counter<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">assertEquals</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> counter<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>3.滥用静态方法(跟<code>2.滥用可变全局变量</code>类似)</p>
 </li>
 <li><p>4.使用复杂的继承关系(如果父类需要mock某个依赖对象，那么子类、子类的子类…都需要mock这个依赖对象，会很复杂)</p>
@@ -649,19 +647,16 @@
 </li>
 </ul>
 <h2 id="理论四：代码解耦"><a href="#理论四：代码解耦" class="headerlink" title="理论四：代码解耦"></a>理论四：代码解耦</h2><ul>
-<li><p><strong>为什么要解耦？</strong></p>
-<ul>
+<li><strong>为什么要解耦？</strong><ul>
 <li>过于复杂的代码往往可读性、可维护性不友好(解耦可以保证代码质量)</li>
 <li>保证代码松耦合、高内聚(能有效控制代码复杂度)</li>
 </ul>
 </li>
-<li><p><strong>怎么看是否需要解耦？</strong></p>
-<ul>
+<li><strong>怎么看是否需要解耦？</strong><ul>
 <li>直接的衡量标准是把模块与模块、类与类自己的依赖关系画出来，根据依赖关系图的复杂性来判断是否需要解耦重构</li>
 </ul>
 </li>
-<li><p><strong>怎么重构？</strong></p>
-<ul>
+<li><strong>怎么重构？</strong><ul>
 <li>封装与抽象</li>
 <li>中间层(如mq)</li>
 <li>模块化</li>
@@ -680,14 +675,12 @@
 <h2 id="理论五：快速改善代码质量的20条编程规范"><a href="#理论五：快速改善代码质量的20条编程规范" class="headerlink" title="理论五：快速改善代码质量的20条编程规范"></a>理论五：快速改善代码质量的20条编程规范</h2><p><a href="https://garyleeeee.github.io/2021/12/06/%E5%BF%AB%E9%80%9F%E6%94%B9%E5%96%84%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E7%9A%8420%E6%9D%A1%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">跳转查看：《快速改善代码质量的20条编程规范》</a></p>
 <h2 id="实战一：如何发现代码质量问题"><a href="#实战一：如何发现代码质量问题" class="headerlink" title="实战一：如何发现代码质量问题"></a>实战一：如何发现代码质量问题</h2><p><img src="/images/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E9%97%AE%E9%A2%98-%E5%B8%B8%E8%A7%84checklist.png" alt="常规checklist"><br><img src="/images/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E9%97%AE%E9%A2%98-%E4%B8%9A%E5%8A%A1checklist.png" alt="业务checklist"></p>
 <h2 id="实战二：如何处理程序出错的返回"><a href="#实战二：如何处理程序出错的返回" class="headerlink" title="实战二：如何处理程序出错的返回"></a>实战二：如何处理程序出错的返回</h2><ul>
-<li><p><strong>1.返回错误码</strong></p>
-<ul>
+<li><strong>1.返回错误码</strong><ul>
 <li>是C语言最常用的出错处理方式</li>
 <li>Java语言极少会用到错误码(异常)</li>
 </ul>
 </li>
-<li><p><strong>2.返回NULL值</strong></p>
-<ul>
+<li><strong>2.返回NULL值</strong><ul>
 <li>用来表示”不存在”这种语义</li>
 <li>对于查找函数(如getxxx、queryxxx)来说，数据不存在是一种正常行为(并非异常情况)，所以返回NULL值更加合理</li>
 </ul>
@@ -701,14 +694,12 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li><p><strong>3.返回空对象</strong></p>
-<ul>
+<li><strong>3.返回空对象</strong><ul>
 <li>针对<code>2.返回NULL值</code>的弊端：调用方容易不做判空导致出现NPE异常</li>
 <li>对于字符串类型或者集合类型时，我们可以用空字符串或空集合替代NULL值(表示不存在)</li>
 </ul>
 </li>
-<li><p><strong>4.抛出异常对象</strong></p>
-<ul>
+<li><strong>4.抛出异常对象</strong><ul>
 <li>直接吞掉(原地catch并打印错误日志)</li>
 <li>直接往上抛出(当前方法不处理)</li>
 <li>包裹成新的异常抛出(包装成通用的异常返回，不暴露实现细节)</li>
@@ -1261,7 +1252,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             

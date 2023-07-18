@@ -498,7 +498,7 @@
 </li>
 </ul>
 <h2 id="理论二：开闭原则-对扩展开放、修改关闭"><a href="#理论二：开闭原则-对扩展开放、修改关闭" class="headerlink" title="理论二：开闭原则(对扩展开放、修改关闭)"></a>理论二：开闭原则(对扩展开放、修改关闭)</h2><ul>
-<li><p><strong>1.如何理解”对扩展开放、修改关闭”？</strong><br>添加一个新的功能，<br>应该是通过在已有代码基础上扩展代码(新增模块、类、方法、属性等)， &#x2F;&#x2F;<code>对扩展开发</code><br>而非修改已有代码(修改模块、类、方法、属性)                   &#x2F;&#x2F;<code>对修改关闭</code></p>
+<li><p><strong>1.如何理解”对扩展开放、修改关闭”？</strong><br>添加一个新的功能，<br>应该是通过在已有代码基础上扩展代码(新增模块、类、方法、属性等)， //<code>对扩展开发</code><br>而非修改已有代码(修改模块、类、方法、属性)                   //<code>对修改关闭</code></p>
 </li>
 <li><p><strong>2.如何做到”对扩展开发、修改关闭”？</strong></p>
 <ul>
@@ -520,9 +520,9 @@
 <h2 id="理论三：里式替换原则-LSP"><a href="#理论三：里式替换原则-LSP" class="headerlink" title="理论三：里式替换原则(LSP)"></a>理论三：里式替换原则(LSP)</h2><ul>
 <li><strong>What</strong>：<code>里式替换原则</code>是用来指导，继承关系中子类该如何设计的一个原则。(design by contract,按照协议来设计)</li>
 <li><strong>How</strong>：父类定义了函数的”约定”(或者叫协议)，那子类可以改变函数的内部实现逻辑，但不能改变函数原有的”约定”。这里的约定包括：<ul>
-<li>函数声明要实现的功能  &#x2F;&#x2F;比如父类中提供了<code>sortOrdersByAmount()</code>订单排序函数是按照金额从小到大排序的，而如果子类重写该函数是按照日期(而非原本的金额)来排序，那么就是违背<code>里式替换原则</code></li>
-<li>对输入、输出、异常的约定 &#x2F;&#x2F;比如父类约定运行出错返回null，而子类运行出错抛异常，那么就是违背<code>里式替换原则</code></li>
-<li>注释罗列的任何特殊说明 &#x2F;&#x2F;比如父类<code>withdraw()</code>提醒函数写了注释”用户提现金额不得超过账户余额”，而子类重写该函数后针对VIP账号实现了透支提现的功能(也就是提醒金额可以大于账户金额)，那么就是违背<code>里式替换原则</code></li>
+<li>函数声明要实现的功能  //比如父类中提供了<code>sortOrdersByAmount()</code>订单排序函数是按照金额从小到大排序的，而如果子类重写该函数是按照日期(而非原本的金额)来排序，那么就是违背<code>里式替换原则</code></li>
+<li>对输入、输出、异常的约定 //比如父类约定运行出错返回null，而子类运行出错抛异常，那么就是违背<code>里式替换原则</code></li>
+<li>注释罗列的任何特殊说明 //比如父类<code>withdraw()</code>提醒函数写了注释”用户提现金额不得超过账户余额”，而子类重写该函数后针对VIP账号实现了透支提现的功能(也就是提醒金额可以大于账户金额)，那么就是违背<code>里式替换原则</code></li>
 </ul>
 </li>
 <li><strong>Why</strong>：<code>里式替换原则</code>是一种设计原则，用来指导继承关系中子类该如何设计，子类的设计要保证在替换父类的时候，不改变原有程序的逻辑及不破坏原有程序的正确性。</li>
@@ -569,8 +569,10 @@
 </li>
 </ul>
 <h2 id="理论五：依赖反转原则-DIP"><a href="#理论五：依赖反转原则-DIP" class="headerlink" title="理论五：依赖反转原则(DIP)"></a>理论五：依赖反转原则(DIP)</h2><h3 id="1-控制反转-IOC"><a href="#1-控制反转-IOC" class="headerlink" title="1.控制反转(IOC)"></a>1.控制反转(IOC)</h3><ul>
-<li><strong>控制</strong>：指的是对程序执行流程的控制</li>
-<li><strong>反转</strong><ul>
+<li><p><strong>控制</strong>：指的是对程序执行流程的控制</p>
+</li>
+<li><p><strong>反转</strong></p>
+<ul>
 <li><p><strong>没使用框架前</strong>：程序员自己控制整个程序的执行</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceTest</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">doTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -584,13 +586,8 @@
       <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"fail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p><strong>使用框架后</strong>：整个程序的执行流程通过框架来控制(流程的控制权从程序员<code>反转</code>给了框架)</p>
-</li>
-</ul>
-</li>
-</ul>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">TestCase</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">doTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -628,11 +625,15 @@
       testCase<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
 <h3 id="2-依赖注入-DI"><a href="#2-依赖注入-DI" class="headerlink" title="2.依赖注入(DI)"></a>2.依赖注入(DI)</h3><ul>
-<li><strong>What</strong>：不通过<code>new</code>的方式在类内部创建依赖类的对象，而是将依赖的类对象在外部创建好，通过构造函数等方式传递(或注入)给类使用</li>
-<li><strong>How</strong>：通过一个邮箱系统来讲解<ul>
+<li><p><strong>What</strong>：不通过<code>new</code>的方式在类内部创建依赖类的对象，而是将依赖的类对象在外部创建好，通过构造函数等方式传递(或注入)给类使用</p>
+</li>
+<li><p><strong>How</strong>：通过一个邮箱系统来讲解</p>
+<ul>
 <li><p><strong>不使用DI</strong></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//邮箱</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MailBox</span> <span class="token punctuation">&#123;</span>
@@ -645,13 +646,8 @@
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">//构造MailBox的时候内部会自己new一个MailSender</span>
   <span class="token class-name">MailBox</span> mailBox <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MailBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p><strong>使用DI</strong></p>
-</li>
-</ul>
-</li>
-</ul>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//邮箱</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MailBox</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">//发送邮件的工具</span>
@@ -666,8 +662,10 @@
   <span class="token class-name">MailSender</span> mailSender <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MailSender</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">//再通过构造方法传递</span>
   <span class="token class-name">MailBox</span> mailBox <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MailBox</span><span class="token punctuation">(</span>mailSender<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
 <h3 id="3-依赖注入框架-DI-Framework"><a href="#3-依赖注入框架-DI-Framework" class="headerlink" title="3.依赖注入框架(DI Framework)"></a>3.依赖注入框架(DI Framework)</h3><ul>
 <li>简单配置一下所有需要的类及其类与类之间依赖关系，就可以实现如下内容(原本需要程序员做的事情)<ul>
 <li>由框架来自动创建对象</li>
@@ -1246,7 +1244,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.9k</span>&nbsp;字
+                class="white-color">43.9k</span>&nbsp;字
             
             
             
