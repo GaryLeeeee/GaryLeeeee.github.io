@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MVCC笔记, GaryLee">
+    <meta name="keywords" content="Redis和MySQL如何保证数据一致性？, GaryLee">
     <meta name="description" content="记录自己的学习笔记">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MVCC笔记 | GaryLee</title>
+    <title>Redis和MySQL如何保证数据一致性？ | GaryLee</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MVCC笔记</h1>
+                    <h1 class="description center-align post-title">Redis和MySQL如何保证数据一致性？</h1>
                 </div>
             </div>
         </div>
@@ -387,12 +387,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MySQL/">
-                                <span class="chip bg-color">MySQL</span>
-                            </a>
-                        
-                            <a href="/tags/MVCC/">
-                                <span class="chip bg-color">MVCC</span>
+                            <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                <span class="chip bg-color">并发</span>
                             </a>
                         
                     </div>
@@ -403,8 +399,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/MySQL/" class="post-category">
-                                MySQL
+                            <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                并发
                             </a>
                         
                     </div>
@@ -416,21 +412,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-01
+                    2023-07-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-07-03
+                    2023-07-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    928
+                    398
                 </div>
                 
 
@@ -455,61 +451,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><ul>
-<li>MVCC机制，全程（Multi-Version Concurrency Control）多版本并发控制，是确保在高并发下，多个事务读取数据时不加锁也可以多次读取相同的值</li>
-<li>MVCC在RC（读已提交）、RR（可重复读）的事务隔离级别下才生效</li>
-<li>MVCC在RR（可重复读）的事务隔离级别下，可以解决脏读、不可重复读等问题</li>
-</ul>
-<h2 id="二、实现原理"><a href="#二、实现原理" class="headerlink" title="二、实现原理"></a>二、实现原理</h2><p>MVCC的实现原理主要依赖于记录中的几个属性实现的：</p>
+                <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>一般情况下，Redis是用来实现应用和数据库之间读操作的缓存层，主要目的是<font color=red>减少数据库IO</font>，还可以用来<font color=red>提升数据的IO性能</font></p>
+<h2 id="二、设计思想"><a href="#二、设计思想" class="headerlink" title="二、设计思想"></a>二、设计思想</h2><p>当应用需要读取某个数据的时候，会有几个步骤：</p>
 <ul>
-<li>三个隐藏字段（即除了我们自定义的字段外，数据库默认的隐式定义字段，也就是存在但无感知）：<ul>
-<li>DB_TRX_ID：即最近修改事务id，<font color=red>记录创建这条记录或最后一次修改该记录的事务id</font> </li>
-<li>DB_ROLL_PTR：即回滚指针，指向这条记录的上一个版本，与undo log配合使用</li>
-<li>DB_ROW_ID：即隐藏主键，如果MySQL表没有主键，那么InnoDB就会自动生成一个row_id</li>
+<li>尝试去Redis查询，如果命中就直接返回</li>
+<li>如果没有命中，则从数据库查询</li>
+<li>同步数据库数据到Redis</li>
 </ul>
-</li>
-<li>undo log：即回滚日志，记录了数据的历史版本</li>
-<li>read view：即读视图，是<font color=red>事务进行快照读操作时候产生的读视图</font>，在该事务执行快照读的那一刻，会生成一个数据系统当前的快照，记录并维护系统当前活跃事务的id（事务id是递增的）<ul>
-<li><strong>作用</strong>：当作条件来判断当前事务能够看到哪个版本的数据，有可能是最新的数据，也有可能是当前行记录的undo log中某个版本的数据</li>
-</ul>
-</li>
-</ul>
-<h2 id="三、Read-View详解"><a href="#三、Read-View详解" class="headerlink" title="三、Read View详解"></a>三、Read View详解</h2><h3 id="1、属性"><a href="#1、属性" class="headerlink" title="1、属性"></a>1、属性</h3><p>Read View包含三个全局属性：</p>
+<h2 id="三、可能出现问题-amp-方案"><a href="#三、可能出现问题-amp-方案" class="headerlink" title="三、可能出现问题&amp;方案"></a>三、可能出现问题&amp;方案</h2><p>当数据发生变化的时候，需要同时更新Redis和MySQL，<strong>原先方案</strong>有：<br><strong>先更新数据库，再更新缓存</strong>：</p>
 <ul>
-<li>m_ids：当前活跃的事务编号集合</li>
-<li>min_trx_id：最小活跃事务编号</li>
-<li>max_trx_id：预分配事务编号（当前最大事务编号+1）</li>
-<li>creator_trx_id：ReadView创建者的事务编号</li>
+<li><strong>问题1</strong>：如果更新数据库成功，还没来得及更新缓存，这时候有另外一个客户端去访问了缓存，访问到了是旧的数据，这时候就会出现<font color=red>数据不一致</font></li>
+<li><strong>问题2</strong>：如果缓存更新失败，也会导致<font color=red>数据不一致</font></li>
 </ul>
-<h3 id="2、可见性判断规则"><a href="#2、可见性判断规则" class="headerlink" title="2、可见性判断规则"></a>2、可见性判断规则</h3><ul>
-<li>a、首先判断<code>DB_TRX_ID</code>&lt;<code>min_trx_id</code><ul>
-<li><strong>如果成立</strong>：说明当前事务可以看到<code>DB_TRX_ID</code>所在的记录</li>
-<li><strong>如果不成立</strong>：则走下一个判断</li>
-</ul>
-</li>
-<li>b、然后判断<code>DB_TRX_ID</code>&gt;=<code>max_trx_id</code><ul>
-<li><strong>如果成立</strong>：说明当前事务不可以看到<code>DB_TRX_ID</code>所在的记录（因为<code>DB_TRX_ID</code>所在的记录是在Read View生成后才出现的，所以不可见） </li>
-<li><strong>如果不成立</strong>：则走下一个判断</li>
-</ul>
-</li>
-<li>c、最后判断<code>DB_TRX_ID</code>存在于<code>m_ids</code><ul>
-<li><strong>如果成立</strong>：说明当前事务不可以看到<code>DB_TRX_ID</code>所在的记录（因为Read View生成时刻，<font color=red>该事务还是活跃状态，没有commit</font>，所以修改的数据，当前事务是不可见的）</li>
-<li><strong>如果不成立</strong>：说明当前事务可以看到<code>DB_TRX_ID</code>所在的记录（因为该事务在Read View生成之前就已经commit，所以修改的数据，当前事务是可见的）</li>
-</ul>
-</li>
-</ul>
-<h3 id="3、RC、RR级别下的InnoDB快照读有什么不同？"><a href="#3、RC、RR级别下的InnoDB快照读有什么不同？" class="headerlink" title="3、RC、RR级别下的InnoDB快照读有什么不同？"></a>3、RC、RR级别下的InnoDB快照读有什么不同？</h3><p>生成时机不同：</p>
+<p><strong>先删除缓存，再更新数据库</strong>：</p>
 <ul>
-<li>RC是每次进行快照读都会生成一个新的Read View</li>
-<li>RR是只有第一次进行快照读才会生成一个新的Read View（后续快照读都是同一个，所以解决了<font color=red>不可重复读</font>的问题）</li>
+<li><strong>预期</strong>：应用下次请求数据，发现缓存没数据，则从数据库同步数据到缓存里</li>
+<li><strong>分析</strong>：极端情况下，由于删除缓存和更新数据库的这两个操作不是原子的，所以还是会出现<font color=red>数据不一致</font></li>
+<li><strong>问题</strong>：如果删除了缓存，还没来得及更新数据库，这时候有另外一个客户端去访问了缓存，发现没数据，所以去数据库同步了旧的数据，这时候数据库才更新了新的数据，就会出现<font color=red>数据不一致</font></li>
 </ul>
-<h3 id="4、快照读和当前读有什么区别？"><a href="#4、快照读和当前读有什么区别？" class="headerlink" title="4、快照读和当前读有什么区别？"></a>4、快照读和当前读有什么区别？</h3><ul>
-<li><strong>快照读</strong>：select</li>
-<li><strong>当前读</strong>：insert、update、delete、select … for update、select … lock in share mode</li>
-</ul>
-<h2 id="四、undo-log详解"><a href="#四、undo-log详解" class="headerlink" title="四、undo log详解"></a>四、undo log详解</h2><h3 id="1、如果undo-log被删除了，版本链不就断了吗？"><a href="#1、如果undo-log被删除了，版本链不就断了吗？" class="headerlink" title="1、如果undo log被删除了，版本链不就断了吗？"></a>1、如果undo log被删除了，版本链不就断了吗？</h3><p>undo log版本链不是立即删除，MySQL确保版本链数据不再被<font color=red>引用</font>后再进行删除</p>
-<p>//TODO</p>
-<h2 id="五、问题"><a href="#五、问题" class="headerlink" title="五、问题"></a>五、问题</h2><h3 id="1、RR隔离级别下使用MVCC能避免幻读吗？"><a href="#1、RR隔离级别下使用MVCC能避免幻读吗？" class="headerlink" title="1、RR隔离级别下使用MVCC能避免幻读吗？"></a>1、RR隔离级别下使用MVCC能避免幻读吗？</h3><p>能，但不完全能。RR用的是快照读，仅第一次生成，后面使用的ReadView会复用第一次的<br><strong>特例</strong>：当两次<font color=red>快照读</font>之间存在<font color=red>当前读</font>，ReadView会重新生成，从而产生幻读</p>
 
                 
             </div>
@@ -536,7 +495,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://garyleeeee.github.io/2023/07/01/mysql/mvcc-bi-ji/">https://garyleeeee.github.io/2023/07/01/mysql/mvcc-bi-ji/</a>
+                    <a href="https://garyleeeee.github.io/2023/07/23/redis-he-mysql-ru-he-bao-zheng-shu-ju-yi-zhi-xing/">https://garyleeeee.github.io/2023/07/23/redis-he-mysql-ru-he-bao-zheng-shu-ju-yi-zhi-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -574,12 +533,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MySQL/">
-                                    <span class="chip bg-color">MySQL</span>
-                                </a>
-                            
-                                <a href="/tags/MVCC/">
-                                    <span class="chip bg-color">MVCC</span>
+                                <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                    <span class="chip bg-color">并发</span>
                                 </a>
                             
                         </div>
@@ -749,17 +704,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/07/03/mysql/mysql-shi-wu/">
+                <a href="/2023/07/23/redis-he-mysql-ru-he-bao-zheng-shu-ju-yi-zhi-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="MySQL事务">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Redis和MySQL如何保证数据一致性？">
                         
-                        <span class="card-title">MySQL事务</span>
+                        <span class="card-title">Redis和MySQL如何保证数据一致性？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -769,26 +725,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
                     </a>
                     
                 </div>
@@ -802,13 +759,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/06/27/mysql/mysql-ri-zhi-pian/">
+                <a href="/2023/07/21/ru-he-jie-jue-mi-deng-xing-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MySQL日志篇">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何解决幂等性问题？">
                         
-                        <span class="card-title">MySQL日志篇</span>
+                        <span class="card-title">如何解决幂等性问题？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -819,14 +776,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
                                 </a>
                             
                             
@@ -836,16 +793,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%97%A5%E5%BF%97/">
-                        <span class="chip bg-color">日志</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
-                        <span class="chip bg-color">主从复制</span>
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
                     </a>
                     
                 </div>
