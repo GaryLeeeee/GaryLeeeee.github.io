@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="11. 盛最多水的容器, GaryLee">
+    <meta name="keywords" content="如何排查CPU飙升问题？, GaryLee">
     <meta name="description" content="记录自己的学习笔记">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>11. 盛最多水的容器 | GaryLee</title>
+    <title>如何排查CPU飙升问题？ | GaryLee</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">11. 盛最多水的容器</h1>
+                    <h1 class="description center-align post-title">如何排查CPU飙升问题？</h1>
                 </div>
             </div>
         </div>
@@ -387,35 +387,14 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/LeetCode/">
-                                <span class="chip bg-color">LeetCode</span>
-                            </a>
-                        
-                            <a href="/tags/%E4%B8%AD%E7%AD%89%E9%9A%BE%E5%BA%A6/">
-                                <span class="chip bg-color">中等难度</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">
-                                <span class="chip bg-color">双指针</span>
+                            <a href="/tags/CPU/">
+                                <span class="chip bg-color">CPU</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                算法
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -424,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-22
+                    2023-07-29
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-22
+                    2023-07-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    418
+                    448
                 </div>
                 
 
@@ -463,61 +442,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="11-盛最多水的容器"><a href="#11-盛最多水的容器" class="headerlink" title="11.盛最多水的容器"></a>11.盛最多水的容器</h1><h2 id="一、题目"><a href="#一、题目" class="headerlink" title="一、题目"></a>一、题目</h2><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点(i,ai) 。在坐标内画 n 条垂直线，垂直线 i的两个端点分别为(i,ai) 和 (i, 0) 。找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水。</p>
-<h2 id="二、相关链接"><a href="#二、相关链接" class="headerlink" title="二、相关链接"></a>二、相关链接</h2><ul>
-<li><strong>题目链接</strong>：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/">https://leetcode-cn.com/problems/container-with-most-water/</a></li>
-<li><strong>参考题解</strong>：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-by-leetcode-solution/">https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-by-leetcode-solution/</a></li>
+                <h2 id="一、CPU飙升可能的原因"><a href="#一、CPU飙升可能的原因" class="headerlink" title="一、CPU飙升可能的原因"></a>一、CPU飙升可能的原因</h2><p><strong>背景</strong>：CPU是整个电脑的核心计算资源，对于一个应用进程来说，CPU的最小执行单元是线程<br>导致CPU飙高的原因有几个方面：</p>
+<ul>
+<li><strong>CPU上下文切换过多</strong>：由于在同一时刻下每个CPU核心只能运行一个线程，如果存在多个线程，CPU就只能通过上下文切换（上下文切换=保存运行线程的执行状态+执行处于等待中的线程）来执行不同的线程。<font color=red>在Java中，文件IO、网络IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换</font></li>
+<li><strong>CPU资源过度消耗</strong>：也就是在程序中创建了大量的线程，或者有线程一直占用CPU资源无法被释放。<font color=red>比如死循环</font></li>
 </ul>
-<h2 id="三、解题思路"><a href="#三、解题思路" class="headerlink" title="三、解题思路"></a>三、解题思路</h2><ul>
-<li><strong>解法</strong>：双指针</li>
-<li><strong>思路</strong>： 遍历数组得到所有情况(这里通过双指针可减少遍历)，得到最大值</li>
-<li><strong>步骤</strong>：<ul>
-<li>1.定义头尾的双指针</li>
-<li>2.开始往中间遍历(直到重合)，小的往大的推进</li>
-</ul>
-</li>
-</ul>
-<h2 id="四、代码"><a href="#四、代码" class="headerlink" title="四、代码"></a>四、代码</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ContainerWithMosWater</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">/**
-   * 左右指针
-   * 一个从头一个从尾，哪个比较小就移动(每次移动都判断当前是否最大值)
-   *  1.定义头尾的双指针
-   *  2.开始往中间遍历(直到重合)，小的往大的推进*
-   * @param height
-   * @return
-   */</span>
-  <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>height<span class="token punctuation">.</span>length <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//结果值(最大值)</span>
-    <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//左指针</span>
-    <span class="token keyword">int</span> right <span class="token operator">=</span> height<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment">//右指针</span>
-
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">//判断当前能装多少水</span>
-      <span class="token keyword">int</span> cur <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      <span class="token comment">//以最大值为目标，小的就往大的靠拢</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>height<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> height<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        cur <span class="token operator">=</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">*</span> height<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        left<span class="token operator">++</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        cur <span class="token operator">=</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">*</span> height<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        right<span class="token operator">--</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-
-      max <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>cur<span class="token punctuation">,</span> max<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">return</span> max<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><ul>
-<li><strong>难度</strong>：简单看题解后可完成</li>
-<li><strong>备注</strong>：一开始不清楚有这种解法，后面看到可以这么解就会了</li>
-</ul>
+<h2 id="二、排查步骤"><a href="#二、排查步骤" class="headerlink" title="二、排查步骤"></a>二、排查步骤</h2><ol>
+<li><strong>查找占用CPU高的进程PID</strong>：使用<code>top</code>命令查找，找到CPU高的进程PID</li>
+<li><strong>查找进程中CPU高的线程TID</strong>：使用<code>ps -mp &lt;PID&gt; -o THREAD,tid,time</code>命令查找，找到CPU高的线程TID（这里打印的TID是十进制的，需要转为十六进制，可以通过命令<code>printf &quot;%x\n&quot; &lt;TID&gt;</code>转换，如十进制3936对应十进制f60）</li>
+<li><strong>查看占用资源异常的线程栈</strong>：使用<code>jstack &lt;TID&gt;</code>命令查看（简易的话可以用<code>jstack &lt;TID&gt; | grep &lt;十六进制TID&gt; -A20</code>快速定位异常堆栈），就可以看到具体是哪一块代码出现了问题（一般是死循环、阻塞等）</li>
+</ol>
+<p>如果定位的结果是程序正常，有可能是CPU飙升时，用户访问量较大，导致系统资源不够，可适当调整配置</p>
+<p>//TODO 截图补充</p>
 
                 
             </div>
@@ -544,7 +480,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://garyleeeee.github.io/2021/12/22/algorithm/sheng-zui-duo-shui-de-rong-qi/">https://garyleeeee.github.io/2021/12/22/algorithm/sheng-zui-duo-shui-de-rong-qi/</a>
+                    <a href="https://garyleeeee.github.io/2023/07/29/ru-he-pai-cha-cpu-biao-sheng-wen-ti/">https://garyleeeee.github.io/2023/07/29/ru-he-pai-cha-cpu-biao-sheng-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -582,20 +518,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/LeetCode/">
-                                    <span class="chip bg-color">LeetCode</span>
-                                </a>
-                            
-                                <a href="/tags/%E4%B8%AD%E7%AD%89%E9%9A%BE%E5%BA%A6/">
-                                    <span class="chip bg-color">中等难度</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">
-                                    <span class="chip bg-color">双指针</span>
+                                <a href="/tags/CPU/">
+                                    <span class="chip bg-color">CPU</span>
                                 </a>
                             
                         </div>
@@ -765,17 +689,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/12/22/algorithm/mei-ri-wen-du/">
+                <a href="/2023/07/29/ru-he-pai-cha-cpu-biao-sheng-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="739. 每日温度">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="如何排查CPU飙升问题？">
                         
-                        <span class="card-title">739. 每日温度</span>
+                        <span class="card-title">如何排查CPU飙升问题？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -785,38 +710,23 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-29
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                    算法
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            GaryLee
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/LeetCode/">
-                        <span class="chip bg-color">LeetCode</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%B8%AD%E7%AD%89%E9%9A%BE%E5%BA%A6/">
-                        <span class="chip bg-color">中等难度</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">
-                        <span class="chip bg-color">单调栈</span>
+                    <a href="/tags/CPU/">
+                        <span class="chip bg-color">CPU</span>
                     </a>
                     
                 </div>
@@ -830,13 +740,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/22/algorithm/cong-qian-xu-yu-zhong-xu-bian-li-xu-lie-gou-zao-er-cha-shu/">
+                <a href="/2023/07/29/ru-he-yong-redis-shi-xian-yan-chi-dui-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="105. 从前序与中序遍历序列构造二叉树">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="如何用Redis实现延迟队列？">
                         
-                        <span class="card-title">105. 从前序与中序遍历序列构造二叉树</span>
+                        <span class="card-title">如何用Redis实现延迟队列？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -847,14 +757,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                    算法
+                            <a href="/categories/%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97/" class="post-category">
+                                    延迟队列
                                 </a>
                             
                             
@@ -864,24 +774,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
                     </a>
                     
-                    <a href="/tags/LeetCode/">
-                        <span class="chip bg-color">LeetCode</span>
+                    <a href="/tags/%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">延迟队列</span>
                     </a>
                     
-                    <a href="/tags/%E4%B8%AD%E7%AD%89%E9%9A%BE%E5%BA%A6/">
-                        <span class="chip bg-color">中等难度</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">
-                        <span class="chip bg-color">深度优先搜索</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">分治算法</span>
+                    <a href="/tags/RocketMQ/">
+                        <span class="chip bg-color">RocketMQ</span>
                     </a>
                     
                 </div>
