@@ -540,6 +540,100 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/08/01/spring-ru-he-jie-jue-xun-huan-yi-lai-de-wen-ti/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Spring如何解决循环依赖的问题？">
+                            
+                            <span class="card-title">Spring如何解决循环依赖的问题？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、什么是循环依赖？循环依赖其实就是两个对象互相依赖，包括直接和间接，比如
+
+直接：A依赖B，B依赖A
+间接：A依赖B，B依赖C，C依赖A// A依赖B
+class A &#123;
+  public B b;
+&#125;
+// B依赖A
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-01
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                GaryLee
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/07/31/ru-he-shi-xian-yi-ge-dian-zan-gong-neng/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="如何实现一个点赞功能？">
+                            
+                            <span class="card-title">如何实现一个点赞功能？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、介绍点赞一般出现在朋友圈、微博、动态等场景，基本操作有点赞、取消点赞、查询点赞数量、判断自己是否点过赞等
+二、实现使用Redis的set结构简单实现，key存储帖子id，value存储点赞用户的uid点赞：sadd &lt;key&gt
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-31
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%9C%BA%E6%99%AF%E9%A2%98/" class="post-category">
+                                    场景题
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%9C%BA%E6%99%AF%E9%A2%98/">
+                            <span class="chip bg-color">场景题</span>
+                        </a>
+                        
+                        <a href="/tags/Redis/">
+                            <span class="chip bg-color">Redis</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/07/31/ru-he-you-hua-da-liang-if-else-dai-ma-jie-gou/">
                         <div class="card-image">
                             
@@ -956,110 +1050,6 @@ UUID
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/07/19/ru-he-she-ji-yi-ge-gao-bing-fa-xi-tong/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何设计一个高并发系统？">
-                            
-                            <span class="card-title">如何设计一个高并发系统？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                笔记
-高性能：比如一个接口1s能处理1个请求，那么10s就能处理10个请求（如果用户请求排在了第10位，那么需要等10s后才能处理），所以提高接口的性能，使接口1s能处理10个请求，就叫高并发了
-高扩展
-高可用
-
-高性能
-数据库调优
-JVM
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/07/19/ru-he-xian-liu/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="如何限流？">
-                            
-                            <span class="card-title">如何限流？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、限流目的限流算法是一种系统保护策略，主要是避免流量高峰导致系统被压垮，造成系统不可用的问题
-二、常见的限流算法
-计数器限流：一般用在单一维护的访问频率限制上（如短信验证码每60s只能发送一次）
-滑动窗口限流：本质也是计数器，区别是通过时
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -1161,7 +1151,7 @@ JVM
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">49.1k</span>&nbsp;字
+                class="white-color">50.3k</span>&nbsp;字
             
             
             
