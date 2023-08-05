@@ -419,14 +419,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-07-29
+                    2023-08-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    3k
                 </div>
                 
 
@@ -674,7 +674,33 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
 <li>…</li>
 <li>end</li>
 </ul>
-<h2 id="七、线程池、线程状态"><a href="#七、线程池、线程状态" class="headerlink" title="七、线程池、线程状态"></a>七、线程池、线程状态</h2><p>//TODO</p>
+<h2 id="七、线程、线程池状态"><a href="#七、线程、线程池状态" class="headerlink" title="七、线程、线程池状态"></a>七、线程、线程池状态</h2><h3 id="1、线程状态"><a href="#1、线程状态" class="headerlink" title="1、线程状态"></a>1、线程状态</h3><p><strong>线程</strong>有五种状态，分别为：</p>
+<ul>
+<li><strong>新建状态（New）</strong>：表示新创建了一个线程对象</li>
+<li><strong>就绪状态（Runnable）</strong>：线程对象创建后，如果其他线程调用该对象的start方法，该线程就会放在可运行线程池中，变得可运行，等待获取CPU的使用权</li>
+<li><strong>运行状态（Running）</strong>：<code>Running</code>的线程获取了CPU，执行程序代码</li>
+<li><strong>阻塞状态（Blocked）</strong>：线程由于某些原因放弃了CPU使用权，暂时停止运行，直到线程进入<code>Runnable</code>，才有机会转到<code>Running</code></li>
+<li><strong>死亡状态（Dead）</strong>：线程由于执行完毕或异常退出run方法，结束了生命周期</li>
+</ul>
+<h3 id="2、线程池状态"><a href="#2、线程池状态" class="headerlink" title="2、线程池状态"></a>2、线程池状态</h3><ul>
+<li><strong>运行状态（RUNNING）</strong>：表示线程池正常运行，能接受新任务，也能正常处理队列中的任务</li>
+<li><strong>关闭状态（SHUTDOWN）</strong>：表示线程池处于关闭状态，不能接受新任务，<font color=red>能正常处理队列中任务</font><ul>
+<li><strong>状态切换</strong>：调用shutdown()方法，线程池状态由<code>RUNNING</code> -&gt; <code>SHUTDOWN</code></li>
+</ul>
+</li>
+<li><strong>停止状态（STOP）</strong>：表示线程池处于停止状态，不能接受新任务，<font color=red>不能正常处理队列中任务，正在运行的线程也会停止</font><ul>
+<li><strong>状态切换</strong>：调用shutdownnow()方法，线程池状态由(<code>RUNNING</code> or <code>SHUTDOWN</code>) -&gt; <code>STOP</code></li>
+</ul>
+</li>
+<li><strong>整理状态（TIDYING）</strong>：线程池没线程在运行时，状态会自动变为<code>TIDYING</code>，并且会调用terminated()方法（该方法是空实现，留给调用方扩展）<ul>
+<li><strong>状态切换</strong>：当线程池在<code>SHUTDOWN</code>状态下，阻塞队列为空并且线程池中执行的任务也为空时，就会由<code>SHUTDOWN</code> -&gt; <code>TIDYING</code>。 当线程池在<code>STOP</code>状态下，线程池中执行的任务为空时，就会由<code>STOP</code> -&gt; <code>TIDYING</code></li>
+</ul>
+</li>
+<li><strong>销毁状态（TERMINATED）</strong>：表示线程池已彻底终止<ul>
+<li><strong>状态切换</strong>：调用terminated()方法，线程池状态由<code>TIDYING</code> -&gt; <code>TERMINATED</code></li>
+</ul>
+</li>
+</ul>
 <h2 id="八、一些问题"><a href="#八、一些问题" class="headerlink" title="八、一些问题"></a>八、一些问题</h2><ul>
 <li>核心线程数可以设置为0吗？</li>
 <li>非核心线程什么时候会销毁？销毁的判断依据是什么？：空闲的时候</li>
@@ -1194,7 +1220,7 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.2k</span>&nbsp;字
+                class="white-color">53.4k</span>&nbsp;字
             
             
             
