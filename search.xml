@@ -11,8 +11,16 @@
         <content type="html"><![CDATA[<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><h2 id="二、Java中有哪些类加载器？"><a href="#二、Java中有哪些类加载器？" class="headerlink" title="二、Java中有哪些类加载器？"></a>二、Java中有哪些类加载器？</h2><p>JDK有三个<strong>类加载器</strong>，分别为：</p><ul><li><strong>启动类加载器（BootStrapClassLoader）</strong>：负责加载Java运行时环境核心类库（即<code>%JAVA_HOME%/lib</code>下的jar包和class类），是<code>ExtClassLoader</code>的父类加载器，</li><li><strong>扩展类加载器（ExtClassLoader）</strong>：负责加载Java运行时环境扩展类库（即<code>%JAVA_HOME%/lib/ext</code>下的jar包和class类），是<code>AppClassLoader</code>的父类加载器</li><li><strong>应用类加载器（AppClassLoader）</strong>：负责加载classpath下的类文件，是自定义类加载器的父类加载器</li></ul><h2 id="三、类加载过程"><a href="#三、类加载过程" class="headerlink" title="三、类加载过程"></a>三、类加载过程</h2><p><strong>类加载过程</strong>其实就是把class文件装载到JVM内存中得到一个Class对象，然后我们就可以通过new关键字来实例化这个对象，主要有加载、验证、准备、解析、初始化这几个阶段<br><img src="/images/jvm/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png"><br><strong>加载阶段</strong>：</p><ol><li>根据类的全限定名来查找并读取类的二进制字节流</li><li>将这个字节流转换为内部数据结构（即方法区的运行时数据结构）</li><li>在JVM堆中创建一个Class对象代表这个类（作为方法区这些数据的访问入口）<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestClass</span> <span class="token punctuation">&#123;</span>    <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz <span class="token operator">=</span> <span class="token class-name">CLass</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.test.TestClass"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li></ol><p><strong>验证阶段</strong>：</p><ol><li>文件格式验证：是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理</li><li>元数据验证：是否符合Java语言规范要求</li><li>字节码验证：保证被校验类的方法在运行时不会做出危害虚拟机安全的行为</li><li>符号引用验证：对类自身以外（常量池中的各种符号引用）的信息进行匹配性校验，确保解析动作能正常执行</li></ol><p><strong>准备阶段</strong>：为类变量（静态变量）分配内存空间，并设置默认初始值</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestClass</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> testStaticVariable<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p><strong>解析阶段</strong>：</p><ul><li>目的：将符号引用解析为直接引用</li><li>符号引用：用来引用类、字段、方法等</li><li>直接引用：用来直接指向内存中的数据结构的指针或偏移量<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestClass</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">testStaticMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token comment">// 静态方法的解析</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li></ul><p><strong>初始化阶段</strong>：类加载过程的最后一步，也是类被真正使用之前的最后准备工作。主要是对类的静态变量进行赋值和静态代码块的执行</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestClass</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> testStaticVariable <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>        <span class="token keyword">static</span> <span class="token punctuation">&#123;</span>        <span class="token comment">// do sth</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="四、双亲委派机制"><a href="#四、双亲委派机制" class="headerlink" title="四、双亲委派机制"></a>四、双亲委派机制</h2><p><img src="/images/jvm/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.png"></p><h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><ul><li>每一个类都有一个对应它的类加载器，系统中的类加载器在协同工作的时候会默认使用<strong>双亲委派模型</strong></li><li>类加载的时候，系统会先判断该类是否被加载过<ul><li>如果被加载过，会直接返回</li><li>如果没被加载过，会尝试加载</li></ul></li><li>加载流程：<ol><li>首先会把请求委派给父类加载器的loadClass()处理，因此所有的请求最终都会委派给最顶层的<code>BootstrapClassLoader</code></li><li>然后如果父类加载器无法处理时，就会交回自己来处理，如果能处理则直接加载完返回</li></ol></li><li>如果父类加载器为<code>null</code>时，会使用<code>BootstrapClassLoader</code>作为父类加载器</li></ul><h3 id="2、使用双亲委派机制的好处"><a href="#2、使用双亲委派机制的好处" class="headerlink" title="2、使用双亲委派机制的好处"></a>2、使用双亲委派机制的好处</h3><p>使用<strong>双亲委派机制</strong>的好处为：</p><ul><li>保证JDK核心类的优先加载</li><li>避免类的重复加载</li><li>保证Java的核心API不被篡改</li></ul><p>如果不用<strong>双亲委派模型</strong>，而是每个类加载器加载的话就会出现一些问题，比如我们编写一个java.lang.Object类时，那么程序运行的时候，系统就会出现多个不同的Object类</p><h3 id="3、破坏双亲委派模型"><a href="#3、破坏双亲委派模型" class="headerlink" title="3、破坏双亲委派模型"></a>3、破坏双亲委派模型</h3><p><strong>破坏双亲委派模型</strong>的方式有：</p><ul><li><strong>自定义类加载器</strong>：继承ClassLoader抽象类，重写loadClass方法（可以自定义要加载的类使用的类加载器）</li><li><strong>使用线程上下文加载器</strong>：可以通过<code>java.lang.Thread</code>类的setContextClassLoader()方法来设置当前</li></ul><h3 id="4、为什么要破坏双亲委派模型？"><a href="#4、为什么要破坏双亲委派模型？" class="headerlink" title="4、为什么要破坏双亲委派模型？"></a>4、为什么要破坏双亲委派模型？</h3><p><strong>为什么要破坏双亲委派模型？</strong>：由于加载范围的限制，顶层的ClassLoader无法访问底层ClassLoader所加载的类，此时就需要破坏双亲委派模型</p><blockquote><p>以JDBC为例，讲一下为什么要破坏双亲委派模型</p></blockquote><h4 id="a、JDBC不使用Java-SPI"><a href="#a、JDBC不使用Java-SPI" class="headerlink" title="a、JDBC不使用Java SPI"></a>a、JDBC不使用Java SPI</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestSqlClass</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token comment">// 加载驱动类</span>        <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.mysql.jdbd.Driver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// 获取数据库连接</span>        <span class="token class-name">Conncetion</span> connection <span class="token operator">=</span> <span class="token class-name">DriverManager</span><span class="token punctuation">.</span><span class="token function">getConnect</span><span class="token punctuation">(</span><span class="token string">"jdbc:mysql://xxx"</span><span class="token punctuation">,</span> <span class="token string">"xxx"</span><span class="token punctuation">,</span> <span class="token string">"xxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="b、JDBC使用Java-SPI"><a href="#b、JDBC使用Java-SPI" class="headerlink" title="b、JDBC使用Java SPI"></a>b、JDBC使用Java SPI</h4><p>在JDBC4.0之后，开始支持使用SPI的方式来注册Driver，具体做法是在MySQL的jar里的<code>META-INF/services/java.sql.Driver</code>文件中指定当前使用的Driver是哪个<br><strong>什么是SPI？</strong>：SPI就是策略模式，根据配置来决定运行时接口的实现类是哪个<br><img src="/images/jvm/%E7%B1%BB%E5%8A%A0%E8%BD%BDJDBC.png"><br>用这种方式的话，当使用不同的驱动时，我们不需要手动通过Class.forName加载驱动类，而是引入对应的jar包即可，所以上面的代码可以改成如下形式</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestSqlClass</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token class-name">Connection</span> connection <span class="token operator">=</span> <span class="token class-name">DriverManager</span><span class="token punctuation">.</span><span class="token function">getConnect</span><span class="token punctuation">(</span><span class="token string">"jdbc:mysql:/xxx"</span><span class="token punctuation">,</span> <span class="token string">"xxx"</span><span class="token punctuation">,</span> <span class="token string">"xxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><blockquote><p>对应的驱动类是如何加载的？</p></blockquote><ul><li>从META-INF/services/java.sql.Driver文件中获取具体的实现类<code>com.mysql.jdbd</code></li><li>通过<code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;)</code>将这个类加载进来</li></ul><blockquote><p>存在什么问题呢？</p></blockquote><ul><li><code>DriberManager</code>位于rt.jar包中，所以是通过<code>BootStrapClassLoader</code>加载的</li><li>而<code>Class.forName()</code>加载用的是调用者的ClassLoader<br>如果用<code>BootStrapClassLoader</code>去加载<code>com.mysql.jdbc.Driver</code>，是肯定加载不到的（<font color=red>因为一般情况下启动类加载器只加载rt.jar包中的类</font>）</li></ul><blockquote><p>如何解决这个问题呢？</p></blockquote><p>想让顶层的ClassLoader加载底层的ClassLoader，只能<strong>破坏双亲委派机制</strong><br>DriverManager在加载时，会先执行静态代码块，在静态代码块中，会执行loadInitialDrivers()方法，这个方法会加载对应的驱动类</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DriverManager</span> <span class="token punctuation">&#123;</span>    <span class="token comment">// ...</span>    <span class="token keyword">static</span> <span class="token punctuation">&#123;</span>        <span class="token function">loadInitialDrivers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"JDBC DriverManager initialized"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span>        <span class="token comment">// ...</span>    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">loadInitialDrivers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token comment">//...</span>        <span class="token class-name">AccessController</span><span class="token punctuation">.</span><span class="token function">doPrivileged</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PrivilegedAction</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>                <span class="token comment">// 根据配置文件加载驱动实现类</span>                <span class="token class-name">ServiceLoader</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Driver</span><span class="token punctuation">></span></span> loadedDrivers <span class="token operator">=</span> <span class="token class-name">ServiceLoader</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token class-name">Driver</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token class-name">Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Driver</span><span class="token punctuation">></span></span> driversIterator <span class="token operator">=</span> loadedDrivers<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>                  <span class="token keyword">while</span> <span class="token punctuation">(</span>driversIterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>                      driversIterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                  <span class="token punctuation">&#125;</span>                <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>                    <span class="token comment">//Do nothing</span>                <span class="token punctuation">&#125;</span>                <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>            <span class="token punctuation">&#125;</span>        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"DriverManager.initialize: jdbc.drivers = "</span> <span class="token operator">+</span> drivers<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">//...</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>进入ServiceLoader的load()方法，可以看到通过执行<code>Thread.currentThread().getContextClassLoader()</code>获取了线程上下文加载器</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span><span class="token punctuation">></span></span> <span class="token class-name">ServiceLoader</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span><span class="token punctuation">></span></span> <span class="token function">load</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span><span class="token punctuation">></span></span> service<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token class-name">ClassLoader</span> cl <span class="token operator">=</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getContextClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token class-name">ServiceLoader</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>service<span class="token punctuation">,</span> cl<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>线程上下文类加载器可以通过<code>Thread.setContextClassLoader()</code>方法设置（默认是<code>AppClassLoader</code>，通过Launcher类创建，ExtClassLoader同理）</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Launcher</span> <span class="token punctuation">&#123;</span>    <span class="token comment">//...</span>    <span class="token keyword">public</span> <span class="token class-name">Launcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token class-name">Launcher<span class="token punctuation">.</span>ExtClassLoader</span> var1<span class="token punctuation">;</span>        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>            var1 <span class="token operator">=</span> <span class="token class-name">Launcher<span class="token punctuation">.</span>ExtClassLoader</span><span class="token punctuation">.</span><span class="token function">getExtClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> var10<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span><span class="token string">"Could not create extension class loader"</span><span class="token punctuation">,</span> var10<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>                <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>            <span class="token keyword">this</span><span class="token punctuation">.</span>loader <span class="token operator">=</span> <span class="token class-name">Launcher<span class="token punctuation">.</span>AppClassLoader</span><span class="token punctuation">.</span><span class="token function">getAppClassLoader</span><span class="token punctuation">(</span>var1<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> var9<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span><span class="token string">"Could not create application class loader"</span><span class="token punctuation">,</span> var9<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>                <span class="token comment">// 设置上下文类加载器为AppClassLoader</span>        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setContextClassLoader</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token comment">//...</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>可以看到，线程上下文类加载器让父类加载器能通过调用子类加载器来加载类，达到<font color=red>打破双亲委派模型</font>的目的</p>]]></content>
       
       
+      <categories>
+          
+          <category> JVM </category>
+          
+      </categories>
+      
       
         <tags>
+            
+            <tag> JVM </tag>
             
             <tag> 双亲委派模型 </tag>
             
@@ -30,6 +38,20 @@
         <content type="html"><![CDATA[<h2 id="一、什么是循环依赖？"><a href="#一、什么是循环依赖？" class="headerlink" title="一、什么是循环依赖？"></a>一、什么是循环依赖？</h2><p><strong>循环依赖</strong>其实就是两个对象互相依赖，包括直接和间接，比如</p><ul><li><strong>直接</strong>：A依赖B，B依赖A</li><li><strong>间接</strong>：A依赖B，B依赖C，C依赖A<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// A依赖B</span><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">// B依赖A</span><span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>  <span class="token keyword">public</span> <span class="token class-name">A</span> a<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>在Spring中，一个对象经过一系列的<strong>Bean的生命周期</strong>，就会出现<strong>循环依赖</strong>问题</li></ul><h2 id="二、Bean的生命周期（简易版）"><a href="#二、Bean的生命周期（简易版）" class="headerlink" title="二、Bean的生命周期（简易版）"></a>二、Bean的生命周期（<strong>简易版</strong>）</h2><p>Bean就是被Spring管理的对象，生成步骤如下：</p><ol><li><strong>生成bean</strong>：执行getBean()，根据BeanDefinition生成bean</li><li><strong>实例化</strong>：根据其构造方法（默认是无参）反射创建一个对象</li><li><strong>填充属性</strong>：也就是<strong>依赖注入</strong></li><li><strong>AOP</strong>：如果该对象某个方法被AOP了，那么就要基于该对象生成一个代理对象</li><li><strong>放入单例池</strong>：也叫做一级缓存（singletonObjects），后续getBean直接从单例池取即可</li></ol><h2 id="三、为什么会出现循环依赖？"><a href="#三、为什么会出现循环依赖？" class="headerlink" title="三、为什么会出现循环依赖？"></a>三、为什么会出现循环依赖？</h2><p><strong>一般情况</strong>：</p><ol><li>A创建了一个原始对象（类似new）</li><li>给属性b赋值，根据B的类型和属性名去BeanFactory获取B类对应的单例bean 、<br>2.1 如果存在B类对应的单例bean， 则直接赋值给b<br>2.2 如果不存在B类对应的单例bean，则先创建该bean，再赋值给b</li><li>…<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li></ol><p><strong>特殊情况（循环依赖）</strong>：如果A在填充b属性的时候，要去创建B对象，但是B又需要填充a属性，此时A还在创建中，导致A和B都创建不了</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token class-name">A</span> a<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>而在Spring中，使用了<strong>三级缓存</strong>来解决<strong>循环依赖</strong>的问题</p><h2 id="四、三级缓存"><a href="#四、三级缓存" class="headerlink" title="四、三级缓存"></a>四、三级缓存</h2><p><strong>三级缓存</strong>分别为：</p><ul><li><strong>一级缓存</strong>：即源码中的singletonObjects，也叫做单例池。存放的对象是<font color=red>完成了完整生命周期的bean对象</font></li><li><strong>二级缓存</strong>：即源码中的earlySingletonObjects。存放的对象是<font color=red>早期的bean对象，即没完成完整生命周期的bean对象</font></li><li><strong>三级缓存</strong>：即源码中的singletonFactories，也叫做对象工厂。存放的对象是<font color=red>创建对象的lambda表达式</font>，用来创建某个对象的</li></ul><h3 id="1、一级缓存（单例池）"><a href="#1、一级缓存（单例池）" class="headerlink" title="1、一级缓存（单例池）"></a>1、一级缓存（单例池）</h3><p><strong>什么时候使用一级缓存？</strong>：当一个bean完成了完整生命周期，就会放进<strong>一级缓存</strong>，但下次该bean被其他bean依赖注入时，直接从<strong>一级缓存</strong>取出赋值即可<br><strong>问题</strong>：如果两个/多个bean相互依赖，那么在依赖注入时，由于分别都没完成完整生命周期，所以<strong>一级缓存</strong>里找不到对应的bean，导致出现死循环<br><img src="/images/spring/spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png" alt="spring循环依赖"></p><h3 id="2、二级缓存（早期bean对象）"><a href="#2、二级缓存（早期bean对象）" class="headerlink" title="2、二级缓存（早期bean对象）"></a>2、二级缓存（早期bean对象）</h3><p><strong>背景</strong>：为了解决循环依赖，我们引入了<strong>二级缓存</strong>，允许一个bean创建后（依赖注入前）<font color=red>提前暴露</font>到缓存中，当该bean被其他bean依赖注入时，先从<strong>一级缓存</strong>找，找不到再从<strong>二级缓存</strong>找，这时候就能取到其原始对象并赋值即可<br><strong>问题</strong>：由于从<strong>二级缓存</strong>取出的对象是<font color=red>提前暴露的原始对象</font>，并不是最终的bean。这时候如果该原始对象进行了AOP产生了一个代理对象，这时候就会出现冲突<br><img src="/images/spring/spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98.png" alt="spring循环依赖二级花奴才能"><br>如果所示，A生成了一个原始对象，B依赖注入A时赋值了该原始对象，而A如果在进入单例池前进行了AOP（BeanPostProcessor），那么就会出现矛盾：</p><ul><li>对于A而言：A的bean是AOP后的代理对象</li><li>对于B而言，B依赖注入的A是原始对象，而不是AOP后的代理对象</li></ul><p>所以这时候，经过了Spring的BeanPostProcessor对bean的加工，<strong>B依赖的A和最终的A不是同一个对象</strong>，我们可以通过一段代码证明一下：</p><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span> <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token annotation punctuation">@Component</span><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestBeanPostProcessor</span> <span class="token keyword">implements</span> <span class="token class-name">BeanPostProcessor</span> <span class="token punctuation">&#123;</span>    <span class="token annotation punctuation">@Override</span>    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span><span class="token class-name">Object</span> bean<span class="token punctuation">,</span> <span class="token class-name">String</span> beanName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">BeansException</span> <span class="token punctuation">&#123;</span>        <span class="token comment">// 打印前面的值</span>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>bean<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span>beanName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>            <span class="token comment">// 这里生成了一个新的对象</span>            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>        <span class="token keyword">return</span> bean<span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token class-name">AnnotationConfigApplicationContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AnnotationConfigApplicationContext</span><span class="token punctuation">(</span>XXX<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                <span class="token class-name">A</span> a <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> <span class="token class-name">A</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// 打印后面的值</span>        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>运行main方法，得到打印如下：</p><pre class="line-numbers language-none"><code class="language-none">com.test.service.A@4b0393b9com.test.service.A@2e052e20<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>所以，BeanPostProcessor中可以完全替换掉某个beanName对应的bean对象：</p><ul><li>循环依赖注入的对象是发生在填充属性过程中的</li><li>BeanPostProcessor的执行是发生在填充属性过程之后的</li></ul><p><font>这种情况下的<strong>循环依赖</strong>，Spring是解决不了的，因为在填充属性时，Spring也不知道该对象后续会经过哪些BeanPostProcessor以及会对A对象做什么处理</font><br>虽然这种情况可能发生，但是肯定发生得很少，我们一般在开发中不会这样做。但是，有种情况，某个beanName对应的最终对象和原始对象不是同一个对象却经常出现，这就是<strong>AOP</strong></p><h3 id="3、AOP"><a href="#3、AOP" class="headerlink" title="3、AOP"></a>3、AOP</h3><p><strong>AOP</strong>是通过一个BeanPostProcessor来实现，也就是<code>AnnotationAwareAspectJAutoProxyCreator</code>，它继承了<code>AbstractAutoProxy</code><br>在Spring中AOP利用的要么是JDK动态代理，要么是CGLib的动态代理，所以<font color=red>如果给一个类中的某个方法设置了切面，那么这个类最终就需要生成一个代理对象</font></p><p>（上面有提到）Spring中AOP的一般流程：生成bean-&gt;实例化-&gt;填充属性-&gt;AOP-&gt;放入单例池</p><p>而要解决AOP导致的前后对象不一致的问题，就需要引入<strong>三级缓存</strong></p><h3 id="4、三级缓存（对象工厂）"><a href="#4、三级缓存（对象工厂）" class="headerlink" title="4、三级缓存（对象工厂）"></a>4、三级缓存（对象工厂）</h3><p><strong>三级缓存</strong>对应源码的<code>singletonFactories</code>，在bean生成完原始对象后，会构造一个ObjectFactory存入<code>singletonFactories</code><br><code>ObjectFactory</code>是一个函数式接口，所以支持lambda表达式：<code>() -&gt; getEarlyBeanReference(beanName, mbd, bean)</code></p><p>//TODO</p><h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul><li>bean工厂：ObjectFactoru</li><li>bean仓库/单例池：SingletonBeanRegistry</li></ul><p>bean创建步骤：</p><ul><li>执行getBean</li><li>实例化：createBeanInstance，用构造方法</li><li>填充属性：populateBean</li><li>初始化：执行initializeBean</li></ul><p>a依赖b的话：</p><ul><li>执行getBean(“a”)</li><li>实例化：createBeanInstance(“a”)   //放在半成品池</li><li>填充属性：populateBean(“a”)<ul><li>执行getBean(“b”)</li><li>实例化：createBeanInstance(“b”)</li><li>填充属性：populateBean(“b”)</li><li>初始化：执行initializeBean(“b”)</li></ul></li><li>初始化：执行initializeBean(“a”)     //放在单例池</li></ul><p>后面还有工厂池</p><p>一级缓存：singletonObjects，用于保存实例化、注入、初始化完成的bean实例<br>二级缓存：earlySingletonObject，用于保存实例化完成的bean实例<br>三级缓存：singletonFactories，用于保存bean创建工厂，便于后续创建代理对象</p><p>场景：<br>A依赖A<br>A依赖B，B依赖A<br>A依赖B，B依赖C，C依赖A</p><p>顺序加载，如TestService1会先比TestService2加载</p><p>上课笔记：</p><ul><li>@Autowired的reequired为true，说明一定要赋值，不能为null</li><li>赋值给@Autowired对象的是service的普通对象还是代理对象？  其实是代理对象</li><li>三级缓存存的lambda表达式，判断是否要aop，如果不要就返回普通对象，如果要就返回代理对象</li><li>为什么会有提前aop和后续aop？</li><li>用构造方法去创建对象，如果自定义了构造方法，那么默认的无参构造方法就不生效了，如果这个自定义的有参构造方法包含了循环依赖的service类，那么就会报错，因为生成不了普通对象。加@Lazy可解决</li></ul><p>为什么@Lazy可以？</p><ul><li>生成形参的代理对象：比如public AService(BService bService)，则自动生成bService代理对象</li><li></li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> Spring </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 循环依赖 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -52,9 +74,9 @@
       
         <tags>
             
-            <tag> 场景题 </tag>
-            
             <tag> Redis </tag>
+            
+            <tag> 场景题 </tag>
             
         </tags>
       
@@ -99,8 +121,16 @@
         <content type="html"><![CDATA[<h2 id="一、CPU飙升可能的原因"><a href="#一、CPU飙升可能的原因" class="headerlink" title="一、CPU飙升可能的原因"></a>一、CPU飙升可能的原因</h2><p><strong>背景</strong>：CPU是整个电脑的核心计算资源，对于一个应用进程来说，CPU的最小执行单元是线程<br>导致CPU飙高的原因有几个方面：</p><ul><li><strong>CPU上下文切换过多</strong>：由于在同一时刻下每个CPU核心只能运行一个线程，如果存在多个线程，CPU就只能通过上下文切换（上下文切换=保存运行线程的执行状态+执行处于等待中的线程）来执行不同的线程。<font color=red>在Java中，文件IO、网络IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换</font></li><li><strong>CPU资源过度消耗</strong>：也就是在程序中创建了大量的线程，或者有线程一直占用CPU资源无法被释放。<font color=red>比如死循环</font></li></ul><h2 id="二、排查步骤"><a href="#二、排查步骤" class="headerlink" title="二、排查步骤"></a>二、排查步骤</h2><ol><li><strong>查找占用CPU高的进程PID</strong>：使用<code>top</code>命令查找，找到CPU高的进程PID</li><li><strong>查找进程中CPU高的线程TID</strong>：使用<code>ps -mp &lt;PID&gt; -o THREAD,tid,time</code>命令查找，找到CPU高的线程TID（这里打印的TID是十进制的，需要转为十六进制，可以通过命令<code>printf &quot;%x\n&quot; &lt;TID&gt;</code>转换，如十进制3936对应十进制f60）</li><li><strong>查看占用资源异常的线程栈</strong>：使用<code>jstack &lt;TID&gt;</code>命令查看（简易的话可以用<code>jstack &lt;TID&gt; | grep &lt;十六进制TID&gt; -A20</code>快速定位异常堆栈），就可以看到具体是哪一块代码出现了问题（一般是死循环、阻塞等）</li></ol><p>如果定位的结果是程序正常，有可能是CPU飙升时，用户访问量较大，导致系统资源不够，可适当调整配置</p><p>//TODO 截图补充</p>]]></content>
       
       
+      <categories>
+          
+          <category> 场景题 </category>
+          
+      </categories>
+      
       
         <tags>
+            
+            <tag> 场景题 </tag>
             
             <tag> CPU </tag>
             
@@ -120,7 +150,7 @@
       
       <categories>
           
-          <category> 延迟队列 </category>
+          <category> 场景题 </category>
           
       </categories>
       
@@ -128,6 +158,8 @@
         <tags>
             
             <tag> Redis </tag>
+            
+            <tag> 场景题 </tag>
             
             <tag> 延迟队列 </tag>
             
@@ -149,14 +181,14 @@
       
       <categories>
           
-          <category> 面试题 </category>
+          <category> 面试 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 面试题 </tag>
+            <tag> Java </tag>
             
         </tags>
       
@@ -174,14 +206,14 @@
       
       <categories>
           
-          <category> 缓存 </category>
+          <category> Redis </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 缓存 </tag>
+            <tag> Redis </tag>
             
         </tags>
       
@@ -206,7 +238,11 @@
       
         <tags>
             
+            <tag> MySQL </tag>
+            
             <tag> 并发 </tag>
+            
+            <tag> Redis </tag>
             
         </tags>
       
@@ -333,6 +369,8 @@
             
             <tag> 场景题 </tag>
             
+            <tag> 秒杀 </tag>
+            
         </tags>
       
     </entry>
@@ -387,16 +425,16 @@
       
       <categories>
           
-          <category> jvm </category>
+          <category> JVM </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> jvm </tag>
+            <tag> JVM </tag>
             
-            <tag> gc </tag>
+            <tag> GC </tag>
             
         </tags>
       
@@ -473,9 +511,9 @@
       
         <tags>
             
-            <tag> 面试题 </tag>
-            
             <tag> MySQL </tag>
+            
+            <tag> 索引 </tag>
             
         </tags>
       
@@ -501,6 +539,8 @@
         <tags>
             
             <tag> MySQL </tag>
+            
+            <tag> 事务 </tag>
             
         </tags>
       
@@ -556,8 +596,6 @@
             
             <tag> 日志 </tag>
             
-            <tag> 主从复制 </tag>
-            
         </tags>
       
     </entry>
@@ -573,8 +611,6 @@
       
       
       <categories>
-          
-          <category> Mybatis </category>
           
           <category> PageHelper </category>
           
@@ -628,18 +664,18 @@
       
       <categories>
           
-          <category> 工具类 </category>
+          <category> Java </category>
           
       </categories>
       
       
         <tags>
             
+            <tag> Http </tag>
+            
             <tag> Java </tag>
             
-            <tag> 工具类 </tag>
-            
-            <tag> JSON </tag>
+            <tag> 工具 </tag>
             
         </tags>
       
@@ -679,19 +715,19 @@
       <link href="/2022/03/02/vue-xiang-mu-chuang-jian-fang-shi/"/>
       <url>/2022/03/02/vue-xiang-mu-chuang-jian-fang-shi/</url>
       
-        <content type="html"><![CDATA[<h2 id="一、相关链接"><a href="#一、相关链接" class="headerlink" title="一、相关链接"></a>一、相关链接</h2><p>参考链接：<a href="https://blog.csdn.net/ccf19881030/article/details/105358242">https://blog.csdn.net/ccf19881030/article/details/105358242</a></p><h2 id="二、创建步骤"><a href="#二、创建步骤" class="headerlink" title="二、创建步骤"></a>二、创建步骤</h2><h3 id="1-全局安装vue-cli脚手架"><a href="#1-全局安装vue-cli脚手架" class="headerlink" title="1.全局安装vue-cli脚手架"></a>1.全局安装vue-cli脚手架</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">npm</span> <span class="token function">install</span> vue-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="2-开始创建项目"><a href="#2-开始创建项目" class="headerlink" title="2.开始创建项目"></a>2.开始创建项目</h3><ul><li><p>使用vue初始化基于webpack的新项目</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vue init webpack test-project<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>创建过程中会提示是否安装eslint，可以跳过不安装(否则项目编译过程中会出现各种代码格式的问题)</p></li><li><p>创建完成后，安装基础模块</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token builtin class-name">cd</span> test-project<span class="token function">npm</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li><p>安装完成后，可在开发模式下运行项目并预览项目效果</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">npm</span> run dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul><p><img src="/images/Vue%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F1.png" alt="运行成功"></p><ul><li>访问<a href="http://localhost:8080/">http://localhost:8080</a><br><img src="/images/Vue%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F2.png" alt="项目效果"></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="一、相关链接"><a href="#一、相关链接" class="headerlink" title="一、相关链接"></a>一、相关链接</h2><p>参考链接：<a href="https://blog.csdn.net/ccf19881030/article/details/105358242">https://blog.csdn.net/ccf19881030/article/details/105358242</a></p><h2 id="二、创建步骤"><a href="#二、创建步骤" class="headerlink" title="二、创建步骤"></a>二、创建步骤</h2><h3 id="1-全局安装vue-cli脚手架"><a href="#1-全局安装vue-cli脚手架" class="headerlink" title="1.全局安装vue-cli脚手架"></a>1.全局安装vue-cli脚手架</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm install vue-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="2-开始创建项目"><a href="#2-开始创建项目" class="headerlink" title="2.开始创建项目"></a>2.开始创建项目</h3><ul><li><p>使用vue初始化基于webpack的新项目</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vue init webpack test-project<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>创建过程中会提示是否安装eslint，可以跳过不安装(否则项目编译过程中会出现各种代码格式的问题)</p></li><li><p>创建完成后，安装基础模块</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd test-projectnpm install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li><p>安装完成后，可在开发模式下运行项目并预览项目效果</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm run dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul><p><img src="/images/Vue%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F1.png" alt="运行成功"></p><ul><li>访问<a href="http://localhost:8080/">http://localhost:8080</a><br><img src="/images/Vue%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F2.png" alt="项目效果"></li></ul>]]></content>
       
       
       <categories>
           
-          <category> vue </category>
+          <category> Vue </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> Vue </tag>
             
         </tags>
       
@@ -1428,8 +1464,6 @@
           
           <category> 设计模式 </category>
           
-          <category> 单例模式 </category>
-          
       </categories>
       
       
@@ -1455,7 +1489,7 @@
       
       <categories>
           
-          <category> 设计模式，设计模式之美 </category>
+          <category> 设计模式 </category>
           
       </categories>
       
@@ -1463,8 +1497,6 @@
         <tags>
             
             <tag> 设计模式 </tag>
-            
-            <tag> 设计模式之美 </tag>
             
         </tags>
       
@@ -1484,16 +1516,16 @@
           
           <category> 编程规范 </category>
           
-          <category> 代码质量 </category>
-          
-          <category> 重构 </category>
-          
       </categories>
       
       
         <tags>
             
+            <tag> 代码优化 </tag>
+            
             <tag> 编程规范 </tag>
+            
+            <tag> 重构 </tag>
             
         </tags>
       
@@ -1512,12 +1544,6 @@
       <categories>
           
           <category> 设计模式 </category>
-          
-          <category> 设计模式之美 </category>
-          
-          <category> 设计原则 </category>
-          
-          <category> 规则与重构 </category>
           
       </categories>
       
@@ -1544,12 +1570,6 @@
           
           <category> 设计模式 </category>
           
-          <category> 设计模式之美 </category>
-          
-          <category> 设计原则 </category>
-          
-          <category> 设计原则与思想 </category>
-          
       </categories>
       
       
@@ -1575,12 +1595,6 @@
           
           <category> 设计模式 </category>
           
-          <category> 设计模式之美 </category>
-          
-          <category> 面向对象 </category>
-          
-          <category> 设计原则与思想 </category>
-          
       </categories>
       
       
@@ -1604,18 +1618,14 @@
       
       <categories>
           
-          <category> Mybatis </category>
-          
-          <category> Mybatis-Plus </category>
-          
-          <category> SQL </category>
-          
           <category> MySQL </category>
           
       </categories>
       
       
         <tags>
+            
+            <tag> MySQL </tag>
             
             <tag> Mybatis </tag>
             
@@ -1712,7 +1722,7 @@
       
       <categories>
           
-          <category> 工具 </category>
+          <category> RabbitMQ </category>
           
       </categories>
       
@@ -1746,7 +1756,7 @@
       
         <tags>
             
-            <tag> 学习笔记 </tag>
+            <tag> k8s </tag>
             
         </tags>
       
@@ -1764,14 +1774,14 @@
       
       <categories>
           
-          <category> 仓库 </category>
+          <category> 代码库 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 代码 </tag>
+            <tag> 代码库 </tag>
             
         </tags>
       
@@ -1841,16 +1851,14 @@
       
       <categories>
           
-          <category> 高可用 </category>
+          <category> 并发 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 学习笔记 </tag>
-            
-            <tag> 科普向 </tag>
+            <tag> 高可用 </tag>
             
         </tags>
       
@@ -1863,7 +1871,7 @@
       <link href="/2021/07/31/hexo-shi-yong-bi-ji/"/>
       <url>/2021/07/31/hexo-shi-yong-bi-ji/</url>
       
-        <content type="html"><![CDATA[<h2 id="1-前提工作"><a href="#1-前提工作" class="headerlink" title="1.前提工作"></a>1.前提工作</h2><ul><li>github(本文针对github，其他如gitee类似)</li><li>node.js、npm</li><li>git客户端</li><li>hexo(本文会介绍怎么安装)</li></ul><h2 id="2-搭建博客项目-h5"><a href="#2-搭建博客项目-h5" class="headerlink" title="2.搭建博客项目(h5)"></a>2.搭建博客项目(h5)</h2><ul><li>创建github仓库<br>新建一个名为 <strong>{用户名}.github.io</strong>的仓库</li><li>在settings-pages可以看到博客部署的地址<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/github%20page.png"></li></ul><h2 id="3-如何使用hexo"><a href="#3-如何使用hexo" class="headerlink" title="3.如何使用hexo"></a>3.如何使用hexo</h2><h3 id="3-1-install-安装"><a href="#3-1-install-安装" class="headerlink" title="3.1 install(安装)"></a>3.1 install(安装)</h3><p><code>npm install -g hexo</code></p><h3 id="3-2-hexo-init-初始化"><a href="#3-2-hexo-init-初始化" class="headerlink" title="3.2 hexo init(初始化)"></a>3.2 hexo init(初始化)</h3><p>随便找一个目录放代码(后面发博客内容等需要修改) 如d:/hexo<br>并初始化为hexo项目<br><code>cd d:/hexo</code><br><code>hexo init</code><br>这时候会自动生成一些文件<br>  <img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-init.png" alt="hexo init"></p><h3 id="3-3-hexo-g-生成"><a href="#3-3-hexo-g-生成" class="headerlink" title="3.3 hexo g(生成)"></a>3.3 hexo g(生成)</h3><p>hexo g是hexo generate的缩写，用于在public文件夹生成最终的文件(.md文件会被生成.html文件)<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-g.png" alt="hexo g"></p><h3 id="3-4-hexo-s-启动服务"><a href="#3-4-hexo-s-启动服务" class="headerlink" title="3.4 hexo s(启动服务)"></a>3.4 hexo s(启动服务)</h3><p>hexo s是hexo server的缩写，用于本地启动服务，可以通过<a href="http://localhost:4000访问">http://localhost:4000访问</a><br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-s.png" alt="hexo s"></p><h3 id="3-5-重要目录-文件的作用"><a href="#3-5-重要目录-文件的作用" class="headerlink" title="3.5 重要目录/文件的作用"></a>3.5 重要目录/文件的作用</h3><table><thead><tr><th>文件夹</th><th>作用</th></tr></thead><tbody><tr><td>source</td><td>存放静态文件的文件夹(包括md、图片等)</td></tr><tr><td>themes</td><td>模板库(可以网上下载到这里)</td></tr><tr><td>_config.yml</td><td>全局配置(如username等)</td></tr></tbody></table><h2 id="4-使用主题并写博客"><a href="#4-使用主题并写博客" class="headerlink" title="4.使用主题并写博客"></a>4.使用主题并写博客</h2><p>一般我们下载网上的主题，就可以直接修改配置文件(_config.yml)来自定义页面内容</p><ul><li>找一个主题并下载到<code>/themes</code>目录下<br>比如我的主题是<a href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></li><li>修改<code>_config.yml</code>的<code>theme: landscape</code>为<code>theme: matery</code></li></ul><h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>:GaryLeeeee/garyleeeee.github.io.git<br>  branch: master</p><h3 id="5-2-安装deployer插件"><a href="#5-2-安装deployer插件" class="headerlink" title="5.2 安装deployer插件"></a>5.2 安装deployer插件</h3><p><code>npm install hexo-deployer-git --save</code><br>如果没安装的话<code>hexo d</code>一般会报错”Deployer not found: github”或者”Deployer not found: git”</p><h3 id="5-3-hexo-d-部署"><a href="#5-3-hexo-d-部署" class="headerlink" title="5.3 hexo d(部署)"></a>5.3 hexo d(部署)</h3><p>hexo d是hexo doploy的缩写，用来部署服务到远程</p><h2 id="6-如何写博客"><a href="#6-如何写博客" class="headerlink" title="6.如何写博客"></a>6.如何写博客</h2><h3 id="6-1-hexo-new-xxx-新建博客"><a href="#6-1-hexo-new-xxx-新建博客" class="headerlink" title="6.1 hexo new xxx(新建博客)"></a>6.1 hexo new xxx(新建博客)</h3><p>通过hexo new ‘my-first-blog’即可创建一个名字为my-first-blog的微博文件<br><img src="http://image.liuxianan.com/201608/20160823_183325_470_9306.png"></p><h3 id="6-2-hexo-new-page-xxx-新建页面"><a href="#6-2-hexo-new-page-xxx-新建页面" class="headerlink" title="6.2 hexo new page xxx(新建页面)"></a>6.2 hexo new page xxx(新建页面)</h3><p>与new不同的是他是生成一个页面，并不会以一个博客显示在目录中</p><h3 id="6-3-博客配置"><a href="#6-3-博客配置" class="headerlink" title="6.3 博客配置"></a>6.3 博客配置</h3><table><thead><tr><th>属性</th><th>作用</th></tr></thead><tbody><tr><td>title</td><td>博客名</td></tr><tr><td>date</td><td>创建日期</td></tr><tr><td>tags</td><td>标签名(后面有讲)</td></tr><tr><td>categories</td><td>分类名(后面有讲)</td></tr></tbody></table><h2 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.常见问题"></a>7.常见问题</h2><h3 id="matery主题如果没有tags-categories-about页面？"><a href="#matery主题如果没有tags-categories-about页面？" class="headerlink" title="matery主题如果没有tags/categories/about页面？"></a>matery主题如果没有tags/categories/about页面？</h3><p>新增标签tags页面(categories/about类似)<br><code>tags</code>页是用来展示所有标签的页面，如果在你的博客<code>source</code>目录下还没有<code>tags/index.md</code>文件，那么你就需要新建一个，命令如下：</p><blockquote><p>hexo new page “tags”</p></blockquote><p>并且在生成的md文件中加上type和layout，如下</p><blockquote><p>title: tags<br>date: 2021-07-31 16:40:30<br>type: “tags”<br>layout: “tags”</p></blockquote><h3 id="部署远程后没更新"><a href="#部署远程后没更新" class="headerlink" title="部署远程后没更新"></a>部署远程后没更新</h3><p>删除本地.deploy_git目录，重新执行<code>hexo d -g</code></p><h3 id="如何上传本地图片"><a href="#如何上传本地图片" class="headerlink" title="如何上传本地图片"></a>如何上传本地图片</h3><p>在source目录新建一个图片目录(如images)，然后在博客里引用(参考<a href="https://zhuanlan.zhihu.com/p/104996801">https://zhuanlan.zhihu.com/p/104996801</a>)<br><code>![img.png](/images/img.png)</code></p><h3 id="如何代码格式化"><a href="#如何代码格式化" class="headerlink" title="如何代码格式化"></a>如何代码格式化</h3><p><img src="source/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%89%8D.png" alt="img.png"><br><img src="/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%90%8E.png" alt="代码高亮优化后"></p><h3 id="部署异常（鉴权失败）"><a href="#部署异常（鉴权失败）" class="headerlink" title="部署异常（鉴权失败）"></a>部署异常（鉴权失败）</h3><p>执行指令<code>hexo d -g</code>报错</p><pre class="line-numbers language-none"><code class="language-none">On branch masternothing to commit, working tree clean@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!Someone could be eavesdropping on you right now (man-in-the-middle attack)!It is also possible that a host key has just been changed.The fingerprint for the RSA key sent by the remote host isSHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.Please contact your system administrator.Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1RSA host key for github.com has changed and you have requested strict checking.Host key verification failed.fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the repository exists.FATAL &#123;  err: Error: Spawn failed      at ChildProcess.&lt;anonymous&gt; (E:\workplace\lee-blog\node_modules\hexo-util\lib\spawn.js:51:21)      at ChildProcess.emit (node:events:513:28)      at cp.emit (E:\workplace\lee-blog\node_modules\cross-spawn\lib\enoent.js:34:29)      at ChildProcess._handle.onexit (node:internal&#x2F;child_process:291:12) &#123;    code: 128  &#125;&#125; Something&#39;s wrong. Maybe you can find the solution here: %s https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>检查了本地ssh和远程github的ssh匹配，排除不匹配的可能性<br>执行<code>ssh -T git@github.com</code>，验证主机是否与github网站之间的ssh通信是否连接成功</p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.com@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!Someone could be eavesdropping on you right now (man-in-the-middle attack)!It is also possible that a host key has just been changed.The fingerprint for the RSA key sent by the remote host isSHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.Please contact your system administrator.Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1RSA host key for github.com has changed and you have requested strict checking.Host key verification failed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>发现<code>known_hosts</code>文件异常，尝试删除文件，并重新生成</p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.comThe authenticity of host &#39;github.com (20.205.243.166)&#39; can&#39;t be established.ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98&#x2F;R1BUFWu3&#x2F;LiyKgUfQM.Are you sure you want to continue connecting (yes&#x2F;no)? yPlease type &#39;yes&#39; or &#39;no&#39;: yesWarning: Permanently added &#39;github.com,20.205.243.166&#39; (ECDSA) to the list of known hosts.Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.comHi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>可以看到校验成功了，重新执行<code>hexo d -g</code></p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ hexo d -gINFO  Validating configINFO  Start processingINFO  Files loaded in 640 ms...On branch masternothing to commit, working tree cleanCounting objects: 1167, done.Delta compression using up to 4 threads.Compressing objects: 100% (738&#x2F;738), done.Writing objects: 100% (1167&#x2F;1167), 7.87 MiB | 254.00 KiB&#x2F;s, done.Total 1167 (delta 397), reused 0 (delta 0)remote: Resolving deltas: 100% (397&#x2F;397), done.To github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git + 06ab1b8...af6b499 HEAD -&gt; master (forced update)Branch master set up to track remote branch master from git@github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git.INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>搞定！</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1-前提工作"><a href="#1-前提工作" class="headerlink" title="1.前提工作"></a>1.前提工作</h2><ul><li>github(本文针对github，其他如gitee类似)</li><li>node.js、npm</li><li>git客户端</li><li>hexo(本文会介绍怎么安装)</li></ul><h2 id="2-搭建博客项目-h5"><a href="#2-搭建博客项目-h5" class="headerlink" title="2.搭建博客项目(h5)"></a>2.搭建博客项目(h5)</h2><ul><li>创建github仓库<br>新建一个名为 <strong>{用户名}.github.io</strong>的仓库</li><li>在settings-pages可以看到博客部署的地址<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/github%20page.png"></li></ul><h2 id="3-如何使用hexo"><a href="#3-如何使用hexo" class="headerlink" title="3.如何使用hexo"></a>3.如何使用hexo</h2><h3 id="3-1-install-安装"><a href="#3-1-install-安装" class="headerlink" title="3.1 install(安装)"></a>3.1 install(安装)</h3><p><code>npm install -g hexo</code></p><h3 id="3-2-hexo-init-初始化"><a href="#3-2-hexo-init-初始化" class="headerlink" title="3.2 hexo init(初始化)"></a>3.2 hexo init(初始化)</h3><p>随便找一个目录放代码(后面发博客内容等需要修改) 如d:/hexo<br>并初始化为hexo项目<br><code>cd d:/hexo</code><br><code>hexo init</code><br>这时候会自动生成一些文件<br>  <img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-init.png" alt="hexo init"></p><h3 id="3-3-hexo-g-生成"><a href="#3-3-hexo-g-生成" class="headerlink" title="3.3 hexo g(生成)"></a>3.3 hexo g(生成)</h3><p>hexo g是hexo generate的缩写，用于在public文件夹生成最终的文件(.md文件会被生成.html文件)<br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-g.png" alt="hexo g"></p><h3 id="3-4-hexo-s-启动服务"><a href="#3-4-hexo-s-启动服务" class="headerlink" title="3.4 hexo s(启动服务)"></a>3.4 hexo s(启动服务)</h3><p>hexo s是hexo server的缩写，用于本地启动服务，可以通过<a href="http://localhost:4000访问">http://localhost:4000访问</a><br><img src="https://lee-blog-picture.oss-cn-shenzhen.aliyuncs.com/hexo-s.png" alt="hexo s"></p><h3 id="3-5-重要目录-文件的作用"><a href="#3-5-重要目录-文件的作用" class="headerlink" title="3.5 重要目录/文件的作用"></a>3.5 重要目录/文件的作用</h3><table><thead><tr><th>文件夹</th><th>作用</th></tr></thead><tbody><tr><td>source</td><td>存放静态文件的文件夹(包括md、图片等)</td></tr><tr><td>themes</td><td>模板库(可以网上下载到这里)</td></tr><tr><td>_config.yml</td><td>全局配置(如username等)</td></tr></tbody></table><h2 id="4-使用主题并写博客"><a href="#4-使用主题并写博客" class="headerlink" title="4.使用主题并写博客"></a>4.使用主题并写博客</h2><p>一般我们下载网上的主题，就可以直接修改配置文件(_config.yml)来自定义页面内容</p><ul><li>找一个主题并下载到<code>/themes</code>目录下<br>比如我的主题是<a href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></li><li>修改<code>_config.yml</code>的<code>theme: landscape</code>为<code>theme: matery</code></li></ul><h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;</a>:GaryLeeeee/garyleeeee.github.io.git<br>  branch: master</p><h3 id="5-2-安装deployer插件"><a href="#5-2-安装deployer插件" class="headerlink" title="5.2 安装deployer插件"></a>5.2 安装deployer插件</h3><p><code>npm install hexo-deployer-git --save</code><br>如果没安装的话<code>hexo d</code>一般会报错”Deployer not found: github”或者”Deployer not found: git”</p><h3 id="5-3-hexo-d-部署"><a href="#5-3-hexo-d-部署" class="headerlink" title="5.3 hexo d(部署)"></a>5.3 hexo d(部署)</h3><p>hexo d是hexo doploy的缩写，用来部署服务到远程</p><h2 id="6-如何写博客"><a href="#6-如何写博客" class="headerlink" title="6.如何写博客"></a>6.如何写博客</h2><h3 id="6-1-hexo-new-xxx-新建博客"><a href="#6-1-hexo-new-xxx-新建博客" class="headerlink" title="6.1 hexo new xxx(新建博客)"></a>6.1 hexo new xxx(新建博客)</h3><p>通过hexo new ‘my-first-blog’即可创建一个名字为my-first-blog的微博文件<br><img src="http://image.liuxianan.com/201608/20160823_183325_470_9306.png"></p><h3 id="6-2-hexo-new-page-xxx-新建页面"><a href="#6-2-hexo-new-page-xxx-新建页面" class="headerlink" title="6.2 hexo new page xxx(新建页面)"></a>6.2 hexo new page xxx(新建页面)</h3><p>与new不同的是他是生成一个页面，并不会以一个博客显示在目录中</p><h3 id="6-3-博客配置"><a href="#6-3-博客配置" class="headerlink" title="6.3 博客配置"></a>6.3 博客配置</h3><table><thead><tr><th>属性</th><th>作用</th></tr></thead><tbody><tr><td>title</td><td>博客名</td></tr><tr><td>date</td><td>创建日期</td></tr><tr><td>tags</td><td>标签名(后面有讲)</td></tr><tr><td>categories</td><td>分类名(后面有讲)</td></tr></tbody></table><h2 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.常见问题"></a>7.常见问题</h2><h3 id="matery主题如果没有tags-categories-about页面？"><a href="#matery主题如果没有tags-categories-about页面？" class="headerlink" title="matery主题如果没有tags/categories/about页面？"></a>matery主题如果没有tags/categories/about页面？</h3><p>新增标签tags页面(categories/about类似)<br><code>tags</code>页是用来展示所有标签的页面，如果在你的博客<code>source</code>目录下还没有<code>tags/index.md</code>文件，那么你就需要新建一个，命令如下：</p><blockquote><p>hexo new page “tags”</p></blockquote><p>并且在生成的md文件中加上type和layout，如下</p><blockquote><p>title: tags<br>date: 2021-07-31 16:40:30<br>type: “tags”<br>layout: “tags”</p></blockquote><h3 id="部署远程后没更新"><a href="#部署远程后没更新" class="headerlink" title="部署远程后没更新"></a>部署远程后没更新</h3><p>删除本地.deploy_git目录，重新执行<code>hexo d -g</code></p><h3 id="如何上传本地图片"><a href="#如何上传本地图片" class="headerlink" title="如何上传本地图片"></a>如何上传本地图片</h3><p>在source目录新建一个图片目录(如images)，然后在博客里引用(参考<a href="https://zhuanlan.zhihu.com/p/104996801">https://zhuanlan.zhihu.com/p/104996801</a>)<br><code>![img.png](/images/img.png)</code></p><h3 id="如何代码格式化"><a href="#如何代码格式化" class="headerlink" title="如何代码格式化"></a>如何代码格式化</h3><p><img src="source/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%89%8D.png" alt="img.png"><br><img src="/images/%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%BC%98%E5%8C%96%E5%90%8E.png" alt="代码高亮优化后"></p><h3 id="部署异常（鉴权失败）"><a href="#部署异常（鉴权失败）" class="headerlink" title="部署异常（鉴权失败）"></a>部署异常（鉴权失败）</h3><p>执行指令<code>hexo d -g</code>报错</p><pre class="line-numbers language-none"><code class="language-none">On branch masternothing to commit, working tree clean@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!Someone could be eavesdropping on you right now (man-in-the-middle attack)!It is also possible that a host key has just been changed.The fingerprint for the RSA key sent by the remote host isSHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.Please contact your system administrator.Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1RSA host key for github.com has changed and you have requested strict checking.Host key verification failed.fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the repository exists.FATAL &#123;  err: Error: Spawn failed      at ChildProcess.&lt;anonymous&gt; (E:\workplace\lee-blog\node_modules\hexo-util\lib\spawn.js:51:21)      at ChildProcess.emit (node:events:513:28)      at cp.emit (E:\workplace\lee-blog\node_modules\cross-spawn\lib\enoent.js:34:29)      at ChildProcess._handle.onexit (node:internal&#x2F;child_process:291:12) &#123;    code: 128  &#125;&#125; Something&#39;s wrong. Maybe you can find the solution here: %s https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>检查了本地ssh和远程github的ssh匹配，排除不匹配的可能性<br>执行<code>ssh -T git@github.com</code>，验证主机是否与github网站之间的ssh通信是否连接成功</p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.com@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!Someone could be eavesdropping on you right now (man-in-the-middle attack)!It is also possible that a host key has just been changed.The fingerprint for the RSA key sent by the remote host isSHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.Please contact your system administrator.Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1RSA host key for github.com has changed and you have requested strict checking.Host key verification failed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>发现<code>known_hosts</code>文件异常，尝试删除文件，并重新生成</p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.comThe authenticity of host &#39;github.com (20.205.243.166)&#39; can&#39;t be established.ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98&#x2F;R1BUFWu3&#x2F;LiyKgUfQM.Are you sure you want to continue connecting (yes&#x2F;no)? yPlease type &#39;yes&#39; or &#39;no&#39;: yesWarning: Permanently added &#39;github.com,20.205.243.166&#39; (ECDSA) to the list of known hosts.Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ ssh -T git@github.comHi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>可以看到校验成功了，重新执行<code>hexo d -g</code></p><pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)$ hexo d -gINFO  Validating configINFO  Start processingINFO  Files loaded in 640 ms...On branch masternothing to commit, working tree cleanCounting objects: 1167, done.Delta compression using up to 4 threads.Compressing objects: 100% (738&#x2F;738), done.Writing objects: 100% (1167&#x2F;1167), 7.87 MiB | 254.00 KiB&#x2F;s, done.Total 1167 (delta 397), reused 0 (delta 0)remote: Resolving deltas: 100% (397&#x2F;397), done.To github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git + 06ab1b8...af6b499 HEAD -&gt; master (forced update)Branch master set up to track remote branch master from git@github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git.INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>搞定！</p>]]></content>
       
       
       <categories>
@@ -1875,7 +1883,7 @@
       
         <tags>
             
-            <tag> 学习笔记 </tag>
+            <tag> hexo </tag>
             
         </tags>
       
@@ -1900,7 +1908,9 @@
       
         <tags>
             
-            <tag> 学习笔记 </tag>
+            <tag> 并发 </tag>
+            
+            <tag> 线程池 </tag>
             
         </tags>
       
