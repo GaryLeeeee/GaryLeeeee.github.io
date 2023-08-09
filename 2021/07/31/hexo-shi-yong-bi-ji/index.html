@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -490,7 +492,7 @@
 <li>找一个主题并下载到<code>/themes</code>目录下<br>比如我的主题是<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></li>
 <li>修改<code>_config.yml</code>的<code>theme: landscape</code>为<code>theme: matery</code></li>
 </ul>
-<h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;</a>:GaryLeeeee/garyleeeee.github.io.git<br>  branch: master</p>
+<h2 id="5-如何部署到远程-username-github-io"><a href="#5-如何部署到远程-username-github-io" class="headerlink" title="5.如何部署到远程{username.github.io}"></a>5.如何部署到远程{username.github.io}</h2><h3 id="5-1-配置git账户信息"><a href="#5-1-配置git账户信息" class="headerlink" title="5.1 配置git账户信息"></a>5.1 配置git账户信息</h3><p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com">git@github.com</a>:GaryLeeeee/garyleeeee.github.io.git<br>  branch: master</p>
 <h3 id="5-2-安装deployer插件"><a href="#5-2-安装deployer插件" class="headerlink" title="5.2 安装deployer插件"></a>5.2 安装deployer插件</h3><p><code>npm install hexo-deployer-git --save</code><br>如果没安装的话<code>hexo d</code>一般会报错”Deployer not found: github”或者”Deployer not found: git”</p>
 <h3 id="5-3-hexo-d-部署"><a href="#5-3-hexo-d-部署" class="headerlink" title="5.3 hexo d(部署)"></a>5.3 hexo d(部署)</h3><p>hexo d是hexo doploy的缩写，用来部署服务到远程</p>
 <h2 id="6-如何写博客"><a href="#6-如何写博客" class="headerlink" title="6.如何写博客"></a>6.如何写博客</h2><h3 id="6-1-hexo-new-xxx-新建博客"><a href="#6-1-hexo-new-xxx-新建博客" class="headerlink" title="6.1 hexo new xxx(新建博客)"></a>6.1 hexo new xxx(新建博客)</h3><p>通过hexo new ‘my-first-blog’即可创建一个名字为my-first-blog的微博文件<br><img src="http://image.liuxianan.com/201608/20160823_183325_470_9306.png"></p>
@@ -542,27 +544,27 @@ It is also possible that a host key has just been changed.
 The fingerprint for the RSA key sent by the remote host is
 SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
 Please contact your system administrator.
-Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.
-Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1
+Add correct host key in /c/Users/Administrator/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /c/Users/Administrator/.ssh/known_hosts:1
 RSA host key for github.com has changed and you have requested strict checking.
 Host key verification failed.
 fatal: Could not read from remote repository.
 
 Please make sure you have the correct access rights
 and the repository exists.
-FATAL &#123;
+FATAL {
   err: Error: Spawn failed
       at ChildProcess.&lt;anonymous&gt; (E:\workplace\lee-blog\node_modules\hexo-util\lib\spawn.js:51:21)
       at ChildProcess.emit (node:events:513:28)
       at cp.emit (E:\workplace\lee-blog\node_modules\cross-spawn\lib\enoent.js:34:29)
-      at ChildProcess._handle.onexit (node:internal&#x2F;child_process:291:12) &#123;
+      at ChildProcess._handle.onexit (node:internal/child_process:291:12) {
     code: 128
-  &#125;
-&#125; Something&#39;s wrong. Maybe you can find the solution here: %s https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;troubleshooting.
+  }
+} Something's wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>检查了本地ssh和远程github的ssh匹配，排除不匹配的可能性<br>执行<code>ssh -T git@github.com</code>，验证主机是否与github网站之间的ssh通信是否连接成功</p>
-<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 /e/workplace/lee-blog (master)
 $ ssh -T git@github.com
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
@@ -573,27 +575,27 @@ It is also possible that a host key has just been changed.
 The fingerprint for the RSA key sent by the remote host is
 SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
 Please contact your system administrator.
-Add correct host key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts to get rid of this message.
-Offending RSA key in &#x2F;c&#x2F;Users&#x2F;Administrator&#x2F;.ssh&#x2F;known_hosts:1
+Add correct host key in /c/Users/Administrator/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /c/Users/Administrator/.ssh/known_hosts:1
 RSA host key for github.com has changed and you have requested strict checking.
 Host key verification failed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>发现<code>known_hosts</code>文件异常，尝试删除文件，并重新生成</p>
-<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 /e/workplace/lee-blog (master)
 $ ssh -T git@github.com
-The authenticity of host &#39;github.com (20.205.243.166)&#39; can&#39;t be established.
-ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98&#x2F;R1BUFWu3&#x2F;LiyKgUfQM.
-Are you sure you want to continue connecting (yes&#x2F;no)? y
-Please type &#39;yes&#39; or &#39;no&#39;: yes
-Warning: Permanently added &#39;github.com,20.205.243.166&#39; (ECDSA) to the list of known hosts.
-Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+The authenticity of host 'github.com (20.205.243.166)' can't be established.
+ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM.
+Are you sure you want to continue connecting (yes/no)? y
+Please type 'yes' or 'no': yes
+Warning: Permanently added 'github.com,20.205.243.166' (ECDSA) to the list of known hosts.
+Hi GaryLeeeee! You've successfully authenticated, but GitHub does not provide shell access.
 
-Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+Administrator@243Z59L59Q55VQT MINGW64 /e/workplace/lee-blog (master)
 $ ssh -T git@github.com
-Hi GaryLeeeee! You&#39;ve successfully authenticated, but GitHub does not provide shell access.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Hi GaryLeeeee! You've successfully authenticated, but GitHub does not provide shell access.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>可以看到校验成功了，重新执行<code>hexo d -g</code></p>
-<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 &#x2F;e&#x2F;workplace&#x2F;lee-blog (master)
+<pre class="line-numbers language-none"><code class="language-none">Administrator@243Z59L59Q55VQT MINGW64 /e/workplace/lee-blog (master)
 $ hexo d -g
 INFO  Validating config
 INFO  Start processing
@@ -605,13 +607,13 @@ On branch master
 nothing to commit, working tree clean
 Counting objects: 1167, done.
 Delta compression using up to 4 threads.
-Compressing objects: 100% (738&#x2F;738), done.
-Writing objects: 100% (1167&#x2F;1167), 7.87 MiB | 254.00 KiB&#x2F;s, done.
+Compressing objects: 100% (738/738), done.
+Writing objects: 100% (1167/1167), 7.87 MiB | 254.00 KiB/s, done.
 Total 1167 (delta 397), reused 0 (delta 0)
-remote: Resolving deltas: 100% (397&#x2F;397), done.
-To github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git
+remote: Resolving deltas: 100% (397/397), done.
+To github.com:GaryLeeeee/garyleeeee.github.io.git
  + 06ab1b8...af6b499 HEAD -&gt; master (forced update)
-Branch master set up to track remote branch master from git@github.com:GaryLeeeee&#x2F;garyleeeee.github.io.git.
+Branch master set up to track remote branch master from git@github.com:GaryLeeeee/garyleeeee.github.io.git.
 INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>搞定！</p>
 
@@ -809,10 +811,10 @@ INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span><
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1135,16 +1137,16 @@ INFO  Deploy done: git<span aria-hidden="true" class="line-numbers-rows"><span><
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

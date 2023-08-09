@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -507,7 +509,7 @@
 <td>拒绝策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务</td>
 </tr>
 <tr>
-<td>BlockingQueue<Runnable> workQueue</td>
+<td>BlockingQueue<runnable> workQueue</runnable></td>
 <td>阻塞队列，可指定大小</td>
 </tr>
 </tbody></table>
@@ -565,38 +567,38 @@
 <li>CallerRunPolicy：由调用线程执行该任务</li>
 </ul>
 <h3 id="2-AbortPolicy"><a href="#2-AbortPolicy" class="headerlink" title="2.AbortPolicy"></a>2.AbortPolicy</h3><p>创建一个corePoolSize和maximumPoolSize都为1，阻塞队列大小为1的线程池。for循环起10个任务，每个任务sleep一秒。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AbortPolicyDemo</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AbortPolicyDemo</span> <span class="token punctuation">{</span>
   <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> THREAD_SIZE <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CAPACITY <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">// 创建线程池：指定corePoolSize和maximumPoolSize都为1，阻塞队列大小为1</span>
-    <span class="token class-name">ThreadPoolExecutor</span> pool <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span>THREAD_SIZE<span class="token punctuation">,</span> THREAD_SIZE<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ArrayBlockingQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>CAPACITY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">ThreadPoolExecutor</span> pool <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span>THREAD_SIZE<span class="token punctuation">,</span> THREAD_SIZE<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ArrayBlockingQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>CAPACITY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     pool<span class="token punctuation">.</span><span class="token function">setRejectedExecutionHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor<span class="token punctuation">.</span>AbortPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span><span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span><span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       pool<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyRunnable</span><span class="token punctuation">(</span><span class="token string">"task-"</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyRunnable</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyRunnable</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token class-name">MyRunnable</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">MyRunnable</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">" is running"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">try</span> <span class="token punctuation">{</span>
         <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">//ignore</span>
-      <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>测试结果：</p>
-<pre class="line-numbers language-none"><code class="language-none">Exception in thread &quot;main&quot; java.util.concurrent.RejectedExecutionException: Task com.garylee.config.server.controller.admin.AdminLeeObjectConfigController$MyRunnable@3f8f9dd6 rejected from java.util.concurrent.ThreadPoolExecutor@aec6354[Running, pool size &#x3D; 1, active threads &#x3D; 1, queued tasks &#x3D; 1, completed tasks &#x3D; 0]
+<pre class="line-numbers language-none"><code class="language-none">Exception in thread "main" java.util.concurrent.RejectedExecutionException: Task com.garylee.config.server.controller.admin.AdminLeeObjectConfigController$MyRunnable@3f8f9dd6 rejected from java.util.concurrent.ThreadPoolExecutor@aec6354[Running, pool size = 1, active threads = 1, queued tasks = 1, completed tasks = 0]
 	at java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2047)
 	at java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:823)
 	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1369)
@@ -613,7 +615,7 @@ task-2 is running<span aria-hidden="true" class="line-numbers-rows"><span></span
 <li>end</li>
 </ul>
 <h3 id="3-DiscardPolicy"><a href="#3-DiscardPolicy" class="headerlink" title="3.DiscardPolicy"></a>3.DiscardPolicy</h3><p>创建一个corePoolSize和maximumPoolSize都为1，阻塞队列大小为1的线程池。for循环起10个任务，每个任务sleep一秒。</p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;** 其他代码省略，具体见6.2 &#x2F;**
+<pre class="line-numbers language-none"><code class="language-none">/** 其他代码省略，具体见6.2 /**
 pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>测试结果：</p>
 <pre class="line-numbers language-none"><code class="language-none">task-1 is running
@@ -631,7 +633,7 @@ task-2 is running<span aria-hidden="true" class="line-numbers-rows"><span></span
 <li>end</li>
 </ul>
 <h3 id="4-DiscardOldestPolicy"><a href="#4-DiscardOldestPolicy" class="headerlink" title="4.DiscardOldestPolicy"></a>4.DiscardOldestPolicy</h3><p>创建一个corePoolSize和maximumPoolSize都为1，阻塞队列大小为1的线程池。for循环起10个任务，每个任务sleep一秒。</p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;** 其他代码省略，具体见6.2 &#x2F;**
+<pre class="line-numbers language-none"><code class="language-none">/** 其他代码省略，具体见6.2 /**
 pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>测试结果：</p>
 <pre class="line-numbers language-none"><code class="language-none">task-1 is running
@@ -649,7 +651,7 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
 <li>end</li>
 </ul>
 <h3 id="5-CallerRunsPolicy"><a href="#5-CallerRunsPolicy" class="headerlink" title="5.CallerRunsPolicy"></a>5.CallerRunsPolicy</h3><p>创建一个corePoolSize和maximumPoolSize都为1，阻塞队列大小为1的线程池。for循环起10个任务，每个任务sleep一秒。</p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;** 其他代码省略，具体见6.2 &#x2F;**
+<pre class="line-numbers language-none"><code class="language-none">/** 其他代码省略，具体见6.2 /**
 pool.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>测试结果：</p>
 <pre class="line-numbers language-none"><code class="language-none">task-1 is running
@@ -688,11 +690,11 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
 </ul>
 <h3 id="2、线程池状态"><a href="#2、线程池状态" class="headerlink" title="2、线程池状态"></a>2、线程池状态</h3><ul>
 <li><strong>运行状态（RUNNING）</strong>：表示线程池正常运行，能接受新任务，也能正常处理队列中的任务</li>
-<li><strong>关闭状态（SHUTDOWN）</strong>：表示线程池处于关闭状态，不能接受新任务，<font color=red>能正常处理队列中任务</font><ul>
+<li><strong>关闭状态（SHUTDOWN）</strong>：表示线程池处于关闭状态，不能接受新任务，<font color="red">能正常处理队列中任务</font><ul>
 <li><strong>状态切换</strong>：调用shutdown()方法，线程池状态由<code>RUNNING</code> -&gt; <code>SHUTDOWN</code></li>
 </ul>
 </li>
-<li><strong>停止状态（STOP）</strong>：表示线程池处于停止状态，不能接受新任务，<font color=red>不能正常处理队列中任务，正在运行的线程也会停止</font><ul>
+<li><strong>停止状态（STOP）</strong>：表示线程池处于停止状态，不能接受新任务，<font color="red">不能正常处理队列中任务，正在运行的线程也会停止</font><ul>
 <li><strong>状态切换</strong>：调用shutdownnow()方法，线程池状态由(<code>RUNNING</code> or <code>SHUTDOWN</code>) -&gt; <code>STOP</code></li>
 </ul>
 </li>
@@ -909,10 +911,10 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1219,16 +1221,16 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

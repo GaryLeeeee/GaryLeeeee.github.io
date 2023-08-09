@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -475,7 +477,7 @@
 <li><strong>Row模式</strong>：记录DDL+DML语句（MySQL 5.7.7之后默认使用）</li>
 <li><strong>Mixed模式</strong>：Statement模式+Row模式组合（默认使用Statement模式，少数情况下自动切到Row模式）</li>
 <li>如何查看使用的模式：<code>show variables like </code>%binlog_format%<code>;</code></li>
-<li>*场景<strong>：</strong>主从复制**，<font color=red>依赖binlog去同步数据，保证数据一致性</font></li>
+<li>*场景<strong>：</strong>主从复制**，<font color="red">依赖binlog去同步数据，保证数据一致性</font></li>
 </ul>
 <h3 id="2、主从复制"><a href="#2、主从复制" class="headerlink" title="2、主从复制"></a>2、主从复制</h3><p><strong>参考文档</strong>：<a target="_blank" rel="noopener" href="https://javaguide.cn/high-performance/read-and-write-separation-and-library-subtable.html">https://javaguide.cn/high-performance/read-and-write-separation-and-library-subtable.html</a><br><strong>原理图</strong>：<br> <img src="/images/mysql/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE.png"><br><strong>步骤</strong>：</p>
 <ol>
@@ -488,8 +490,8 @@
 </ol>
 <h3 id="3、binlog什么时候写入？"><a href="#3、binlog什么时候写入？" class="headerlink" title="3、binlog什么时候写入？"></a>3、binlog什么时候写入？</h3><ul>
 <li>对于InnoDB存储而言，在执行一个事务时，会把日志写到binlog cache，等事务完成了再把binlog cache的日志持久化到binlog中，这样做也是为了考虑性能</li>
-<li><strong>为什么要有binlog cache呢？</strong>因为一个事务的binlog不能被拆开，无论这个事务多大，都要保证一次性写入，所以才会有binlog cache的存在，我们可以通过设置<code>binlog_cache_size</code>来控制单个线程binlog cache的大小（如果超过改大小，就要<font color=red>暂存到磁盘中</font>）</li>
-<li><strong>binlog是什么时候刷新到磁盘中的？</strong>可以通过sync_binlog来控制binlog的刷盘时机：<code>show variables like &#39;sync_binlog&#39;</code><ul>
+<li><strong>为什么要有binlog cache呢？</strong>因为一个事务的binlog不能被拆开，无论这个事务多大，都要保证一次性写入，所以才会有binlog cache的存在，我们可以通过设置<code>binlog_cache_size</code>来控制单个线程binlog cache的大小（如果超过改大小，就要<font color="red">暂存到磁盘中</font>）</li>
+<li><strong>binlog是什么时候刷新到磁盘中的？</strong>可以通过sync_binlog来控制binlog的刷盘时机：<code>show variables like 'sync_binlog'</code><ul>
 <li>sync_binlog=0：不强制要求，由系统自行判断刷盘时机（MySQL5.7之前的默认值）</li>
 <li>sync_binlog=1：每次提交事务的时候都会刷盘（MySQL5.7之后的默认值）</li>
 <li>sync_binlog=N：每N个事务，才会刷盘</li>
@@ -505,11 +507,11 @@
 </ul>
 <h2 id="三、redo-log介绍"><a href="#三、redo-log介绍" class="headerlink" title="三、redo log介绍"></a>三、redo log介绍</h2><h3 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h3><ul>
 <li>InnoDB引擎是以页（数据页）为单位来存储数据的，也就是我们往MySQL插入的所有数据最终都会写入到这个页中</li>
-<li>为了减少IO开销，中间会有一个Buffer Pool的区域存在内存中，如果Buffer Pool中没有我们想要的数据，MySQL就会把页中的数据缓存到Buffer Pool中，这样我们就直接操作缓存即可，<font color=red>大大提高了读写性能</font></li>
+<li>为了减少IO开销，中间会有一个Buffer Pool的区域存在内存中，如果Buffer Pool中没有我们想要的数据，MySQL就会把页中的数据缓存到Buffer Pool中，这样我们就直接操作缓存即可，<font color="red">大大提高了读写性能</font></li>
 </ul>
-<h3 id="2、Buffer-Pool存在带来的问题"><a href="#2、Buffer-Pool存在带来的问题" class="headerlink" title="2、Buffer Pool存在带来的问题"></a>2、Buffer Pool存在带来的问题</h3><p>如果一个事务提交了，在Buffer Pool没来得及刷新（即持久化）回磁盘，MySQL就突然宕机了，这时候这个事务就消失了呢？结论是不会的，这样就违反了事务的持久性。<font color=red>MySQL InnoDB引擎用redo log来保证事务的持久性</font></p>
+<h3 id="2、Buffer-Pool存在带来的问题"><a href="#2、Buffer-Pool存在带来的问题" class="headerlink" title="2、Buffer Pool存在带来的问题"></a>2、Buffer Pool存在带来的问题</h3><p>如果一个事务提交了，在Buffer Pool没来得及刷新（即持久化）回磁盘，MySQL就突然宕机了，这时候这个事务就消失了呢？结论是不会的，这样就违反了事务的持久性。<font color="red">MySQL InnoDB引擎用redo log来保证事务的持久性</font></p>
 <h3 id="3、redo-log是什么？"><a href="#3、redo-log是什么？" class="headerlink" title="3、redo log是什么？"></a>3、redo log是什么？</h3><ul>
-<li><font color=red>redo log是InnoDB引擎独有的，用来保证事务的持久性</font></li>
+<li><font color="red">redo log是InnoDB引擎独有的，用来保证事务的持久性</font></li>
 <li>主要是记录页的修改，比如哪个页某个偏移量处修改了几个字节的值以及具体被修改的值是什么</li>
 <li>redo log的每一条记录包括：<ul>
 <li>表空间号</li>
@@ -719,10 +721,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1049,16 +1051,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -426,7 +428,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    245
+                    229
                 </div>
                 
 
@@ -454,19 +456,19 @@
                 <h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h3 id="1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？"><a href="#1-项目启动时出现循环依赖-A依赖B，B依赖A-，哪一方启动都会报错找不到消费者，如何解决？" class="headerlink" title="1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？"></a>1.项目启动时出现循环依赖(A依赖B，B依赖A)，哪一方启动都会报错找不到消费者，如何解决？</h3><p><strong>分析</strong>：Dubbo默认会在启动时检查依赖的服务是否可用，不可用时会抛出异常(No provider…)<br><strong>解决</strong>：关闭启动时依赖检查</p>
 <ul>
 <li><strong>方案a：配置spring配置文件</strong><ul>
-<li>关闭某个服务的启动时检查(没有提供者时报错)<br><code>&lt;dubbo:reference interface=&quot;com.demo.UserService&quot; check=&quot;false&quot; /&gt;</code></li>
-<li>关闭所有服务的启动时检查(没有提供者时报错)<br><code>&lt;dubbo:consumer check=&quot;false&quot; /&gt;</code></li>
-<li>关闭注册中心启动时检查(注册订阅失败时报错)<br><code>&lt;dubbo:registry check=&quot;false&quot; /&gt;</code></li>
+<li>关闭某个服务的启动时检查(没有提供者时报错)<br><code>&lt;dubbo:reference interface="com.demo.UserService" check="false" /&gt;</code></li>
+<li>关闭所有服务的启动时检查(没有提供者时报错)<br><code>&lt;dubbo:consumer check="false" /&gt;</code></li>
+<li>关闭注册中心启动时检查(注册订阅失败时报错)<br><code>&lt;dubbo:registry check="false" /&gt;</code></li>
 </ul>
 </li>
-<li><strong>方案b：配置dubbo.properties</strong><pre class="line-numbers language-none"><code class="language-none">dubbo.reference.com.demo.UserService.check&#x3D;false
-dubbo.reference.check&#x3D;false
-dubbo.consumer.check&#x3D;false
-dubbo.registry.check&#x3D;false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><strong>方案c：配置<code>-D</code>参数</strong><pre class="line-numbers language-none"><code class="language-none">java -Ddubbo.reference.com.demo.UserService.check&#x3D;false
-java -Ddubbo.reference.check&#x3D;false
-java -Ddubbo.consumer.check&#x3D;false 
-java -Ddubbo.registry.check&#x3D;false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><strong>方案b：配置dubbo.properties</strong><pre class="line-numbers language-none"><code class="language-none">dubbo.reference.com.demo.UserService.check=false
+dubbo.reference.check=false
+dubbo.consumer.check=false
+dubbo.registry.check=false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><strong>方案c：配置<code>-D</code>参数</strong><pre class="line-numbers language-none"><code class="language-none">java -Ddubbo.reference.com.demo.UserService.check=false
+java -Ddubbo.reference.check=false
+java -Ddubbo.consumer.check=false 
+java -Ddubbo.registry.check=false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 
                 
@@ -663,10 +665,10 @@ java -Ddubbo.registry.check&#x3D;false<span aria-hidden="true" class="line-numbe
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -997,16 +999,16 @@ java -Ddubbo.registry.check&#x3D;false<span aria-hidden="true" class="line-numbe
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

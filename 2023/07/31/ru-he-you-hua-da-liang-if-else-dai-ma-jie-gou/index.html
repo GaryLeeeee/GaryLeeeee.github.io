@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -434,7 +436,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    603
+                    497
                 </div>
                 
 
@@ -461,145 +463,145 @@
             <div id="articleContent">
                 <h2 id="一、提前return"><a href="#一、提前return" class="headerlink" title="一、提前return"></a>一、提前return</h2><p><strong>适用场景</strong>：if-else代码结构包含return语句<br><strong>优点</strong>：优化代码阅读体验，如果if处理逻辑复杂不用拉到底才知道else是return逻辑<br><strong>例子代码</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">优化前：
-if(condition) &#123;
-    &#x2F;&#x2F; do sth
-&#125; else &#123;
+if(condition) {
+    // do sth
+} else {
     return;
-&#125;
+}
 
 优化后：
-if(!condition) &#123;
+if(!condition) {
     return;
-&#125;
-&#x2F;&#x2F; do sth
+}
+// do sth
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="二、使用三目运算符"><a href="#二、使用三目运算符" class="headerlink" title="二、使用三目运算符"></a>二、使用三目运算符</h2><p><strong>适用场景</strong>：if-else条件都是为某个变量赋值<br><strong>优点</strong>：使代码更加简洁<br><strong>例子代码</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">优化前：
 int price;
-if(condition) &#123;
-    price &#x3D; 10;  
-&#125; else &#123;
-    price &#x3D; 20;
-&#125;
+if(condition) {
+    price = 10;  
+} else {
+    price = 20;
+}
 
 优化后：
-int price &#x3D; condition ? 10 : 20;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+int price = condition ? 10 : 20;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="三、使用枚举"><a href="#三、使用枚举" class="headerlink" title="三、使用枚举"></a>三、使用枚举</h2><p><strong>适用场景</strong>：condition的判断维度一致，且if-else逻辑都是为某个变量赋值<br><strong>优点</strong>：方便扩展<br><strong>例子代码</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">优化前：
 int status;
 String remark;
-if(status &#x3D;&#x3D; 0) &#123;
-    remark &#x3D; &quot;正常&quot;;
-&#125; else if (status &#x3D;&#x3D; 1) &#123;
-    remark &#x3D; &quot;已隐藏&quot;;
-&#125; else if (status &#x3D;&#x3D; 2) &#123;
-    remark &#x3D; &quot;已删除&quot;;
-&#125;
+if(status == 0) {
+    remark = "正常";
+} else if (status == 1) {
+    remark = "已隐藏";
+} else if (status == 2) {
+    remark = "已删除";
+}
 
 优化后：
 @AllArgsConstructor
 @Getter
-public enum StatusEnum &#123;
-    COMMON(0,&quot;正常&quot;),
-    HIDDEN(1,&quot;已隐藏&quot;),
-    DELETED(2,&quot;已删除&quot;);
+public enum StatusEnum {
+    COMMON(0,"正常"),
+    HIDDEN(1,"已隐藏"),
+    DELETED(2,"已删除");
     
     private int status;
     private String remark;
     
-    public static String getRemarkByStatus(int status) &#123;
-        for(StatusEnum statusEnum : StatusEnum.values()) &#123;
-            if(status &#x3D;&#x3D; statusEnum.getStatus()) &#123;
+    public static String getRemarkByStatus(int status) {
+        for(StatusEnum statusEnum : StatusEnum.values()) {
+            if(status == statusEnum.getStatus()) {
                 return statusEnum;
-            &#125;
-        &#125;
+            }
+        }
         
         return null;
-    &#125;
-&#125;
+    }
+}
 
 int status;
-String remark &#x3D; StatusEnum.getRemarkByStatus(status);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+String remark = StatusEnum.getRemarkByStatus(status);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="四、合并条件表达式"><a href="#四、合并条件表达式" class="headerlink" title="四、合并条件表达式"></a>四、合并条件表达式</h2><p><strong>适用场景</strong>：多个if-else对应一样的逻辑处理<br><strong>例子代码</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">优化前：
-if(age &lt; 0) &#123;
+if(age &lt; 0) {
     return -1;
-&#125;
-if(id &lt; 0) &#123;
+}
+if(id &lt; 0) {
     return -1;
-&#125;
-if(StringUtils.isBlank(name)) &#123;
+}
+if(StringUtils.isBlank(name)) {
     return -1;
-&#125;
+}
 
 优化后：
-if(age &lt; 0 || id &lt; 0 || StringUtils.isBlank(name)) &#123;
+if(age &lt; 0 || id &lt; 0 || StringUtils.isBlank(name)) {
     return -1;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="五、策略模式-工厂模式"><a href="#五、策略模式-工厂模式" class="headerlink" title="五、策略模式+工厂模式"></a>五、策略模式+工厂模式</h2><p><strong>使用场景</strong>：每个if-else逻辑处理比较复杂，放在一个方法里会不好维护<br><strong>优点</strong>：基于接口编程，可读性好，方便维护扩展<br><strong>例子代码</strong>：</p>
 <pre class="line-numbers language-none"><code class="language-none">优化前：
 int type;
-if(type &#x3D;&#x3D; 1) &#123;
-    &#x2F;&#x2F; do sth1
-&#125; else if (type &#x3D;&#x3D; 2) &#123;
-    &#x2F;&#x2F; do sth2
-&#125;
+if(type == 1) {
+    // do sth1
+} else if (type == 2) {
+    // do sth2
+}
 
 优化后：
 @Service
-public class TestFactory implements InitializingBean &#123;
+public class TestFactory implements InitializingBean {
     @Autowired
     private List&lt;TestStrategy&gt; strategies;
-    private Map&lt;Integer, TestStrategy&gt; strategyMap &#x3D; new HashMap&lt;&gt;();
+    private Map&lt;Integer, TestStrategy&gt; strategyMap = new HashMap&lt;&gt;();
     
     @Override
-    public void afterPropertiesSet() throws Exception &#123;
-        for(TestStrategy testStrategy : strategies) &#123;
+    public void afterPropertiesSet() throws Exception {
+        for(TestStrategy testStrategy : strategies) {
             strategyMap.put(testStrategy.getType(), testStrategy); 
-        &#125;
-    &#125;
+        }
+    }
     
-    public TestStrategy getTestStrategy(int type) &#123;
+    public TestStrategy getTestStrategy(int type) {
         return strategyMap.get(type);
-    &#125;
-&#125;
+    }
+}
 
-public interface TestStrategy &#123;
-    &#x2F;&#x2F; 获取类型
+public interface TestStrategy {
+    // 获取类型
     int getType();
-    &#x2F;&#x2F; 执行
+    // 执行
     void execute();
-&#125;
+}
 
 @Serivce
-public class TestStrategyImpl1 implements TestStrategy &#123;
+public class TestStrategyImpl1 implements TestStrategy {
     @Override
-    public int getType() &#123;
+    public int getType() {
         return 1; 
-    &#125;
+    }
     
     @Override
-    public void execute() &#123;
-        &#x2F;&#x2F;do sth
-    &#125;
-&#125;
+    public void execute() {
+        //do sth
+    }
+}
 
 @Serivce
-public class TestStrategyImpl2 implements TestStrategy &#123;
+public class TestStrategyImpl2 implements TestStrategy {
     @Override
-    public int getType() &#123;
+    public int getType() {
         return 2; 
-    &#125;
+    }
     
     @Override
-    public void execute() &#123;
-        &#x2F;&#x2F;do sth
-    &#125;
-&#125;
+    public void execute() {
+        //do sth
+    }
+}
 
 int type;
 TestFactory.getTestStrategy(type).execute();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -805,10 +807,10 @@ TestFactory.getTestStrategy(type).execute();<span aria-hidden="true" class="line
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1135,16 +1137,16 @@ TestFactory.getTestStrategy(type).execute();<span aria-hidden="true" class="line
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

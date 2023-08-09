@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -308,6 +310,13 @@
 
 <div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
     
+        <div id="prev-cover" class="left waves-effect carousel-control">
+            <i class="icon fa fa-angle-left"></i>
+        </div>
+        <div id="next-cover" class="right waves-effect carousel-control">
+            <i class="icon fa fa-angle-right"></i>
+        </div>
+    
 
     <div class="carousel-item red white-text bg-cover about-cover">
         <div class="container">
@@ -391,6 +400,33 @@
         </div>
     </div>
 
+    
+        
+
+        
+            
+            <div class="carousel-item amber white-text carousel-post bg-cover"
+                 style="background-image: url('/medias/featureimages/14.jpg');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 offset-s1">
+                            <div class="title center-align">博客导航</div>
+                            <div class="description center-align">
+                                
+                                    博客导航
+                                
+                            </div>
+                            <div class="cover-btns">
+                                <a href="/2023/07/17/bo-ke-dao-hang/" class="waves-effect waves-light btn"
+                                   target="_blank">
+                                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
     
 </div>
 
@@ -540,6 +576,66 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/08/08/redis/redis-ji-qun/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Redis集群">
+                            
+                            <span class="card-title">Redis集群</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、Redis集群有哪几种实现方式？Redis集群有三种实现方式：
+
+主从复制
+哨兵模式
+Redis Cluster集群
+
+1、主从复制优点：
+
+读写分离：master节点负责读写，slave节点负责读
+slave节点能够分担master节
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Redis/" class="post-category">
+                                    Redis
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Redis/">
+                            <span class="chip bg-color">Redis</span>
+                        </a>
+                        
+                        <a href="/tags/%E9%9B%86%E7%BE%A4/">
+                            <span class="chip bg-color">集群</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/08/04/java-lei-jia-zai-ji-zhi/">
                         <div class="card-image">
                             
@@ -610,10 +706,11 @@
 
 直接：A依赖B，B依赖A
 间接：A依赖B，B依赖C，C依赖A// A依赖B
-class A &#123;
+class A {
   public B b;
-&#125;
+}
 // B依赖A
+class B {
                             
                         </div>
                         <div class="publish-info">
@@ -718,8 +815,9 @@ class A &#123;
                             
                                 一、提前return适用场景：if-else代码结构包含return语句优点：优化代码阅读体验，如果if处理逻辑复杂不用拉到底才知道else是return逻辑例子代码：
 优化前：
-if(condition) &#123;
-    &#x2F
+if(condition) {
+    // do sth
+
                             
                         </div>
                         <div class="publish-info">
@@ -1085,6 +1183,60 @@ CPU上下文切换过多：由于在同一时刻下每个CPU核心只能运行�
                 </div>
             </div>
             
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/07/19/ru-he-she-ji-fen-bu-shi-id/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何设计分布式ID？">
+                            
+                            <span class="card-title">如何设计分布式ID？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、为什么要使用分布式ID？
+比如MySQL的主键ID一般用自增的方式，但如果用分表的话，多个表中会生成重复的ID
+
+二、设计方案
+使用MySQL的全局表：每获取一次都需要更新数据库，性能差
+使用redis的自增id
+UUID
+雪花算法  
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </article>
 
@@ -1101,7 +1253,7 @@ CPU上下文切换过多：由于在同一时刻下每个CPU核心只能运行�
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 7</div>
+            <div class="center-align b-text-gray">1 / 6</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1177,16 +1329,16 @@ CPU上下文切换过多：由于在同一时刻下每个CPU核心只能运行�
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

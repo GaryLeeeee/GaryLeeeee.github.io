@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -456,13 +458,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="一、MySQL的事务隔离级别"><a href="#一、MySQL的事务隔离级别" class="headerlink" title="一、MySQL的事务隔离级别"></a>一、MySQL的事务隔离级别</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><p>为了解决多个并行事务竞争导致的数据安全问题的一个规范<br>可能会出现的现象：脏读、不可重复读、幻读</p>
-<h3 id="2、脏读"><a href="#2、脏读" class="headerlink" title="2、脏读"></a>2、脏读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1可能会读到T2未提交的数据，但是T2可能会回滚，导致T1读到了错误的数据，产生<font color=red>脏读</font>的现象<br><strong>解决方案</strong>：用<font color=red>读已提交</font>的隔离级别，但还是存在<font color=red>不可重复读</font>和<font color=red>幻读</font><br><img src="/images/mysql/mysql%E8%84%8F%E8%AF%BB.png" alt="mysql脏读"></p>
-<h3 id="3、不可重复读"><a href="#3、不可重复读" class="headerlink" title="3、不可重复读"></a>3、不可重复读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1在不同时刻（比如T2提交前和提交后）读到的数据不一致，导致<font color=red>不可重复读</font>的问题<br><strong>解决方案</strong>：用<font color=red>可重复读</font>的隔离级别，但还是存在<font color=red>幻读</font><br><img src="/images/mysql/mysql%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png" alt="mysql不可重复读"></p>
-<h3 id="4、幻读"><a href="#4、幻读" class="headerlink" title="4、幻读"></a>4、幻读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1执行返回查询/范围修改时，T2插入了T1查询范围内的数据并且提交了，T1再次查询/修改时，发现数据多出来一条/没修改成功，看起来像出现了幻觉，即为<font color=red>幻读</font><br><strong>解决方案</strong>：用<font color=red>串行化</font>的隔离级别，但是性能是最低的</p>
+<h3 id="2、脏读"><a href="#2、脏读" class="headerlink" title="2、脏读"></a>2、脏读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1可能会读到T2未提交的数据，但是T2可能会回滚，导致T1读到了错误的数据，产生<font color="red">脏读</font>的现象<br><strong>解决方案</strong>：用<font color="red">读已提交</font>的隔离级别，但还是存在<font color="red">不可重复读</font>和<font color="red">幻读</font><br><img src="/images/mysql/mysql%E8%84%8F%E8%AF%BB.png" alt="mysql脏读"></p>
+<h3 id="3、不可重复读"><a href="#3、不可重复读" class="headerlink" title="3、不可重复读"></a>3、不可重复读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1在不同时刻（比如T2提交前和提交后）读到的数据不一致，导致<font color="red">不可重复读</font>的问题<br><strong>解决方案</strong>：用<font color="red">可重复读</font>的隔离级别，但还是存在<font color="red">幻读</font><br><img src="/images/mysql/mysql%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png" alt="mysql不可重复读"></p>
+<h3 id="4、幻读"><a href="#4、幻读" class="headerlink" title="4、幻读"></a>4、幻读</h3><p><strong>问题</strong>：两个事务T1/T2同时执行，T1执行返回查询/范围修改时，T2插入了T1查询范围内的数据并且提交了，T1再次查询/修改时，发现数据多出来一条/没修改成功，看起来像出现了幻觉，即为<font color="red">幻读</font><br><strong>解决方案</strong>：用<font color="red">串行化</font>的隔离级别，但是性能是最低的</p>
 <h3 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h3><ul>
 <li><strong>读未提交</strong>：可能会出现脏读、不可重复读、幻读</li>
 <li><strong>读已提交</strong>：可能会出现不可重复读、幻读</li>
-<li><strong>可重复读</strong>：可能会出现幻读（<font color=red>InnoDB不可能</font>），是InnoDB引擎默认的隔离级别，保证了事务ACID特性中的<font color=red>隔离性</font>特征</li>
+<li><strong>可重复读</strong>：可能会出现幻读（<font color="red">InnoDB不可能</font>），是InnoDB引擎默认的隔离级别，保证了事务ACID特性中的<font color="red">隔离性</font>特征</li>
 <li><strong>串行化</strong>：多个并行事务串行化执行，不会出现安全性问题，但是性能是最低的</li>
 </ul>
 <h2 id="二、MySQL事务特性（ACID）"><a href="#二、MySQL事务特性（ACID）" class="headerlink" title="二、MySQL事务特性（ACID）"></a>二、MySQL事务特性（ACID）</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7153626309338333220">https://juejin.cn/post/7153626309338333220</a></p>
@@ -481,9 +483,9 @@
 </ul>
 <p><strong>实现原理</strong>：</p>
 <ul>
-<li>A：<font color=red>undo log日志实现</font>，用于撤销回滚，存储了数据库更新之前的数据</li>
-<li>C：<font color=red>redo log日志实现</font>，用于灾难恢复，存储了修改但未提交的数据，当发生断电等异常灾难时，会通过redo log日志做一个提交恢复</li>
-<li>I：<font color=red>MVCC实现</font>，主要由索引的隐藏列和undo log日志实现，其中索引的隐藏列包含了该行数据的版本号、删除时间、指向undo log的指针等。当读取数据时，mysql根据隐藏列判断是否需要回滚并找到回滚需要的undo log，从而实现MVCC</li>
+<li>A：<font color="red">undo log日志实现</font>，用于撤销回滚，存储了数据库更新之前的数据</li>
+<li>C：<font color="red">redo log日志实现</font>，用于灾难恢复，存储了修改但未提交的数据，当发生断电等异常灾难时，会通过redo log日志做一个提交恢复</li>
+<li>I：<font color="red">MVCC实现</font>，主要由索引的隐藏列和undo log日志实现，其中索引的隐藏列包含了该行数据的版本号、删除时间、指向undo log的指针等。当读取数据时，mysql根据隐藏列判断是否需要回滚并找到回滚需要的undo log，从而实现MVCC</li>
 <li>D：一致性是事务的最终目标（由前面的A、C、I实现）</li>
 </ul>
 
@@ -685,10 +687,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1015,16 +1017,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

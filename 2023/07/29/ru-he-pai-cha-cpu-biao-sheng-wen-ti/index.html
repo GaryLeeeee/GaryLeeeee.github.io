@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -430,7 +432,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    448
+                    446
                 </div>
                 
 
@@ -457,12 +459,12 @@
             <div id="articleContent">
                 <h2 id="一、CPU飙升可能的原因"><a href="#一、CPU飙升可能的原因" class="headerlink" title="一、CPU飙升可能的原因"></a>一、CPU飙升可能的原因</h2><p><strong>背景</strong>：CPU是整个电脑的核心计算资源，对于一个应用进程来说，CPU的最小执行单元是线程<br>导致CPU飙高的原因有几个方面：</p>
 <ul>
-<li><strong>CPU上下文切换过多</strong>：由于在同一时刻下每个CPU核心只能运行一个线程，如果存在多个线程，CPU就只能通过上下文切换（上下文切换=保存运行线程的执行状态+执行处于等待中的线程）来执行不同的线程。<font color=red>在Java中，文件IO、网络IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换</font></li>
-<li><strong>CPU资源过度消耗</strong>：也就是在程序中创建了大量的线程，或者有线程一直占用CPU资源无法被释放。<font color=red>比如死循环</font></li>
+<li><strong>CPU上下文切换过多</strong>：由于在同一时刻下每个CPU核心只能运行一个线程，如果存在多个线程，CPU就只能通过上下文切换（上下文切换=保存运行线程的执行状态+执行处于等待中的线程）来执行不同的线程。<font color="red">在Java中，文件IO、网络IO、锁等待、线程阻塞等操作都会造成线程阻塞从而触发上下文切换</font></li>
+<li><strong>CPU资源过度消耗</strong>：也就是在程序中创建了大量的线程，或者有线程一直占用CPU资源无法被释放。<font color="red">比如死循环</font></li>
 </ul>
 <h2 id="二、排查步骤"><a href="#二、排查步骤" class="headerlink" title="二、排查步骤"></a>二、排查步骤</h2><ol>
 <li><strong>查找占用CPU高的进程PID</strong>：使用<code>top</code>命令查找，找到CPU高的进程PID</li>
-<li><strong>查找进程中CPU高的线程TID</strong>：使用<code>ps -mp &lt;PID&gt; -o THREAD,tid,time</code>命令查找，找到CPU高的线程TID（这里打印的TID是十进制的，需要转为十六进制，可以通过命令<code>printf &quot;%x\n&quot; &lt;TID&gt;</code>转换，如十进制3936对应十进制f60）</li>
+<li><strong>查找进程中CPU高的线程TID</strong>：使用<code>ps -mp &lt;PID&gt; -o THREAD,tid,time</code>命令查找，找到CPU高的线程TID（这里打印的TID是十进制的，需要转为十六进制，可以通过命令<code>printf "%x\n" &lt;TID&gt;</code>转换，如十进制3936对应十进制f60）</li>
 <li><strong>查看占用资源异常的线程栈</strong>：使用<code>jstack &lt;TID&gt;</code>命令查看（简易的话可以用<code>jstack &lt;TID&gt; | grep &lt;十六进制TID&gt; -A20</code>快速定位异常堆栈），就可以看到具体是哪一块代码出现了问题（一般是死循环、阻塞等）</li>
 </ol>
 <p>如果定位的结果是程序正常，有可能是CPU飙升时，用户访问量较大，导致系统资源不够，可适当调整配置</p>
@@ -666,10 +668,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1008,16 +1010,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

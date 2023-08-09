@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -462,9 +464,9 @@
 <li><strong>实现</strong>：如基于MQ实现的生产者消费者模型也算漏桶算法<br><img src="/images/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95-%E6%BC%8F%E6%A1%B6.png"></li>
 </ul>
 </li>
-<li><strong>令牌桶算法</strong>：相比<font color=red>漏桶算法</font>来说，它可以<font color=red>处理突发流量</font>的问题<ul>
-<li><strong>实现</strong>：令牌桶<font color=red>以恒定速率去生成令牌</font>，桶大小是固定的，满了就不再生成。客户端请求的时候，会<font color=red>获取一个令牌才能访问</font>，否则<font color=red>只能排队等待</font></li>
-<li><strong>能够处理突发流量原理</strong>：流量低峰的时候，令牌桶会出现堆积。因为出现<font color=red>瞬时高峰</font>的时候，会有足够多的令牌可以获取，因此令牌桶可以<font color=red>允许瞬时流量</font>的处理</li>
+<li><strong>令牌桶算法</strong>：相比<font color="red">漏桶算法</font>来说，它可以<font color="red">处理突发流量</font>的问题<ul>
+<li><strong>实现</strong>：令牌桶<font color="red">以恒定速率去生成令牌</font>，桶大小是固定的，满了就不再生成。客户端请求的时候，会<font color="red">获取一个令牌才能访问</font>，否则<font color="red">只能排队等待</font></li>
+<li><strong>能够处理突发流量原理</strong>：流量低峰的时候，令牌桶会出现堆积。因为出现<font color="red">瞬时高峰</font>的时候，会有足够多的令牌可以获取，因此令牌桶可以<font color="red">允许瞬时流量</font>的处理</li>
 <li><strong>例子</strong>：如网关层面的限流、或者接口调用的限流，都可以使用令牌桶算法，如Google的Guava、Redisson的限流，都用到了令牌桶节奏</li>
 </ul>
 </li>
@@ -664,10 +666,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -990,16 +992,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

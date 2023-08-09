@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -426,7 +428,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    568
+                    562
                 </div>
                 
 
@@ -454,8 +456,8 @@
                 <h2 id="多线程执行器"><a href="#多线程执行器" class="headerlink" title="多线程执行器"></a>多线程执行器</h2><p>1.具体代码<a target="_blank" rel="noopener" href="https://github.com/GaryLeeeee/lee-code-repository/tree/master/lee-common-code/src/test/java/com/garylee/repository/thread">点此跳转</a><br>2.相关笔记<a href="https://garyleeeee.github.io/2021/07/28/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">点此跳转</a><br>3.代码介绍&amp;使用</p>
 <ul>
 <li>封装了一个可指定线程名的方法</li>
-<li>可通过<code>ThreadExecutor.execute(()-&gt;&#123;do sth.&#125;);</code>异步执行逻辑</li>
-<li>可通过<code>Future&lt;V&gt; future=ThreadExecutor.submit(()-&gt;&#123;do sth.&#125;);</code>提交可返回结果的执行，并通过<code>future.get()</code>获取返回结果(get会等待线程执行完逻辑)</li>
+<li>可通过<code>ThreadExecutor.execute(()-&gt;{do sth.});</code>异步执行逻辑</li>
+<li>可通过<code>Future&lt;V&gt; future=ThreadExecutor.submit(()-&gt;{do sth.});</code>提交可返回结果的执行，并通过<code>future.get()</code>获取返回结果(get会等待线程执行完逻辑)</li>
 <li>特殊场景独立线程池可通过<code>ThreadExecutor.createThreadPoolExecutor</code>创建</li>
 </ul>
 <p>4.疑问点</p>
@@ -470,7 +472,7 @@
 <ul>
 <li>引入<code>mybatis-plus-boot-starter</code>依赖</li>
 <li><code>application.yml</code>加<code>mybatis-plus</code>相关配置</li>
-<li>实体类加<code>@TableName(&quot;xxx&quot;)</code>注解(对应mysql表名)</li>
+<li>实体类加<code>@TableName("xxx")</code>注解(对应mysql表名)</li>
 <li><code>mapper</code>层继承<code>BaseMapper</code>接口用于提供db操作方法(CRUD)</li>
 <li><code>service</code>层继承<code>ServiceImpl</code>类用于提供业务操作方法(CRUD、分页等)</li>
 <li>具体CRUD可参考<code>1.具体代码</code></li>
@@ -701,10 +703,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1023,16 +1025,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

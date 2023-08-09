@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -468,8 +470,8 @@
 </ul>
 <p><strong>秒杀中</strong>：</p>
 <ul>
-<li><font color=red><strong>高并发/快响应</strong></font>：上线前要做好压测，评估服务器qps瓶颈点</li>
-<li><font color=red><strong>防止超卖</strong></font>：大量用户抢少量商品，需要防止高并发（可以用redis的lua脚本保证原子性操作）</li>
+<li><font color="red"><strong>高并发/快响应</strong></font>：上线前要做好压测，评估服务器qps瓶颈点</li>
+<li><font color="red"><strong>防止超卖</strong></font>：大量用户抢少量商品，需要防止高并发（可以用redis的lua脚本保证原子性操作）</li>
 <li><strong>限流</strong>：限制用户请求频率，如一个人1s内只能请求10次，一个ip最多请求10次等</li>
 </ul>
 <p><strong>秒杀后</strong>：</p>
@@ -506,7 +508,7 @@
 </ul>
 <h3 id="6、如何实现库存预热？"><a href="#6、如何实现库存预热？" class="headerlink" title="6、如何实现库存预热？"></a>6、如何实现库存预热？</h3><p><strong>方案</strong>：秒杀活动开始前，使用定时任务等方式将商品的库存信息提前缓存到redis中，等到用户秒杀下单时，可以快速直接扣减redis中的商品库存，无需直接操作数据库<br><strong>注意</strong>：为了保证<strong>查询库存</strong>和<strong>扣除库存</strong>这两个操作之间的原子性，可以借助redis的lua脚本</p>
 <h3 id="7、如何做好服务降级、熔断问题？"><a href="#7、如何做好服务降级、熔断问题？" class="headerlink" title="7、如何做好服务降级、熔断问题？"></a>7、如何做好服务降级、熔断问题？</h3><p><strong>背景</strong>：为了避免某些服务/服务器发生宕机或服务不可用的情况，我们需要做一些服务熔断和降级措施，即进行快速失败<br><strong>方案</strong>：使用一些中间件，如Alibaba Sentinel、Hystrix等</p>
-<h2 id="三、解决秒杀系统的常见问题"><a href="#三、解决秒杀系统的常见问题" class="headerlink" title="三、解决秒杀系统的常见问题"></a>三、解决秒杀系统的常见问题</h2><h3 id="1、如何解决秒杀系统中超卖问题？"><a href="#1、如何解决秒杀系统中超卖问题？" class="headerlink" title="1、如何解决秒杀系统中超卖问题？"></a>1、如何解决秒杀系统中超卖问题？</h3><p><strong>超卖</strong>指的是同一个时间有多个用户同时去抢单，即同时扣减多个库存，这时候就可能出现用户数大于redis缓存的库存数，出现<font color=red>超卖</font>的问题</p>
+<h2 id="三、解决秒杀系统的常见问题"><a href="#三、解决秒杀系统的常见问题" class="headerlink" title="三、解决秒杀系统的常见问题"></a>三、解决秒杀系统的常见问题</h2><h3 id="1、如何解决秒杀系统中超卖问题？"><a href="#1、如何解决秒杀系统中超卖问题？" class="headerlink" title="1、如何解决秒杀系统中超卖问题？"></a>1、如何解决秒杀系统中超卖问题？</h3><p><strong>超卖</strong>指的是同一个时间有多个用户同时去抢单，即同时扣减多个库存，这时候就可能出现用户数大于redis缓存的库存数，出现<font color="red">超卖</font>的问题</p>
 <ul>
 <li>例子：比如商品只有10个，但是发现秒杀后卖了20个，那么有10个人是拿不到商品的</li>
 </ul>
@@ -516,7 +518,7 @@
 <li>扣减库存</li>
 </ul>
 <p><strong>解决方案</strong>：使用redis的lua脚本，保证操作的原子性</p>
-<h3 id="2、如果redis减库存成功，但mq消费失败了怎么办？"><a href="#2、如果redis减库存成功，但mq消费失败了怎么办？" class="headerlink" title="2、如果redis减库存成功，但mq消费失败了怎么办？"></a>2、如果redis减库存成功，但mq消费失败了怎么办？</h3><p><strong>可能出现问题</strong>：订单生成失败等，这就是秒杀系统的<font color=red>少卖</font>问题<br><strong>解决方案</strong>：</p>
+<h3 id="2、如果redis减库存成功，但mq消费失败了怎么办？"><a href="#2、如果redis减库存成功，但mq消费失败了怎么办？" class="headerlink" title="2、如果redis减库存成功，但mq消费失败了怎么办？"></a>2、如果redis减库存成功，但mq消费失败了怎么办？</h3><p><strong>可能出现问题</strong>：订单生成失败等，这就是秒杀系统的<font color="red">少卖</font>问题<br><strong>解决方案</strong>：</p>
 <ul>
 <li><strong>mq添加重试机制</strong>：如果重试多次仍发送失败，则需要把该消息持久化（如存到MySQL中），并进行轮询重试处理，保证该消息能正常处理</li>
 <li><strong>持久化mq消息</strong>：增加一张消息发送表，在生产者发送mq之前，先把消息存到消息发送表中，并设置消息状态为<strong>待处理</strong>，然后再发送mq，消费者消费后，回调生产者的接口，修改消息的状态为<strong>已处理</strong>。这样如果在写表后发送失败，可以借助定时任务扫描待处理的消息，然后重新发送</li>
@@ -721,10 +723,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1031,16 +1033,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

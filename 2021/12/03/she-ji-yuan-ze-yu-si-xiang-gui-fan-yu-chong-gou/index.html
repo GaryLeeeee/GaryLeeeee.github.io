@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -514,54 +516,54 @@
 </li>
 <li><strong>Example</strong>：<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span><span class="token class-name">SpringRunner</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@SppringBootTest</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token punctuation">{</span>
   <span class="token annotation punctuation">@Autowired</span>
   <span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span class="token punctuation">;</span>
 
   <span class="token annotation punctuation">@Test</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment">//测试getUserById接口是否正常</span>
     <span class="token class-name">User</span> user <span class="token operator">=</span> userService<span class="token punctuation">.</span><span class="token function">getUserById</span><span class="token punctuation">(</span><span class="token number">111L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//user不为空断言(如果为空会报错)</span>
     <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="理论三：代码的可测试性"><a href="#理论三：代码的可测试性" class="headerlink" title="理论三：代码的可测试性"></a>理论三：代码的可测试性</h2><ul>
 <li><strong>What</strong>：代码的可测试性，就是针对代码编写单元测试的难易程度。</li>
 <li><strong>How</strong>：<code>依赖注入</code>是编写可测试性代码的最有效手段。(减少不必要的rpc耗时+自定义返回内容)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 一个电商系统的交易类
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Transaction</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Transaction</span> <span class="token punctuation">{</span>
 
   <span class="token comment">//依赖的外部rpc接口(可能耗时长，不便于单测)</span>
   <span class="token keyword">private</span> <span class="token class-name">WalletRpcService</span> walletRpcService<span class="token punctuation">;</span>
 
   <span class="token comment">//通过外部set方法实现依赖注入(传递参数)</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setWalletRpcService</span><span class="token punctuation">(</span><span class="token class-name">WalletRpcService</span> walletRpcService<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setWalletRpcService</span><span class="token punctuation">(</span><span class="token class-name">WalletRpcService</span> walletRpcService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>walletRpcService <span class="token operator">=</span> walletRpcService<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
 
   <span class="token comment">//交易方法</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
       walletRpcService<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token comment">//...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 <span class="token comment">/**
  * mock的rpc
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MockWalletRpcService</span> <span class="token keyword">extends</span> <span class="token class-name">WalletRpcService</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MockWalletRpcService</span> <span class="token keyword">extends</span> <span class="token class-name">WalletRpcService</span> <span class="token punctuation">{</span>
     <span class="token comment">//...</span>
-<span class="token punctuation">&#125;</span>
+<span class="token punctuation">}</span>
 
 <span class="token comment">/**
  * 单元测试
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TransactionTest</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TransactionTest</span> <span class="token punctuation">{</span>
   <span class="token annotation punctuation">@Test</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testExecute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testExecute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token class-name">Transaction</span> transaction <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Transaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//这里执行我们mock的类(可以自定义返回内容，而非调用实际的WalletRpcService返回不可控的内容以及不可控的耗时)</span>
     transaction<span class="token punctuation">.</span><span class="token function">setWalletRpcService</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MockWalletRpcService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -569,64 +571,64 @@
     <span class="token keyword">boolean</span> result <span class="token operator">=</span> transaction<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//断言，如果result不为true则报错</span>
     <span class="token function">assertTrue</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h3 id="常见的Anti-Patterns-反面模式"><a href="#常见的Anti-Patterns-反面模式" class="headerlink" title="常见的Anti-Patterns(反面模式)"></a>常见的Anti-Patterns(反面模式)</h3><ul>
 <li><p>1.代码中包含未决行为逻辑(代码return是随机/不确定的)</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo</span> <span class="token punctuation">{</span>
   <span class="token comment">/**
    * 计算入参早于当前时间多少天
    * @param dueTime
    * @return 每天返回的值不同
    */</span>
-  <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">calculateDelayDays</span><span class="token punctuation">(</span><span class="token class-name">Date</span> dueTime<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">calculateDelayDays</span><span class="token punctuation">(</span><span class="token class-name">Date</span> dueTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">long</span> currentTime <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>dueTime<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">>=</span> currentTime<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>dueTime<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;=</span> currentTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token keyword">long</span> delayTime <span class="token operator">=</span> currentTime <span class="token operator">-</span> dueTime<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">long</span> delayDays <span class="token operator">=</span> delayTime <span class="token operator">/</span> <span class="token number">86400</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> delayDays<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>2.滥用可变全局变量(容易影响其他测试用例)<br>如果单元测试方法testAdd()和testReduce()是并发执行的，那么可能在assertEquals执行之前value就执行了一次add()和一次reduce()，那么结果就跟我们预期的不一样了</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
  * 简易计算器
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Counter</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Counter</span> <span class="token punctuation">{</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
   <span class="token comment">//加法</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> addValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> addValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
 
   <span class="token comment">//减法</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">reduce</span><span class="token punctuation">(</span><span class="token keyword">int</span> reduceValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">reduce</span><span class="token punctuation">(</span><span class="token keyword">int</span> reduceValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> value<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 <span class="token comment">/**
  * 单元测试
  */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CounterTest</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CounterTest</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token class-name">Counter</span> counter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     counter<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">assertEquals</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> counter<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testReduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testReduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token class-name">Counter</span> counter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     counter<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">assertEquals</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> counter<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>3.滥用静态方法(跟<code>2.滥用可变全局变量</code>类似)</p>
 </li>
 <li><p>4.使用复杂的继承关系(如果父类需要mock某个依赖对象，那么子类、子类的子类…都需要mock这个依赖对象，会很复杂)</p>
@@ -674,12 +676,12 @@
 </ul>
 </li>
 </ul>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">getUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">getUserById</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">//如果用户不存在，则返回null</span>
     <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><strong>3.返回空对象</strong><ul>
@@ -889,10 +891,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1219,16 +1221,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

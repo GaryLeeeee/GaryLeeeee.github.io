@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -426,7 +428,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    981
+                    977
                 </div>
                 
 
@@ -455,16 +457,16 @@
 <p><strong>长连接和管道机制</strong>：</p>
 <ul>
 <li>HTTP/1.0每次请求都需要重新建立连接，效率低</li>
-<li>HTTP/1.1支持<font color=red>长连接</font>和管道化技术，即在同一个连接上可以发送多个请求，避免重复建立和断开连接的开销，提高了传输效率</li>
+<li>HTTP/1.1支持<font color="red">长连接</font>和管道化技术，即在同一个连接上可以发送多个请求，避免重复建立和断开连接的开销，提高了传输效率</li>
 </ul>
 <p><strong>Host字段</strong>：</p>
 <ul>
 <li>HTTP/1.0没有Host头字段（因此默认监听80端口）</li>
-<li>HTTP/1.1引入了Host头字段（用来区分<font color=red>同一个IP地址多个域名</font>，如<a target="_blank" rel="noopener" href="http://www.baidu1.com和www.baidu2.com共用111.111.111.111,那么通过host指定特定的域名)/">www.baidu1.com和www.baidu2.com共用111.111.111.111，那么通过Host指定特定的域名）</a></li>
+<li>HTTP/1.1引入了Host头字段（用来区分<font color="red">同一个IP地址多个域名</font>，如<a target="_blank" rel="noopener" href="http://www.baidu1.com和www.baidu2.com共用111.111.111.111,那么通过host指定特定的域名)/">www.baidu1.com和www.baidu2.com共用111.111.111.111，那么通过Host指定特定的域名）</a></li>
 </ul>
 <p><strong>状态码</strong>：</p>
 <ul>
-<li>HTTP/1.1引入了新状态码100（Continue），用来确认服务端是否能收到请求（节约了带宽，因为如果不确定服务器是否能收到请求，那贸然发送带实体的请求，如果被拒绝就会浪费带宽，所以<font color=red>在正士请求前发送一个只带100Continue的请求</font>）</li>
+<li>HTTP/1.1引入了新状态码100（Continue），用来确认服务端是否能收到请求（节约了带宽，因为如果不确定服务器是否能收到请求，那贸然发送带实体的请求，如果被拒绝就会浪费带宽，所以<font color="red">在正士请求前发送一个只带100Continue的请求</font>）</li>
 </ul>
 <p><strong>方法</strong>：</p>
 <ul>
@@ -472,13 +474,13 @@
 <li>HTTP/1.1新增：PUT、DELETE、OPTIONS、TRACE、CONNECT</li>
 </ul>
 <h3 id="2、http用哪几种方法？"><a href="#2、http用哪几种方法？" class="headerlink" title="2、http用哪几种方法？"></a>2、http用哪几种方法？</h3><ul>
-<li>GET：<font color=red>请求</font>指定的页面信息，并返回实体本体（暴露在地址栏URL中）</li>
-<li>POST：向指定资源提交要被处理的数据，并返回处理后的结果（一般用于<font color=red>提交表单</font>等较隐私数据）</li>
-<li>PUT：<font color=red>更新</font>指定资源</li>
-<li>DELETE：<font color=red>删除</font>指定资源</li>
-<li>HEAD：类似GET请求，不过返回响应中没有具体的内容，用于<font color=red>获取资源的元信息</font></li>
-<li>OPTIONS：返回<font color=red>服务器支持的HTTP方法</font></li>
-<li>TRACE：<font color=red>回显</font>服务器收到的请求，主要用于测试或诊断（可以回显当前请求头等信息，用于检查请求是否被修改）</li>
+<li>GET：<font color="red">请求</font>指定的页面信息，并返回实体本体（暴露在地址栏URL中）</li>
+<li>POST：向指定资源提交要被处理的数据，并返回处理后的结果（一般用于<font color="red">提交表单</font>等较隐私数据）</li>
+<li>PUT：<font color="red">更新</font>指定资源</li>
+<li>DELETE：<font color="red">删除</font>指定资源</li>
+<li>HEAD：类似GET请求，不过返回响应中没有具体的内容，用于<font color="red">获取资源的元信息</font></li>
+<li>OPTIONS：返回<font color="red">服务器支持的HTTP方法</font></li>
+<li>TRACE：<font color="red">回显</font>服务器收到的请求，主要用于测试或诊断（可以回显当前请求头等信息，用于检查请求是否被修改）</li>
 <li>CONNECT：HTTP/1.1协议中预留能够将连接改为管道方式的代理服务器</li>
 </ul>
 <h3 id="3、http有哪些状态码？"><a href="#3、http有哪些状态码？" class="headerlink" title="3、http有哪些状态码？"></a>3、http有哪些状态码？</h3><ul>
@@ -488,7 +490,7 @@
 </ul>
 </li>
 <li><strong>2xx（成功状态码）</strong>：表示请求已成功被服务器理解并接受<ul>
-<li>200（成功）：表示请求已经成功，并且<font color=red>已返回请求的数据</font></li>
+<li>200（成功）：表示请求已经成功，并且<font color="red">已返回请求的数据</font></li>
 <li>201（已创建）：表示请求已被服务器接受，并且资源已被创建</li>
 <li>204（无内容）：表示请求已经成功，但是没有返回任何内容</li>
 </ul>
@@ -500,7 +502,7 @@
 </ul>
 </li>
 <li><strong>4xx（客户端错误状态码）</strong>：表示客户端发送的请求错误<ul>
-<li>400（客户端错误请求）：表示请求<font color=red>语法或参数有问题</font>，服务器无法处理</li>
+<li>400（客户端错误请求）：表示请求<font color="red">语法或参数有问题</font>，服务器无法处理</li>
 <li>401（未授权）：表示请求需要身份验证</li>
 <li>403（禁止访问）：表示服务器拒绝请求</li>
 </ul>
@@ -508,12 +510,12 @@
 <li><strong>5xx（服务器错误状态码）</strong>：表示服务器在处理请求时发生了错误<ul>
 <li>500（服务器内部错误）</li>
 <li>502（错误网关）：表示服务器作为网关或代理，从上游服务器收到的响应无效</li>
-<li>503（服务不可用）：表示服务器暂时无法处理请求（<font color=red>可能是由于过载或维护等原因</font>）</li>
+<li>503（服务不可用）：表示服务器暂时无法处理请求（<font color="red">可能是由于过载或维护等原因</font>）</li>
 </ul>
 </li>
 </ul>
 <h2 id="二、常见问题"><a href="#二、常见问题" class="headerlink" title="二、常见问题"></a>二、常见问题</h2><h3 id="1-参数值传yyyy-MM-dd报错-400"><a href="#1-参数值传yyyy-MM-dd报错-400" class="headerlink" title="1.参数值传yyyy-MM-dd报错(400)"></a>1.参数值传yyyy-MM-dd报错(400)</h3><p><strong>解决方案</strong>：改成yyyy/MM/dd<br><img src="/images/Http%E6%8E%A5%E5%8F%A3%E4%BC%A0%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E9%94%99%E8%AF%AF.png" alt="Http接口传时间格式错误"><br><img src="/images/Http%E6%8E%A5%E5%8F%A3%E4%BC%A0%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E6%AD%A3%E7%A1%AE.png" alt="Http接口传时间格式正确"></p>
-<h3 id="2-参数值直接传json报错-400"><a href="#2-参数值直接传json报错-400" class="headerlink" title="2.参数值直接传json报错(400)"></a>2.参数值直接传json报错(400)</h3><p><strong>例子</strong>：{“id”:3,”name”:”gary”}<br><strong>原因</strong>：Http Get和Post请求不能传包含<code>&#123;</code>、<code>&#125;</code>等这类特殊字符<br><strong>解决方案</strong>：需要对特殊字符进行转义，如<code>&quot;</code>转成<code>%22</code>,<code>&#123;</code>转成<code>%7b</code>等<br><strong>在线转义</strong>：<a target="_blank" rel="noopener" href="http://www.jsons.cn/urlencode/">http://www.jsons.cn/urlencode/</a><br><img src="/images/Http%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BD%AC%E4%B9%89.png" alt="Http接口参数转义"></p>
+<h3 id="2-参数值直接传json报错-400"><a href="#2-参数值直接传json报错-400" class="headerlink" title="2.参数值直接传json报错(400)"></a>2.参数值直接传json报错(400)</h3><p><strong>例子</strong>：{“id”:3,”name”:”gary”}<br><strong>原因</strong>：Http Get和Post请求不能传包含<code>{</code>、<code>}</code>等这类特殊字符<br><strong>解决方案</strong>：需要对特殊字符进行转义，如<code>"</code>转成<code>%22</code>,<code>{</code>转成<code>%7b</code>等<br><strong>在线转义</strong>：<a target="_blank" rel="noopener" href="http://www.jsons.cn/urlencode/">http://www.jsons.cn/urlencode/</a><br><img src="/images/Http%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E8%BD%AC%E4%B9%89.png" alt="Http接口参数转义"></p>
 
                 
             </div>
@@ -709,10 +711,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1039,16 +1041,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

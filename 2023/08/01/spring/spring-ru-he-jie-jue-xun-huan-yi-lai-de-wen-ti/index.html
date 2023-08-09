@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -459,13 +461,13 @@
 <ul>
 <li><strong>直接</strong>：A依赖B，B依赖A</li>
 <li><strong>间接</strong>：A依赖B，B依赖C，C依赖A<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// A依赖B</span>
-<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
   <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<span class="token punctuation">}</span>
 <span class="token comment">// B依赖A</span>
-<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">{</span>
   <span class="token keyword">public</span> <span class="token class-name">A</span> a<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 在Spring中，一个对象经过一系列的<strong>Bean的生命周期</strong>，就会出现<strong>循环依赖</strong>问题</li>
 </ul>
 <h2 id="二、Bean的生命周期（简易版）"><a href="#二、Bean的生命周期（简易版）" class="headerlink" title="二、Bean的生命周期（简易版）"></a>二、Bean的生命周期（<strong>简易版</strong>）</h2><p>Bean就是被Spring管理的对象，生成步骤如下：</p>
@@ -480,60 +482,60 @@
 <ol>
 <li>A创建了一个原始对象（类似new）</li>
 <li>给属性b赋值，根据B的类型和属性名去BeanFactory获取B类对应的单例bean 、<br>2.1 如果存在B类对应的单例bean， 则直接赋值给b<br>2.2 如果不存在B类对应的单例bean，则先创建该bean，再赋值给b</li>
-<li>…<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
+<li>…<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <p><strong>特殊情况（循环依赖）</strong>：如果A在填充b属性的时候，要去创建B对象，但是B又需要填充a属性，此时A还在创建中，导致A和B都创建不了</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token class-name">B</span> b<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token class-name">A</span> a<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>而在Spring中，使用了<strong>三级缓存</strong>来解决<strong>循环依赖</strong>的问题</p>
 <h2 id="四、三级缓存"><a href="#四、三级缓存" class="headerlink" title="四、三级缓存"></a>四、三级缓存</h2><p><strong>三级缓存</strong>分别为：</p>
 <ul>
-<li><strong>一级缓存</strong>：即源码中的singletonObjects，也叫做单例池。存放的对象是<font color=red>完成了完整生命周期的bean对象</font></li>
-<li><strong>二级缓存</strong>：即源码中的earlySingletonObjects。存放的对象是<font color=red>早期的bean对象，即没完成完整生命周期的bean对象</font></li>
-<li><strong>三级缓存</strong>：即源码中的singletonFactories，也叫做对象工厂。存放的对象是<font color=red>创建对象的lambda表达式</font>，用来创建某个对象的</li>
+<li><strong>一级缓存</strong>：即源码中的singletonObjects，也叫做单例池。存放的对象是<font color="red">完成了完整生命周期的bean对象</font></li>
+<li><strong>二级缓存</strong>：即源码中的earlySingletonObjects。存放的对象是<font color="red">早期的bean对象，即没完成完整生命周期的bean对象</font></li>
+<li><strong>三级缓存</strong>：即源码中的singletonFactories，也叫做对象工厂。存放的对象是<font color="red">创建对象的lambda表达式</font>，用来创建某个对象的</li>
 </ul>
 <h3 id="1、一级缓存（单例池）"><a href="#1、一级缓存（单例池）" class="headerlink" title="1、一级缓存（单例池）"></a>1、一级缓存（单例池）</h3><p><strong>什么时候使用一级缓存？</strong>：当一个bean完成了完整生命周期，就会放进<strong>一级缓存</strong>，但下次该bean被其他bean依赖注入时，直接从<strong>一级缓存</strong>取出赋值即可<br><strong>问题</strong>：如果两个/多个bean相互依赖，那么在依赖注入时，由于分别都没完成完整生命周期，所以<strong>一级缓存</strong>里找不到对应的bean，导致出现死循环<br><img src="/images/spring/spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png" alt="spring循环依赖"></p>
-<h3 id="2、二级缓存（早期bean对象）"><a href="#2、二级缓存（早期bean对象）" class="headerlink" title="2、二级缓存（早期bean对象）"></a>2、二级缓存（早期bean对象）</h3><p><strong>背景</strong>：为了解决循环依赖，我们引入了<strong>二级缓存</strong>，允许一个bean创建后（依赖注入前）<font color=red>提前暴露</font>到缓存中，当该bean被其他bean依赖注入时，先从<strong>一级缓存</strong>找，找不到再从<strong>二级缓存</strong>找，这时候就能取到其原始对象并赋值即可<br><strong>问题</strong>：由于从<strong>二级缓存</strong>取出的对象是<font color=red>提前暴露的原始对象</font>，并不是最终的bean。这时候如果该原始对象进行了AOP产生了一个代理对象，这时候就会出现冲突<br><img src="/images/spring/spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98.png" alt="spring循环依赖二级花奴才能"><br>如果所示，A生成了一个原始对象，B依赖注入A时赋值了该原始对象，而A如果在进入单例池前进行了AOP（BeanPostProcessor），那么就会出现矛盾：</p>
+<h3 id="2、二级缓存（早期bean对象）"><a href="#2、二级缓存（早期bean对象）" class="headerlink" title="2、二级缓存（早期bean对象）"></a>2、二级缓存（早期bean对象）</h3><p><strong>背景</strong>：为了解决循环依赖，我们引入了<strong>二级缓存</strong>，允许一个bean创建后（依赖注入前）<font color="red">提前暴露</font>到缓存中，当该bean被其他bean依赖注入时，先从<strong>一级缓存</strong>找，找不到再从<strong>二级缓存</strong>找，这时候就能取到其原始对象并赋值即可<br><strong>问题</strong>：由于从<strong>二级缓存</strong>取出的对象是<font color="red">提前暴露的原始对象</font>，并不是最终的bean。这时候如果该原始对象进行了AOP产生了一个代理对象，这时候就会出现冲突<br><img src="/images/spring/spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98.png" alt="spring循环依赖二级花奴才能"><br>如果所示，A生成了一个原始对象，B依赖注入A时赋值了该原始对象，而A如果在进入单例池前进行了AOP（BeanPostProcessor），那么就会出现矛盾：</p>
 <ul>
 <li>对于A而言：A的bean是AOP后的代理对象</li>
 <li>对于B而言，B依赖注入的A是原始对象，而不是AOP后的代理对象</li>
 </ul>
 <p>所以这时候，经过了Spring的BeanPostProcessor对bean的加工，<strong>B依赖的A和最终的A不是同一个对象</strong>，我们可以通过一段代码证明一下：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span> 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
-<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
 
 <span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestBeanPostProcessor</span> <span class="token keyword">implements</span> <span class="token class-name">BeanPostProcessor</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestBeanPostProcessor</span> <span class="token keyword">implements</span> <span class="token class-name">BeanPostProcessor</span> <span class="token punctuation">{</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span><span class="token class-name">Object</span> bean<span class="token punctuation">,</span> <span class="token class-name">String</span> beanName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">BeansException</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span><span class="token class-name">Object</span> bean<span class="token punctuation">,</span> <span class="token class-name">String</span> beanName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">BeansException</span> <span class="token punctuation">{</span>
         <span class="token comment">// 打印前面的值</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>bean<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>beanName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>beanName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment">// 这里生成了一个新的对象</span>
             <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">}</span>
         <span class="token keyword">return</span> bean<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token class-name">AnnotationConfigApplicationContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AnnotationConfigApplicationContext</span><span class="token punctuation">(</span>XXX<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         
         <span class="token class-name">A</span> a <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> <span class="token class-name">A</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment">// 打印后面的值</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>运行main方法，得到打印如下：</p>
 <pre class="line-numbers language-none"><code class="language-none">com.test.service.A@4b0393b9
@@ -544,7 +546,7 @@ com.test.service.A@2e052e20<span aria-hidden="true" class="line-numbers-rows"><s
 <li>BeanPostProcessor的执行是发生在填充属性过程之后的</li>
 </ul>
 <p><font>这种情况下的<strong>循环依赖</strong>，Spring是解决不了的，因为在填充属性时，Spring也不知道该对象后续会经过哪些BeanPostProcessor以及会对A对象做什么处理</font><br>虽然这种情况可能发生，但是肯定发生得很少，我们一般在开发中不会这样做。但是，有种情况，某个beanName对应的最终对象和原始对象不是同一个对象却经常出现，这就是<strong>AOP</strong></p>
-<h3 id="3、AOP"><a href="#3、AOP" class="headerlink" title="3、AOP"></a>3、AOP</h3><p><strong>AOP</strong>是通过一个BeanPostProcessor来实现，也就是<code>AnnotationAwareAspectJAutoProxyCreator</code>，它继承了<code>AbstractAutoProxy</code><br>在Spring中AOP利用的要么是JDK动态代理，要么是CGLib的动态代理，所以<font color=red>如果给一个类中的某个方法设置了切面，那么这个类最终就需要生成一个代理对象</font></p>
+<h3 id="3、AOP"><a href="#3、AOP" class="headerlink" title="3、AOP"></a>3、AOP</h3><p><strong>AOP</strong>是通过一个BeanPostProcessor来实现，也就是<code>AnnotationAwareAspectJAutoProxyCreator</code>，它继承了<code>AbstractAutoProxy</code><br>在Spring中AOP利用的要么是JDK动态代理，要么是CGLib的动态代理，所以<font color="red">如果给一个类中的某个方法设置了切面，那么这个类最终就需要生成一个代理对象</font></p>
 <p>（上面有提到）Spring中AOP的一般流程：生成bean-&gt;实例化-&gt;填充属性-&gt;AOP-&gt;放入单例池</p>
 <p>而要解决AOP导致的前后对象不一致的问题，就需要引入<strong>三级缓存</strong></p>
 <h3 id="4、三级缓存（对象工厂）"><a href="#4、三级缓存（对象工厂）" class="headerlink" title="4、三级缓存（对象工厂）"></a>4、三级缓存（对象工厂）</h3><p><strong>三级缓存</strong>对应源码的<code>singletonFactories</code>，在bean生成完原始对象后，会构造一个ObjectFactory存入<code>singletonFactories</code><br><code>ObjectFactory</code>是一个函数式接口，所以支持lambda表达式：<code>() -&gt; getEarlyBeanReference(beanName, mbd, bean)</code></p>
@@ -789,10 +791,10 @@ com.test.service.A@2e052e20<span aria-hidden="true" class="line-numbers-rows"><s
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1119,16 +1121,16 @@ com.test.service.A@2e052e20<span aria-hidden="true" class="line-numbers-rows"><s
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

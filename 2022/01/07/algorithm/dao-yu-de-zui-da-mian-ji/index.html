@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -438,7 +440,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    736
+                    726
                 </div>
                 
 
@@ -495,26 +497,26 @@
 </ul>
 </li>
 </ul>
-<h2 id="四、代码"><a href="#四、代码" class="headerlink" title="四、代码"></a>四、代码</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxAreaOfIsland</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<h2 id="四、代码"><a href="#四、代码" class="headerlink" title="四、代码"></a>四、代码</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxAreaOfIsland</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> maxArea <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token comment">//遍历m x n，遇到1的就遍历四个方向，遍历过的就重置为0，防止重新遍历到</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>m<span class="token operator">&lt;</span>grid<span class="token punctuation">.</span>length<span class="token punctuation">;</span>m<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>n<span class="token operator">&lt;</span>grid<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>m<span class="token operator">&lt;</span>grid<span class="token punctuation">.</span>length<span class="token punctuation">;</span>m<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>n<span class="token operator">&lt;</span>grid<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>n<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token comment">//每遍历一次就判断是不是更大的岛屿</span>
                 maxArea <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>maxArea<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">dfs</span><span class="token punctuation">(</span>grid<span class="token punctuation">,</span>m<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
         <span class="token keyword">return</span> maxArea<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> area <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token operator">&lt;</span><span class="token number">0</span> <span class="token operator">||</span> y<span class="token operator">&lt;</span><span class="token number">0</span> <span class="token operator">||</span> x<span class="token operator">></span>grid<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> y<span class="token operator">></span>grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> grid<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x<span class="token operator">&lt;</span><span class="token number">0</span> <span class="token operator">||</span> y<span class="token operator">&lt;</span><span class="token number">0</span> <span class="token operator">||</span> x<span class="token operator">&gt;</span>grid<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> y<span class="token operator">&gt;</span>grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span> <span class="token operator">||</span> grid<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment">//该位置不是岛屿，返回0</span>
             <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">}</span>
 
         <span class="token comment">//计算岛屿面积，并重置grid</span>
         area<span class="token operator">+=</span><span class="token number">1</span><span class="token punctuation">;</span>
@@ -527,8 +529,8 @@
         area <span class="token operator">+=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">dfs</span><span class="token punctuation">(</span>grid<span class="token punctuation">,</span>x<span class="token punctuation">,</span>y<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">return</span> area<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="五、执行结果"><a href="#五、执行结果" class="headerlink" title="五、执行结果"></a>五、执行结果</h2><p><strong>执行结果</strong>：<code>通过</code><br><strong>执行用时</strong>：<code>2 ms</code>, 在所有<code>Java</code>提交中击败了<code>99.78%</code>的用户<br><strong>内存消耗</strong>：<code>38.9 MB</code>, 在所有<code>Java</code>提交中击败了<code>52.10%</code>的用户<br><strong>通过测试用例</strong>：<code>728/728</code></p>
 <h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><ul>
@@ -742,10 +744,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1088,16 +1090,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -459,7 +461,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>一般情况下，Redis是用来实现应用和数据库之间读操作的缓存层，主要目的是<font color=red>减少数据库IO</font>，还可以用来<font color=red>提升数据的IO性能</font></p>
+                <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>一般情况下，Redis是用来实现应用和数据库之间读操作的缓存层，主要目的是<font color="red">减少数据库IO</font>，还可以用来<font color="red">提升数据的IO性能</font></p>
 <h2 id="二、设计思想"><a href="#二、设计思想" class="headerlink" title="二、设计思想"></a>二、设计思想</h2><p>当应用需要读取某个数据的时候，会有几个步骤：</p>
 <ul>
 <li>尝试去Redis查询，如果命中就直接返回</li>
@@ -468,29 +470,29 @@
 </ul>
 <h2 id="三、分析可能出现问题的场景"><a href="#三、分析可能出现问题的场景" class="headerlink" title="三、分析可能出现问题的场景"></a>三、分析可能出现问题的场景</h2><p>当数据发生变化的时候，需要同时更新Redis和MySQL，<strong>原先方案</strong>有：<br><strong>先更新数据库，再更新缓存</strong>：</p>
 <ul>
-<li><strong>问题1</strong>：如果更新数据库成功，还没来得及更新缓存，这时候有另外一个客户端去访问了缓存，访问到了是旧的数据，这时候就会出现<font color=red>数据不一致</font></li>
-<li><strong>问题2</strong>：如果缓存更新失败，也会导致<font color=red>数据不一致</font></li>
+<li><strong>问题1</strong>：如果更新数据库成功，还没来得及更新缓存，这时候有另外一个客户端去访问了缓存，访问到了是旧的数据，这时候就会出现<font color="red">数据不一致</font></li>
+<li><strong>问题2</strong>：如果缓存更新失败，也会导致<font color="red">数据不一致</font></li>
 </ul>
 <p><strong>先删除缓存，再更新数据库</strong>：</p>
 <ul>
 <li><strong>预期</strong>：应用下次请求数据，发现缓存没数据，则从数据库同步数据到缓存里</li>
-<li><strong>分析</strong>：极端情况下，由于删除缓存和更新数据库的这两个操作不是原子的，所以还是会出现<font color=red>数据不一致</font></li>
-<li><strong>问题</strong>：如果删除了缓存，还没来得及更新数据库，这时候有另外一个客户端去访问了缓存，发现没数据，所以去数据库同步了旧的数据，这时候数据库才更新了新的数据，就会出现<font color=red>数据不一致</font></li>
+<li><strong>分析</strong>：极端情况下，由于删除缓存和更新数据库的这两个操作不是原子的，所以还是会出现<font color="red">数据不一致</font></li>
+<li><strong>问题</strong>：如果删除了缓存，还没来得及更新数据库，这时候有另外一个客户端去访问了缓存，发现没数据，所以去数据库同步了旧的数据，这时候数据库才更新了新的数据，就会出现<font color="red">数据不一致</font></li>
 </ul>
 <h2 id="四、解决方案：延迟双删"><a href="#四、解决方案：延迟双删" class="headerlink" title="四、解决方案：延迟双删"></a>四、解决方案：延迟双删</h2><p>解决数据一致性比较简单的方案有<strong>延迟双删</strong>，步骤为：</p>
 <ol>
 <li>删除缓存</li>
 <li>可能有其他客户端读操作（查到缓存为空，去数据库差旧的数据）</li>
 <li>更新数据库</li>
-<li><font color=red>延迟删除缓存</font>（因为可能第二部的读操作还没执行完成，如果立马删除的画，读操作还没来得及写缓存，那么又会把缓存更新成旧的数据）</li>
+<li><font color="red">延迟删除缓存</font>（因为可能第二部的读操作还没执行完成，如果立马删除的画，读操作还没来得及写缓存，那么又会把缓存更新成旧的数据）</li>
 </ol>
-<p>但是<strong>延迟双删</strong>也有缺点，就是<font color=red>性能低，不适合高并发场景</font><br>所以在极端情况下仍然需要保证Redis和MySQL的数据一致性，就只能采用<strong>最终一致性</strong>方案</p>
+<p>但是<strong>延迟双删</strong>也有缺点，就是<font color="red">性能低，不适合高并发场景</font><br>所以在极端情况下仍然需要保证Redis和MySQL的数据一致性，就只能采用<strong>最终一致性</strong>方案</p>
 <h2 id="五、解决方案：最终一致性"><a href="#五、解决方案：最终一致性" class="headerlink" title="五、解决方案：最终一致性"></a>五、解决方案：最终一致性</h2><p><strong>介绍</strong>：由于<strong>延迟双删</strong>性能低，在高并发场景下并不合适，所以出现了<strong>最终一致性</strong>的方案，它保证了最终一致性，但是可能会出现短期不一致性（如果场景不能接受短期不一致性，可以采用读写锁等的方式实现强一致性，不过性能上会有一定影响）</p>
 <h3 id="1、采用MQ的重试机制"><a href="#1、采用MQ的重试机制" class="headerlink" title="1、采用MQ的重试机制"></a>1、采用MQ的重试机制</h3><p><strong>步骤</strong>：</p>
 <ol>
 <li>更新数据库</li>
-<li>删除缓存（需要<font color=red>保证删除成功！！！</font>）</li>
-<li>如果删除失败，则发送到MQ，使用其<font color=red>重试+手动确认</font>的机制<font color=red>保证删除成功</font></li>
+<li>删除缓存（需要<font color="red">保证删除成功！！！</font>）</li>
+<li>如果删除失败，则发送到MQ，使用其<font color="red">重试+手动确认</font>的机制<font color="red">保证删除成功</font></li>
 </ol>
 <p><strong>缺点</strong>：高耦合，每个步骤都要发MQ，比较麻烦</p>
 <h3 id="2、用canal组件"><a href="#2、用canal组件" class="headerlink" title="2、用canal组件"></a>2、用canal组件</h3><p><strong>原理</strong>：通过监听MySQL中binlog日志，把更新后的数据同步到Redis里面<br><strong>优点</strong>：低耦合，省去了每步都需要发MQ的流程</p>
@@ -697,10 +699,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1019,16 +1021,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             

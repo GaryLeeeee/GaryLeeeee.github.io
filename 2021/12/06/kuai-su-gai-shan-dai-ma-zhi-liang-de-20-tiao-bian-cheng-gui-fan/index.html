@@ -29,7 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 
@@ -462,17 +464,17 @@
                 <h1 id="快速改善代码质量的20条编程规范"><a href="#快速改善代码质量的20条编程规范" class="headerlink" title="快速改善代码质量的20条编程规范"></a>快速改善代码质量的20条编程规范</h1><h2 id="1-关于命名"><a href="#1-关于命名" class="headerlink" title="1.关于命名"></a>1.关于命名</h2><ul>
 <li>命名的关键是能准确达意（不要刻意选择一些缩写命名 不好理解）</li>
 <li>借助类的信息来简化属性、函数命名<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//优化前</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> userName<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> userPassword<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> userAge<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<span class="token punctuation">}</span>
 <span class="token comment">//优化后</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>命名要可读、可搜索<ul>
 <li>比如查询方法统一用<code>getxxx()</code>方便输入.get的时候联想搜索</li>
 <li>统一规范，比如统一用<code>addxxx()</code>而不是<code>insertxxx()</code>来表示插入一条数据</li>
@@ -481,12 +483,12 @@
 <li>接口和抽象类特殊命名<ul>
 <li><strong>接口</strong>：一种是在接口中带前缀”I”，另一种是在接口的实现类中带后缀”Impl”</li>
 <li><strong>抽象类</strong>：可以加上”abstract”前缀<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//接口命名1</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IUserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token keyword">implements</span> <span class="token class-name">IUserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IUserService</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token keyword">implements</span> <span class="token class-name">IUserService</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 
 <span class="token comment">//接口命名2</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserService</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -522,26 +524,26 @@
 <li>类的成员变量和函数之间</li>
 <li>类的静态成员变量和普通成员变量之间</li>
 <li>类的各函数之间</li>
-<li>类的各个成员变量之间<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+<li>类的各个成员变量之间<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
   <span class="token annotation punctuation">@Autowired</span>
   <span class="token keyword">private</span> <span class="token class-name">UserMapper</span> userMapper<span class="token punctuation">;</span>
 
   <span class="token annotation punctuation">@Autowired</span>
   <span class="token keyword">private</span> <span class="token class-name">NoticeService</span> noticeService<span class="token punctuation">;</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">//获取用户信息</span>
     <span class="token class-name">User</span> user <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>user <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>user <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">}</span>
 
     <span class="token comment">//登陆成功下发消息</span>
     <span class="token keyword">boolean</span> result <span class="token operator">=</span> noticeService<span class="token punctuation">.</span><span class="token function">sendLoginSuccess</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -562,8 +564,8 @@
 <li><strong>背景</strong>：我们一般看某个函数都是先看这个函数整体是什么功能，再看步骤(如果一行行看容易浪费时间而且不一定看得懂)</li>
 <li><strong>建议</strong>：拆分成多个独立功能的小函数</li>
 <li><strong>优点</strong>：方便阅读、易扩展<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//优化前</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bigMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bigMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment">//逻辑1 第一行</span>
     <span class="token comment">//逻辑1 第二行</span>
     <span class="token comment">//逻辑1 第三行</span>
@@ -574,70 +576,70 @@
     <span class="token comment">//逻辑2 第三行</span>
 
     <span class="token comment">//逻辑3 第一行 </span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
 
-<span class="token punctuation">&#125;</span>
+<span class="token punctuation">}</span>
 
 <span class="token comment">//优化后</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span><span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bigMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span><span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bigMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">smallMethod1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">smallMethod2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">smallMethod3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment">//逻辑1 第一行</span>
     <span class="token comment">//逻辑1 第二行</span>
     <span class="token comment">//逻辑1 第三行</span>
     <span class="token comment">//逻辑1 第四行</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment">//逻辑2 第一行</span>
     <span class="token comment">//逻辑2 第二行</span>
     <span class="token comment">//逻辑2 第三行</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">smallMethod3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment">//逻辑3 第一行 </span>
 
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="10-避免函数参数过多"><a href="#10-避免函数参数过多" class="headerlink" title="*10.避免函数参数过多"></a>*10.避免函数参数过多</h2><ul>
 <li><p>根据不同逻辑拆分多个函数</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
   <span class="token comment">//优化前</span>
   <span class="token class-name">User</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span> <span class="token class-name">String</span> phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">//优化后</span>
   <span class="token class-name">User</span> <span class="token function">getUserByUsername</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token class-name">User</span> <span class="token function">getUserByPhone</span><span class="token punctuation">(</span><span class="token class-name">String</span> phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>将函数参数封装成对象</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
   <span class="token comment">//优化前</span>
   <span class="token keyword">boolean</span> <span class="token function">register</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span><span class="token class-name">String</span> password<span class="token punctuation">,</span><span class="token keyword">int</span> sex<span class="token punctuation">,</span><span class="token class-name">String</span> phone<span class="token punctuation">,</span><span class="token class-name">String</span> email<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">//优化后</span>
   <span class="token keyword">boolean</span> <span class="token function">register</span><span class="token punctuation">(</span><span class="token class-name">User</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<span class="token punctuation">}</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">{</span>
   <span class="token keyword">private</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token keyword">int</span> sex<span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token class-name">String</span> phone<span class="token punctuation">;</span>
   <span class="token keyword">private</span> <span class="token class-name">String</span> email<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="11-勿用函数参数来控制逻辑"><a href="#11-勿用函数参数来控制逻辑" class="headerlink" title="11.勿用函数参数来控制逻辑"></a>11.勿用函数参数来控制逻辑</h2><ul>
 <li>不要用boolean值控制内部逻辑(true走一个逻辑、false走另一个逻辑)<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//例子：根据男女生做不同逻辑处理(分场景，不一定适用其他场景)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
   <span class="token comment">//优化前</span>
   <span class="token keyword">void</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isMale<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">//优化后</span>
   <span class="token keyword">void</span> <span class="token function">loginForMale</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">void</span> <span class="token function">loginForFemale</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="12-移除过深的嵌套层次"><a href="#12-移除过深的嵌套层次" class="headerlink" title="12.移除过深的嵌套层次"></a>12.移除过深的嵌套层次</h2><ul>
 <li>去掉多余的if/else语句</li>
@@ -647,31 +649,31 @@
 </ul>
 <h2 id="13-学会使用解释性变量"><a href="#13-学会使用解释性变量" class="headerlink" title="13.学会使用解释性变量"></a>13.学会使用解释性变量</h2><ul>
 <li><p>常量取代魔法数字</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
   <span class="token comment">//计算不同单位的毫秒值</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_DAY <span class="token operator">=</span> <span class="token number">24</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_HOUR <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> ONE_MINUTE <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>使用解释性变量来解释复杂表达式</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//比如该例子的isToday就是解释性变量</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">//判断是否当天</span>
     <span class="token keyword">boolean</span> isToday <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isBefore</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isAfter</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Time</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isBefore</span><span class="token punctuation">(</span><span class="token keyword">int</span> hour<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Time</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isBefore</span><span class="token punctuation">(</span><span class="token keyword">int</span> hour<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">//...</span>
-  <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAfter</span><span class="token punctuation">(</span><span class="token keyword">int</span> hour<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAfter</span><span class="token punctuation">(</span><span class="token keyword">int</span> hour<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment">//...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 
                 
@@ -876,10 +878,10 @@
                         <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
                     </ul>
                     <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                        <img src="/null" class="reward-img" alt="支付宝打赏二维码">
                     </div>
                     <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                        <img src="/null" class="reward-img" alt="微信打赏二维码">
                     </div>
                 </div>
             </div>
@@ -1198,16 +1200,16 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2021-2023</span>
             
-            <span id="year">2019</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">GaryLee</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">53.4k</span>&nbsp;字
+                class="white-color">53.3k</span>&nbsp;字
             
             
             
