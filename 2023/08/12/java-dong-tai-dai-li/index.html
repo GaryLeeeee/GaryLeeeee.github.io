@@ -591,7 +591,7 @@
 <li>动态编译新生成Java代码的class文件</li>
 <li>加载并重新运行新的class，得到全新类</li>
 </ol>
-<h2 id="四、JDK-Proxy和CBLib的区别？"><a href="#四、JDK-Proxy和CBLib的区别？" class="headerlink" title="四、JDK Proxy和CBLib的区别？"></a>四、JDK Proxy和CBLib的区别？</h2><p><strong>实现方式</strong>：JDK Proxy是实现了目标类的接口，CGLib底层是继承了目标类<br><strong>生成字节码</strong>：JDK Proxy和CGLib都是在运行时生成字节码<br><strong>调用方式</strong>：JDK Proxy是通过反射机制调用，CGLib是通过FastClass机制调用（子类调用父类）<br><strong>class文件</strong>：JDK Proxy只会生成一个class文件，CGLib会生成多个class文件（代理类+代理类对应的fastclass文件+目标类对应的fastclass文件）<br><strong>性能</strong>：JDK1.8之前CGLib性能更好，因为JDK1.8之前JDK Proxy要通过JDK内部反射逻辑去找到目标类，而JDK1.8之后对反射性能做了优化（跟CGLib差不多）<br><strong>目标类调用本类方法处理</strong>：JDK Proxy目标类调用本类方法，只会代理一次（<font color="red">所以会导致AOP失效</font>），而CGLib由于是继承了代理类，通过invokeSuper()方法调用父类方法，在目标类中调用本类方法会再一次代理（如果只需要代理一次可以用invoke()方法）</p>
+<h2 id="四、JDK-Proxy和CBLib的区别？"><a href="#四、JDK-Proxy和CBLib的区别？" class="headerlink" title="四、JDK Proxy和CBLib的区别？"></a>四、JDK Proxy和CBLib的区别？</h2><p><strong>实现方式</strong>：JDK Proxy是实现了目标类的接口，CGLib底层是继承了目标类（所以如果目标类被final修饰，那么它是无法使用CBLib做动态代理的）<br><strong>生成字节码</strong>：JDK Proxy和CGLib都是在运行时生成字节码<br><strong>调用方式</strong>：JDK Proxy是通过反射机制调用，CGLib是通过FastClass机制调用（子类调用父类）<br><strong>class文件</strong>：JDK Proxy只会生成一个class文件，CGLib会生成多个class文件（代理类+代理类对应的fastclass文件+目标类对应的fastclass文件）<br><strong>性能</strong>：JDK1.8之前CGLib性能更好，因为JDK1.8之前JDK Proxy要通过JDK内部反射逻辑去找到目标类，而JDK1.8之后对反射性能做了优化（跟CGLib差不多）<br><strong>目标类调用本类方法处理</strong>：JDK Proxy目标类调用本类方法，只会代理一次（<font color="red">所以会导致AOP失效</font>），而CGLib由于是继承了代理类，通过invokeSuper()方法调用父类方法，在目标类中调用本类方法会再一次代理（如果只需要代理一次可以用invoke()方法）</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//CGLib动态代理会执行子类method2()方法，因为method1()也是子类触发调用的</span>
@@ -859,18 +859,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/08/12/java-dong-tai-dai-li/">
+                <a href="/2023/08/13/spring/jie-shao-yi-xia-spring-de-aop/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Java动态代理">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="介绍一下Spring的AOP">
                         
-                        <span class="card-title">Java动态代理</span>
+                        <span class="card-title">介绍一下Spring的AOP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -880,27 +879,30 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-13
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java/" class="post-category">
-                                    Java
+                            <a href="/categories/Spring/" class="post-category">
+                                    Spring
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">
                         <span class="chip bg-color">动态代理</span>
+                    </a>
+                    
+                    <a href="/tags/AOP/">
+                        <span class="chip bg-color">AOP</span>
                     </a>
                     
                 </div>
@@ -1156,7 +1158,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">54.7k</span>&nbsp;字
+                class="white-color">56.4k</span>&nbsp;字
             
             
             
