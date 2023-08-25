@@ -421,14 +421,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-05
+                    2023-08-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    564
+                    423
                 </div>
                 
 
@@ -453,73 +453,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul>
-<li>高性能：比如一个接口1s能处理1个请求，那么10s就能处理10个请求（如果用户请求排在了第10位，那么需要等10s后才能处理），所以提高接口的性能，使接口1s能处理10个请求，就叫高并发了</li>
-<li>高扩展</li>
-<li>高可用</li>
-</ul>
-<h2 id="高性能"><a href="#高性能" class="headerlink" title="高性能"></a>高性能</h2><ul>
-<li>数据库调优</li>
-<li>JVM调优</li>
-<li>缓存：redis、本地缓存</li>
-<li>异步：消息队列</li>
-<li>池化技术：<ul>
-<li>线程池（存Thread对象）</li>
-<li>连接池（存Connection对象）</li>
-<li>内存池（JVM堆）等</li>
-</ul>
-</li>
-<li>增加硬件资源：<ul>
-<li>CPU、CPU核</li>
-<li>内存</li>
-<li>磁盘</li>
-<li>带宽</li>
-</ul>
-</li>
-</ul>
-<h2 id="数据库调优"><a href="#数据库调优" class="headerlink" title="数据库调优"></a>数据库调优</h2><p><strong>索引</strong>：</p>
+                <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><h2 id="二、如何设计一个高并发系统？"><a href="#二、如何设计一个高并发系统？" class="headerlink" title="二、如何设计一个高并发系统？"></a>二、如何设计一个高并发系统？</h2><p>通常设计一个高并发系统要从多个方面优化，大概方面如下：</p>
 <ul>
-<li>索引最左匹配原则：如索引bcd的话查询b=xxx也是命中的</li>
-<li>覆盖索引：尽量不要使用select *，减少回表</li>
-<li>分页limit：如limit 100,1000，尽量走索引如id，不然越后面效率越慢</li>
-<li>order by，group by：尽量走索引</li>
-<li>join小表驱动大表</li>
-</ul>
-<p><strong>buffer pool</strong>：</p>
-<ul>
-<li>page：数据、索引</li>
-</ul>
-<p><strong>锁</strong>：<br><strong>事务</strong>：尽早提交，才能释放锁，尽量使用小事务<br><strong>读写分离</strong>：主从集群<br><strong>分库分表</strong>：</p>
-<ul>
-<li>分库：按照场景、功能等将表放在不同的库，减少单库的数据量，同时也能防止单表异常导致影响其他表</li>
-<li>分表：防止单表过大，按照id、uid（可用雪花算法做分布式ID）等进行hash分表（如product表分为product_1、product_2、…、product_9）</li>
-</ul>
-<h2 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h2><ul>
-<li>升级JDK</li>
-<li>监控</li>
-<li>工具：</li>
-<li>项目：日志等排查出可能出现的问题</li>
-<li>学习JVM底层原理：GC等</li>
-</ul>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><ul>
-<li>redis</li>
-<li>本地缓存：性能更高，缺点是多台机可能数据不一致</li>
-<li>多级缓存：redis+本地缓存，也就是默认读本地缓存，不存在的则从redis读取并写入到本地缓存，如果redis没有的话则从mysql读取，可以加过期时间保证最终一致</li>
-</ul>
-<h2 id="异步消息"><a href="#异步消息" class="headerlink" title="异步消息"></a>异步消息</h2><ul>
-<li>优点：解耦、方便重试</li>
-</ul>
-<h2 id="池化技术"><a href="#池化技术" class="headerlink" title="池化技术"></a>池化技术</h2><ul>
-<li>连接池：Connection对象</li>
-<li>线程池：Thread对象</li>
-<li>内存池：JVM堆</li>
-</ul>
-<h2 id="高扩展"><a href="#高扩展" class="headerlink" title="高扩展"></a>高扩展</h2><p>重点：负载均衡<br>横向扩展：Tomcat、Nginx、LVS</p>
-<p>步骤：</p>
-<ul>
-<li>智能DNS，能够根据客户端ip地址就近选择LVS</li>
-<li>LVS再对请求进行负载均衡分散到各个nginx中</li>
-<li>nginx再做一级负载均衡请求分散到各个Tomcat中</li>
+<li><strong>分布式架构</strong>：将系统拆分为多个模块，采用分布式架构来降低单点故障的风险，并提高系统的可伸缩性和性能</li>
+<li><strong>集群部署</strong>：即多机器部署，结合<strong>负载均衡</strong>技术将请求均衡分配给各个机器，以提高系统的吞吐量和响应速度</li>
+<li><strong>缓存设计</strong>：使用Redis、本地缓存等缓存设计，避免全部请求打到数据库，以提高请求的响应速度</li>
+<li><strong>异步处理</strong>：采用异步处理机制，将一些允许异步延迟处理的事件特殊处理，以降低请求的响应时间</li>
+<li><strong>数据库优化</strong>：合理的数据库设计和优化，比如索引优化、<strong>分库分表</strong>、<strong>读写分离</strong>等，可以有效提高系统的性能</li>
+<li><strong>池化技术</strong>：根据不同场景配置不同的线程池、连接池等，达到资源复用的目的，减少连接创建带来的开销，可以有效提高服务的性能</li>
+<li><strong>限流</strong>：合理配置限流策略，拦截大部分异常、不合理请求，防止出现系统雪崩</li>
+<li><strong>降级</strong>：合理做好降级处理，避免由于部分服务不可用导致功能异常，保证服务可用性</li>
+<li><strong>压力测试</strong>：功能上线前，可以合理做一些压力测试，及时发现服务瓶颈并解决</li>
+<li><strong>硬件支持</strong>：高性能的服务也需要高配置的CPU、内存、磁盘、带宽等支持</li>
 </ul>
 
                 
@@ -1047,7 +992,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">63.2k</span>&nbsp;字
+                class="white-color">66.2k</span>&nbsp;字
             
             
             
