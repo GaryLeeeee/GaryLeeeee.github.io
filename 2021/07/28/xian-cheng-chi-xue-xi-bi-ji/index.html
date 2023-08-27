@@ -425,7 +425,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-05
+                    2023-08-27
                 </div>
                 
 
@@ -545,10 +545,15 @@
 <li>如果我们设置的线程池数量太小，如果同一时间有大量任务需要处理，那么就可能会导致大量任务要在任务队列等待，导致OOM。这样的CPU并没有得到充分利用。</li>
 <li>如果我们设置的线程池数量太大，大量线程可能会同时争取CPU资源，导致有大量的上下文切换，从而增加线程的执行时间，影响整体的执行效率</li>
 </ul>
-<p>所以我们在设置线程池大小时有个公式</p>
+<p>所以我们在设置线程池大小时有个公式（N为CPU核心数）</p>
 <ul>
 <li><strong>CPU密集型任务(N+1)</strong> 这种任务消耗的主要是CPU资源，可以将线程数设置为N(CPU核心数)+1，比CPU核心数多出来的一个线程是为了防止线程偶发的缺页中断，或者其他原因导致的任务暂停而带来的的影响。一旦任务暂停，CPU就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用CPU的空闲时间。</li>
-<li><strong>I/O密集型任务(2N)</strong> 这种任务引用起来，系统会用大部分的事件来处理I/O交互，而线程在处理I/O的时间段内不会占用CPU来处理，这时就可以将CPU交出给其它线程使用。因此在I/O密集型任务的应用中，我们可以多配置一些线程，具体的计算方法是2N。</li>
+<li><strong>I/O密集型任务(2N+1)</strong> 这种任务引用起来，系统会用大部分的事件来处理I/O交互，而线程在处理I/O的时间段内不会占用CPU来处理，这时就可以将CPU交出给其它线程使用。因此在I/O密集型任务的应用中，我们可以多配置一些线程，具体的计算方法是2N+1。<pre class="line-numbers language-java" data-language="java"><code class="language-java">executor<span class="token punctuation">.</span><span class="token function">setCorePoolSize</span><span class="token punctuation">(</span><span class="token class-name">Runtime</span><span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">availableProcessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+executor<span class="token punctuation">.</span><span class="token function">setMaxPoolSize</span><span class="token punctuation">(</span><span class="token class-name">Runtime</span><span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">availableProcessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+executor<span class="token punctuation">.</span><span class="token function">setQueueCapacity</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+executor<span class="token punctuation">.</span><span class="token function">setKeepAliveSeconds</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+executor<span class="token punctuation">.</span><span class="token function">setWaitForTasksToCompleteOnShutdown</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+executor<span class="token punctuation">.</span><span class="token function">setRejectedExecutionHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor<span class="token punctuation">.</span>CallerRunsPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h2 id="五-总结"><a href="#五-总结" class="headerlink" title="五.总结"></a>五.总结</h2><ul>
 <li>建议不同场景使用不同的线程池，防止死锁</li>
@@ -1230,7 +1235,7 @@ task-10 is running<span aria-hidden="true" class="line-numbers-rows"><span></spa
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">66.2k</span>&nbsp;字
+                class="white-color">67.3k</span>&nbsp;字
             
             
             
