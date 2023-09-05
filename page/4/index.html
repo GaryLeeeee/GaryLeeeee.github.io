@@ -320,6 +320,110 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/07/19/ru-he-she-ji-fen-bu-shi-id/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何设计分布式ID？">
+                            
+                            <span class="card-title">如何设计分布式ID？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、为什么要使用分布式ID？
+比如MySQL的主键ID一般用自增的方式，但如果用分表的话，多个表中会生成重复的ID
+
+二、设计方案
+使用MySQL的全局表：每获取一次都需要更新数据库，性能差
+使用redis的自增id
+UUID
+雪花算法  
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/07/19/ru-he-she-ji-yi-ge-gao-bing-fa-xi-tong/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何设计一个高并发系统？">
+                            
+                            <span class="card-title">如何设计一个高并发系统？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、背景二、如何设计一个高并发系统？通常设计一个高并发系统要从多个方面优化，大概方面如下：
+
+分布式架构：将系统拆分为多个模块，采用分布式架构来降低单点故障的风险，并提高系统的可伸缩性和性能
+集群部署：即多机器部署，结合负载均衡技术将请求均
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                            <span class="chip bg-color">并发</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/07/19/ru-he-xian-liu/">
                         <div class="card-image">
                             
@@ -831,113 +935,6 @@ MVCC在RC（读已提交）、RR（可重复读）的事务隔离级别下
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/06/27/mysql/mysql-ri-zhi-pian/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MySQL日志篇">
-                            
-                            <span class="card-title">MySQL日志篇</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、常见的日志类型
-错误日志(error log)：对MySQL的启动、运行和关闭进行了记录
-二进制文件(binary log/binlog)：记录了更改数据库数据的SQL语句（不包括select、show等查询语句）
-一般查询日志(gen
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/MySQL/">
-                            <span class="chip bg-color">MySQL</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%97%A5%E5%BF%97/">
-                            <span class="chip bg-color">日志</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/10/19/fen-ye-cha-jian-pagehelper-de-shi-yong/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="分页插件PageHelper的使用">
-                            
-                            <span class="card-title">分页插件PageHelper的使用</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、介绍插件地址：https://github.com/pagehelper/Mybatis-PageHelper///TODO
-二、怎么使用？1.引入依赖(maven)&lt;dependency&gt;
-    &lt;groupId&
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/PageHelper/" class="post-category">
-                                    PageHelper
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Mybatis/">
-                            <span class="chip bg-color">Mybatis</span>
-                        </a>
-                        
-                        <a href="/tags/PageHelper/">
-                            <span class="chip bg-color">PageHelper</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -1040,7 +1037,7 @@ MVCC在RC（读已提交）、RR（可重复读）的事务隔离级别下
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">67.8k</span>&nbsp;字
+                class="white-color">68.7k</span>&nbsp;字
             
             
             
