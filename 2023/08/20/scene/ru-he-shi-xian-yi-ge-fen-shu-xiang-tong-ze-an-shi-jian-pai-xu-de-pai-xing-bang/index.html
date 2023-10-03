@@ -421,14 +421,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-20
+                    2023-09-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    399
+                    614
                 </div>
                 
 
@@ -466,7 +466,14 @@ score = 分数 + 时间戳 / 1^13
 -- 倒序处理，使时间戳越小，score越大
 score = 分数 + (1 - 时间戳 / 1^13)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
+<h2 id="三、Q-amp-A"><a href="#三、Q-amp-A" class="headerlink" title="三、Q&amp;A"></a>三、Q&amp;A</h2><h3 id="1、什么场景下要用到多个zset？"><a href="#1、什么场景下要用到多个zset？" class="headerlink" title="1、什么场景下要用到多个zset？"></a>1、什么场景下要用到多个zset？</h3><p>当需要设计一个多维度统计的排行榜时，就可能需要用到多个zset，比如我们有个每日签到打卡次数排行榜，除了总榜，还需要有日榜，所以设计如下：</p>
+<ul>
+<li><strong>查询用户日榜分数</strong>：<code>zscore rank_20230901 &lt;uid&gt;</code></li>
+<li><strong>查询用户总榜分数</strong>：<code>zscore rank &lt;uid&gt;</code></li>
+<li><strong>查询用户近三日榜分数（交集）</strong>：<code>zunion rank_3_days 3 rank_20230901 rank_20230902 rank_20230903 weights 1 1 1</code></li>
+<li>…</li>
+</ul>
+<h3 id="2、除了Redis，还有什么实现排行榜的方案吗？"><a href="#2、除了Redis，还有什么实现排行榜的方案吗？" class="headerlink" title="2、除了Redis，还有什么实现排行榜的方案吗？"></a>2、除了Redis，还有什么实现排行榜的方案吗？</h3><p>除了Redis，还可以使用MySQL的order by语句进行排序，不过要注意性能问题，确保排序字段加上索引。Redis比较适用于数据量大、更新频繁、访问频繁的场景，MySQL比较适用于数据量小、使用不频繁的场景。</p>
 
                 
             </div>
@@ -997,7 +1004,7 @@ score = 分数 + (1 - 时间戳 / 1^13)<span aria-hidden="true" class="line-numb
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">83.5k</span>&nbsp;字
+                class="white-color">87k</span>&nbsp;字
             
             
             
