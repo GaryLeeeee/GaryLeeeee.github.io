@@ -421,14 +421,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-05
+                    2023-10-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    141
+                    189
                 </div>
                 
 
@@ -464,7 +464,7 @@
 </thead>
 <tbody><tr>
 <td><strong>事务</strong></td>
-<td>支持</td>
+<td>支持（基于MVCC和Next-Key Lock）</td>
 <td>不支持</td>
 </tr>
 <tr>
@@ -496,6 +496,16 @@
 <td><strong>使用场景</strong></td>
 <td>支持事务、频繁修改</td>
 <td>查询为主</td>
+</tr>
+<tr>
+<td><strong>是否支持崩溃恢复</strong></td>
+<td>支持（基于redo log）</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><strong>读写性能</strong></td>
+<td>CPU核数越多性能越好</td>
+<td>跟CPU核数无关（读写不能并发）</td>
 </tr>
 </tbody></table>
 
@@ -1016,7 +1026,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">88.9k</span>&nbsp;字
+                class="white-color">89.9k</span>&nbsp;字
             
             
             

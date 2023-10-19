@@ -320,6 +320,91 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/09/12/redis/ru-he-jie-jue-redis-de-re-dian-key-wen-ti/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="如何解决Redis的热点key问题？">
+                            
+                            <span class="card-title">如何解决Redis的热点key问题？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、什么是热点key呢？热点key指的是频繁访问的key，比如明星八卦带来的微博热搜、双十一带来的秒杀活动等，都很容易出现热点key。
+热点key带来的问题也很明显，就比如突然的微博热搜导致微博卡顿、宕机的情况，就是因为热点key被频繁访问
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Redis/" class="post-category">
+                                    Redis
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/11/mysql/mysql-zhong-yi-tiao-sql-de-zhi-xing-guo-cheng-shi-zen-yang-de/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="MySQL中一条SQL的执行过程是怎样的？">
+                            
+                            <span class="card-title">MySQL中一条SQL的执行过程是怎样的？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、SQL的执行过程
+执行SQL语句：
+select * from student A where age = 18 and name = 'Gary';
+步骤如下：
+
+通过客户端/服务器通信协议与MySQL建立连接，并查询是否有权限
+My
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-11
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/09/11/mongodb/mongodb-he-mysql-you-shi-me-qu-bie/">
                         <div class="card-image">
                             
@@ -814,88 +899,6 @@ request：每
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/06/kafka/kafka-ru-he-jie-jue-xiao-xi-ji-ya-wen-ti/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Kafka如何解决消息积压问题？">
-                            
-                            <span class="card-title">Kafka如何解决消息积压问题？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、Kafka如何解决消息积压问题？首先分析一下消息积压问题的原因，如果不是系统BUG导致的，那就需要优化消费端的逻辑，来提高消费速率。
-如果是系统BUG导致的，那么需要先修复系统BUG，然后再做临时扩容来消费大量的积压消息，具体步骤如下：
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Kafka/" class="post-category">
-                                    Kafka
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/06/jvm/jvm-yun-xing-shi-shu-ju-qu-yu-shi-zen-yang-de/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="JVM运行时数据区域是怎样的？">
-                            
-                            <span class="card-title">JVM运行时数据区域是怎样的？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、JVM运行时数据区域是怎样的？JVM运行时数据区域组成有以下几项：
-
-堆：线程共享，用于存放对象实例，同时还用于垃圾回收
-虚拟机栈：线程私有，用于存放局部变量（每次方法调用都会创建一个栈帧，用于存放局部变量表、操作数栈、动态链接、返回地
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/JVM/" class="post-category">
-                                    JVM
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -998,7 +1001,7 @@ request：每
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">88.9k</span>&nbsp;字
+                class="white-color">89.9k</span>&nbsp;字
             
             
             
