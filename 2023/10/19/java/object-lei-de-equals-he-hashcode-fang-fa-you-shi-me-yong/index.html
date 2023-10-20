@@ -417,14 +417,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-19
+                    2023-10-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    358
+                    912
                 </div>
                 
 
@@ -477,10 +477,84 @@
 <li>判断下标处是否为空，如果为空则直接插入，如果不为空则遍历链表（HashMap实现）</li>
 <li>遍历链表调用equals()方法比较对象是否相等，如果相等则说明已存在，如果不相等则插入到链表尾部</li>
 </ol>
-<h2 id="四、String中equals和hashCode的实现"><a href="#四、String中equals和hashCode的实现" class="headerlink" title="四、String中equals和hashCode的实现"></a>四、String中equals和hashCode的实现</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">String</span> <span class="token punctuation">{</span>
+<h2 id="四、String中equals和hashCode的实现"><a href="#四、String中equals和hashCode的实现" class="headerlink" title="四、String中equals和hashCode的实现"></a>四、String中equals和hashCode的实现</h2><h3 id="1、代码实现-2"><a href="#1、代码实现-2" class="headerlink" title="1、代码实现"></a>1、代码实现</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">String</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">char</span> value<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> hash<span class="token punctuation">;</span> <span class="token comment">// Default to 0</span>
+    
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> anObject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> anObject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>anObject <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">String</span> anotherString <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span>anObject<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> n <span class="token operator">=</span> value<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> anObject<span class="token punctuation">.</span>value<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">char</span> v1<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+                <span class="token keyword">char</span> v2<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> anotherString<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+                <span class="token keyword">while</span><span class="token punctuation">(</span>n<span class="token operator">--</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>v1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> v2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 如果长度不一致则一定不相等</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> h <span class="token operator">=</span> hash<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>h <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> val<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+            
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>value<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                h <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> h <span class="token operator">+</span> val<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            hash <span class="token operator">=</span> h<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        
+        <span class="token keyword">return</span> h<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、解析"><a href="#2、解析" class="headerlink" title="2、解析"></a>2、解析</h3><p>String代码实现可以看出以下几点：</p>
+<ul>
+<li>String的底层存储char[]是final修饰的，说明String一旦创建就不可修改（比如<code>String s = "abc"</code>，如果继续执行<code>s = "bbq</code>，那么将是会新建一个String对象，并且s指向新的String对象）</li>
+<li>hashCode执行结果存到成员变量hash字段中，提高查询性能，避免每次都去计算哈希码</li>
+<li>String的equals方法判断的是两个对象长度相同的前提下每个字符都相同（并不要求一定是同个String对象）</li>
+</ul>
+<h2 id="五、如何重写hashCode"><a href="#五、如何重写hashCode" class="headerlink" title="五、如何重写hashCode()"></a>五、如何重写hashCode()</h2><h3 id="1、重写hashCode-的原则"><a href="#1、重写hashCode-的原则" class="headerlink" title="1、重写hashCode()的原则"></a>1、重写hashCode()的原则</h3><ul>
+<li>由于“如果<code>x.equals(y)</code>，那么x和y的hashCode也一定相等”，所以如果我们重写了equals()，那么我们也应该重写hashCode()</li>
+<li>hashCode()实现尽量分散，减少出现哈希冲突的可能</li>
+<li>hashCode()实现尽量不要太复杂，避免影响性能</li>
+</ul>
+<h3 id="2、hashCode-重写方法"><a href="#2、hashCode-重写方法" class="headerlink" title="2、hashCode()重写方法"></a>2、hashCode()重写方法</h3><p>/** 尽可能用到equals()里所用到的所有对象变量，从而减少哈希冲突**/</p>
+<h2 id="六、Q-amp-A"><a href="#六、Q-amp-A" class="headerlink" title="六、Q&amp;A"></a>六、Q&amp;A</h2><h3 id="1、为什么String的hashCode计算用到了数字31？"><a href="#1、为什么String的hashCode计算用到了数字31？" class="headerlink" title="1、为什么String的hashCode计算用到了数字31？"></a>1、为什么String的hashCode计算用到了数字31？</h3><p>String的hashCode()方法代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">String</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> h <span class="token operator">=</span> hash<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>h <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> val<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>value<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                h <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> h <span class="token operator">+</span> val<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            hash <span class="token operator">=</span> h<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> h<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以得到String的hashCode=s[0]*31^(n-1)+s[1]*31^(n-2)+…+s[n-1]</p>
+<p>为什么用到了数字31呢？原因是：</p>
+<ul>
+<li>31是质数，与其他数字相乘得到的计算结果唯一概率更大（比如62=31<em>2，但是64=32</em>2=16<em>4=8</em>8）</li>
+<li>但是质数中为什么选择31呢？因为质数越大，哈希冲突的概率就越小，所以在哈希冲突和性能的权衡下选择了31</li>
+<li>JVM会对31做优化：<code>31*i=(i&lt;&lt;5)-i</code></li>
+</ul>
 
                 
             </div>
@@ -712,18 +786,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/19/java/object-lei-de-equals-he-hashcode-fang-fa-you-shi-me-yong/">
+                <a href="/2023/10/20/concurrent/xian-cheng-chi-gong-zuo-yuan-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Object类的equals和hashCode方法有什么用？">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="线程池工作原理">
                         
-                        <span class="card-title">Object类的equals和hashCode方法有什么用？</span>
+                        <span class="card-title">线程池工作原理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -733,22 +806,29 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-19
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-20
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java/" class="post-category">
-                                    Java
+                            <a href="/categories/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                        <span class="chip bg-color">线程池</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -989,7 +1069,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">89.9k</span>&nbsp;字
+                class="white-color">91.7k</span>&nbsp;字
             
             
             
