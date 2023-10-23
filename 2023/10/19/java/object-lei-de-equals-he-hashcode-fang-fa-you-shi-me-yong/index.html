@@ -417,14 +417,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-20
+                    2023-10-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    912
+                    1.3k
                 </div>
                 
 
@@ -554,6 +554,22 @@
 <li>31是质数，与其他数字相乘得到的计算结果唯一概率更大（比如62=31<em>2，但是64=32</em>2=16<em>4=8</em>8）</li>
 <li>但是质数中为什么选择31呢？因为质数越大，哈希冲突的概率就越小，所以在哈希冲突和性能的权衡下选择了31</li>
 <li>JVM会对31做优化：<code>31*i=(i&lt;&lt;5)-i</code></li>
+</ul>
+<h3 id="2、为什么要有hashCode？"><a href="#2、为什么要有hashCode？" class="headerlink" title="2、为什么要有hashCode？"></a>2、为什么要有hashCode？</h3><p><code>hashCode()</code>和<code>equals()</code>其实都是用来判断两个对象是否相等。</p>
+<p>在一些容器（如<code>HashMap</code>、<code>HashSet</code>）中，比如要插入一个元素，就需要有以下步骤：</p>
+<ol>
+<li>调用<code>hashCode()</code>计算对象的<code>hashCode</code></li>
+<li>判断集合中是否存在相同的<code>hashCode</code>，如果没有就可以直接插入，如果有则下一步</li>
+<li>调用<code>equals()</code>判断两者是否相同，如果相同说明就可以直接覆盖，如果不相同则下一步</li>
+<li>（如<code>HashMap</code>）遍历拥有相同<code>hashCode</code>的列表直到尾部，如果有相同元素则直接元素，如果没有则插入到链表尾部</li>
+</ol>
+<p><strong>结论</strong>：hashCode提升了数据查询效率</p>
+<h3 id="3、为什么重写equals-时必须重写hashCode-方法？"><a href="#3、为什么重写equals-时必须重写hashCode-方法？" class="headerlink" title="3、为什么重写equals()时必须重写hashCode()方法？"></a>3、为什么重写equals()时必须重写hashCode()方法？</h3><p>因为<code>equals()</code>为<code>true</code>的两个对象我们认为是相等的对象，那么他们的<code>hashCode</code>也必须是相等的。</p>
+<p><strong>如果我们重写了equals()但没重写hashCode()方法会发生什么？</strong>：以<code>HashMap</code>为例，可能会出现插入两个<code>equals()</code>返回<code>true</code>的对象在第二个插入时，发现<code>hashCode</code>与第一个对象不一致，导致命中了不一样的哈希槽，从而<code>HashMap</code>就出现了两个相等的对象，并不符合去重的特性（<code>HashSet</code>同理）</p>
+<p><strong>总结</strong>：</p>
+<ul>
+<li><code>equals()</code>返回<code>true</code>时，<code>hashCode()</code>返回值也必须相等</li>
+<li><code>hashCode()</code>返回值相等时，<code>equals()</code>返回不一定为<code>true</code></li>
 </ul>
 
                 
@@ -1069,7 +1085,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">91.7k</span>&nbsp;字
+                class="white-color">93.9k</span>&nbsp;字
             
             
             
