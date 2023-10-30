@@ -320,6 +320,174 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/09/19/redis/wei-shi-me-redis-ji-qun-de-zui-da-cao-shu-shi-16384/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="为什么Redis集群的最大槽数是16384？">
+                            
+                            <span class="card-title">为什么Redis集群的最大槽数是16384？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、为什么Redis集群的最大槽数是16384？这里说到的Redis集群指的是Redis Cluster集群，它用了哈希槽（Hash Slot）来实现数据的分片，key查找的时候会通过CRC16算法取模后找到对应的Slot槽。（集群介绍可参
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Redis/" class="post-category">
+                                    Redis
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/18/distributed/shi-me-shi-liang-jie-duan-ti-jiao-he-san-jie-duan-ti-jiao/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="什么是两阶段提交和三阶段提交？">
+                            
+                            <span class="card-title">什么是两阶段提交和三阶段提交？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、背景在分布式系统中，不同节点通过网络进行通信和协调，并且在物理上是相互独立的，所以为了保证数据一致性，我们需要引入分布式事务。（具体可查看《什么是分布式事务？》）
+而分布式事务中比较经典的一致性算法有二阶段提交和三阶段提交。
+二、两阶段
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                                    分布式
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
+                            <span class="chip bg-color">分布式事务</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/18/distributed/shi-me-shi-fen-bu-shi-shi-wu/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="什么是分布式事务？">
+                            
+                            <span class="card-title">什么是分布式事务？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、什么是分布式事务？传统的单库/单节点事务处理起来比较方便（如MySQL遵循ACID特性），而分布式事务指的是多个跨库/跨节点之间的事务，比较复杂。
+举个例子，在分布式系统中，如果要在电商系统中实现一个下单支付功能，需要涉及多个事务操作：
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                                    分布式
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/18/distributed/shi-me-shi-base-li-lun/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="什么是BASE理论？">
+                            
+                            <span class="card-title">什么是BASE理论？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、背景Base理论的核心思想是最终一致性，即使无法做到强一致性（Strong Consistency），但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性（Eventual Consistency）。
+二、什么是BA
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                                    分布式
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/09/17/distributed/shi-me-shi-cap-mo-xing/">
                         <div class="card-image">
                             
@@ -670,191 +838,6 @@ Consumer端从Broker将消息拉取并消费
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/13/redis/ru-he-ti-gao-huan-cun-ming-zhong-lu/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="如何提高缓存命中率？">
-                            
-                            <span class="card-title">如何提高缓存命中率？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、什么是缓存命中率？如果我们使用redis作为缓存数据库，一般会用缓存命中率来评判对系统的性能（抗并发性）有多大的提升。通常来说，命中率越高，表示使用缓存效果越高，同时系统性能越好、抗并发能力越强。
-缓存命中率指的是客户端查询语句查询re
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Redis/" class="post-category">
-                                    Redis
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/12/redis/ru-he-jie-jue-redis-de-re-dian-key-wen-ti/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="如何解决Redis的热点key问题？">
-                            
-                            <span class="card-title">如何解决Redis的热点key问题？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、什么是热点key呢？热点key指的是频繁访问的key，比如明星八卦带来的微博热搜、双十一带来的秒杀活动等，都很容易出现热点key。
-热点key带来的问题也很明显，就比如突然的微博热搜导致微博卡顿、宕机的情况，就是因为热点key被频繁访问
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-12
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Redis/" class="post-category">
-                                    Redis
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/11/mysql/mysql-zhong-yi-tiao-sql-de-zhi-xing-guo-cheng-shi-zen-yang-de/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="MySQL中一条SQL的执行过程是怎样的？">
-                            
-                            <span class="card-title">MySQL中一条SQL的执行过程是怎样的？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、SQL的执行过程
-执行SQL语句：
-select * from student A where age = 18 and name = 'Gary';
-步骤如下：
-
-通过客户端/服务器通信协议与MySQL建立连接，并查询是否有权限
-My
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/11/mongodb/mongodb-he-mysql-you-shi-me-qu-bie/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="MongoDB和MySQL有什么区别？">
-                            
-                            <span class="card-title">MongoDB和MySQL有什么区别？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、MongoDB和MySQL有什么区别？
-
-
-
-MongoDB
-MySQL
-
-
-
-数据库类型
-非关系型
-关系型
-
-
-存储方式
-JSON
-列+行存储
-
-
-扩展性
-支持分布式部署，可以动态扩展集群
-需要横向分表或纵向扩容来解决数据量过大的问题
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/MongoDB/" class="post-category">
-                                    MongoDB
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -872,7 +855,7 @@ JSON
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">3 / 12</div>
+            <div class="center-align b-text-gray">3 / 13</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -957,7 +940,7 @@ JSON
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">97.4k</span>&nbsp;字
+                class="white-color">100.6k</span>&nbsp;字
             
             
             
