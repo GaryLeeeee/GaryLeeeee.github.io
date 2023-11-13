@@ -417,14 +417,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-05
+                    2023-11-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    734
+                    879
                 </div>
                 
 
@@ -449,7 +449,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、Redis提供了哪些持久化机制？"><a href="#一、Redis提供了哪些持久化机制？" class="headerlink" title="一、Redis提供了哪些持久化机制？"></a>一、Redis提供了哪些持久化机制？</h2><p>Redis提供了两种持久化的机制，分别是RDB和AOF</p>
+                <h2 id="一、Redis提供了哪些持久化机制？"><a href="#一、Redis提供了哪些持久化机制？" class="headerlink" title="一、Redis提供了哪些持久化机制？"></a>一、Redis提供了哪些持久化机制？</h2><p>Redis提供了两种持久化的机制，分别是RDB和AOF（在Redis 4.0之后采用混合方式）。</p>
 <h2 id="二、RDB和AOF有什么区别？"><a href="#二、RDB和AOF有什么区别？" class="headerlink" title="二、RDB和AOF有什么区别？"></a>二、RDB和AOF有什么区别？</h2><h3 id="1、RDB"><a href="#1、RDB" class="headerlink" title="1、RDB"></a>1、RDB</h3><p>RDB是将Redis内存中的数据<strong>定期</strong>保存到磁盘中，防止数据在Redis宕机等异常情况下丢失</p>
 <p><strong>优点</strong>：快照文件比较小，采用了压缩的方式，在数据恢复性能比较好，适合做<font color="red">备份和灾难恢复</font><br><strong>缺点</strong>：实时性低，容易丢数据</p>
 <h3 id="2、AOF"><a href="#2、AOF" class="headerlink" title="2、AOF"></a>2、AOF</h3><p>AOF是将Redis的所有写操作<strong>追加到AOF缓冲区文件（Append Only File）的末尾</strong>，然后再将缓冲区文件的数据写入到磁盘的AOF文件中（什么时候写入是根据刷盘的策略来决定的）</p>
@@ -484,8 +484,14 @@
 </tr>
 </tbody></table>
 <h2 id="三、Q-amp-A"><a href="#三、Q-amp-A" class="headerlink" title="三、Q&amp;A"></a>三、Q&amp;A</h2><h3 id="1、Redis能完全保证数据不丢失吗？"><a href="#1、Redis能完全保证数据不丢失吗？" class="headerlink" title="1、Redis能完全保证数据不丢失吗？"></a>1、Redis能完全保证数据不丢失吗？</h3><p>不能，因为Redis是基于内存存储的，当Redis进程异常退出或服务器断电等情况发生时，内存中的数据可能会丢失。</p>
-<p>虽然Redis提供了RDB和AOF两种持久化机制来防止数据丢失，但是在极端情况下也不是完全可靠的，比如<font color="red">通过淘汰策略把某些key移除掉</font></p>
-<p>所以总结来说Redis只是个缓存，我们还是要有自己的持久化方式，比如双写数据到MySQL</p>
+<p>虽然Redis提供了RDB和AOF两种持久化机制来防止数据丢失，但是在极端情况下也不是完全可靠的，比如<font color="red">通过淘汰策略把某些key移除掉</font>。</p>
+<p>所以总结来说Redis只是个缓存，我们还是要有自己的持久化方式，比如双写数据到MySQL。</p>
+<hr>
+<p><strong>RDB下数据丢失的情况</strong>：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 100s内，执行5条命令，就触发一次持久化磁盘</span>
+save <span class="token number">100</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>但如果100s内我们只执行了3条命令，然后Redis挂了，那么这时候这3条命令对应的数据也是会<strong>丢失</strong>的，所以具体是否会出现数据丢失还是得看我们具体的持久化策略</p>
+<p><strong>AOF下数据丢失的情况</strong>：<br>默认<code>everysec</code>指的是每秒追加写入，说明最多也可能会丢失1s内的数据</p>
 <h3 id="2、AOF有哪些写回策略？"><a href="#2、AOF有哪些写回策略？" class="headerlink" title="2、AOF有哪些写回策略？"></a>2、AOF有哪些写回策略？</h3><p>AOF有三种数据写回策略，分别是：</p>
 <ul>
 <li><strong>Always</strong>：即同步写回，每个写命令执行完，则立马同步地将日志写回磁盘</li>
@@ -1015,7 +1021,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">100.7k</span>&nbsp;字
+                class="white-color">107.4k</span>&nbsp;字
             
             
             

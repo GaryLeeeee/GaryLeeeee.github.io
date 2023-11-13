@@ -421,14 +421,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-07
+                    2023-11-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    448
+                    632
                 </div>
                 
 
@@ -470,6 +470,13 @@
 <li>数据库的从、双主、读写分离会很好缓解这些并发流量</li>
 <li>数据库有最大连接数的限制，超过限制的请求会被拒绝，再结合熔断机制能很好保护数据库，最多也是造成部分用户体验不好</li>
 </ul>
+<h2 id="四、Q-amp-A"><a href="#四、Q-amp-A" class="headerlink" title="四、Q&amp;A"></a>四、Q&amp;A</h2><h3 id="1、缓存击穿是什么？和缓存穿透有什么区别？"><a href="#1、缓存击穿是什么？和缓存穿透有什么区别？" class="headerlink" title="1、缓存击穿是什么？和缓存穿透有什么区别？"></a>1、缓存击穿是什么？和缓存穿透有什么区别？</h3><p><strong>缓存击穿</strong>指的是数据库存在但缓存不存在的数据，出现的情况可能是缓存还没建立、或者是缓存已经过期。</p>
+<p><strong>缓存击穿</strong>的解决方案有：</p>
+<ul>
+<li>如果是热点key可以采用提前预热和适当延长过期时间</li>
+<li>同步数据库数据时加锁，保证同时只有一个请求去同步缓存，减少数据库压力</li>
+</ul>
+<p><strong>缓存击穿和缓存穿透有什么区别？</strong>：缓存击穿是数据库存在但缓存不存在，而缓存穿透是数据库和缓存都不存在（重点在于一个<strong>透</strong>字）。</p>
 
                 
             </div>
@@ -1004,7 +1011,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">100.7k</span>&nbsp;字
+                class="white-color">107.4k</span>&nbsp;字
             
             
             

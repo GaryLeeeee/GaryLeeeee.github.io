@@ -425,14 +425,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-13
+                    2023-11-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.3k
                 </div>
                 
 
@@ -507,6 +507,7 @@
 <ul>
 <li>Slave节点只是实现冷备机制，不能分担redis读操作压力（只有在master宕机之后才会工作）</li>
 <li>客户端实现更复杂</li>
+<li>不支持跨节点事务（可能一个事务所需要的数据分散在多个slot槽中）</li>
 </ul>
 <h2 id="二、哨兵模式"><a href="#二、哨兵模式" class="headerlink" title="二、哨兵模式"></a>二、哨兵模式</h2><p><strong>哨兵模式</strong>由一个或多个sentinel实例组成sentinel集群，可以监视一个或多个主服务器和多个从服务器。适合读请求多于写请求的业务场景，比如在秒杀系统中缓存活动信息。如果写请求较多，当集群Slave节点多了，Master节点同步数据的压力会非常大</p>
 <p><strong>检测主观下线状态</strong><br>Sentinel每秒一次向所有与它建立了命令连接的实例（主服务器、从服务器和其他Sentinel）发送PING命令，实例在<code>down-after-milliseconds</code>毫秒内返回无效回复，Sentinel就会认为该实例主观下线（SDown）</p>
@@ -1079,7 +1080,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">100.7k</span>&nbsp;字
+                class="white-color">107.4k</span>&nbsp;字
             
             
             

@@ -421,14 +421,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-29
+                    2023-11-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    375
+                    1.2k
                 </div>
                 
 
@@ -467,10 +467,34 @@
 <h3 id="3、不同的业务场景区分使用不同的线程池"><a href="#3、不同的业务场景区分使用不同的线程池" class="headerlink" title="3、不同的业务场景区分使用不同的线程池"></a>3、不同的业务场景区分使用不同的线程池</h3><p>首先不同的业务场景可能的资源使用情况不一样，所以对于线程池的参数配置也是不一样的，另外还容易出现死锁的情况。（具体可参考<a href="https://garyleeeee.github.io/2023/09/20/trouble/mei-zuo-xian-cheng-chi-ge-chi-dao-zhi-de-xian-shang-gu-zhang-fen-xi/">《没做线程池隔离导致的线上故障分析》</a></p>
 <h3 id="4、线程池命名"><a href="#4、线程池命名" class="headerlink" title="4、线程池命名"></a>4、线程池命名</h3><p>为了方便定位问题，我们一般会将线程池命名，比如<code>orderThreadPool-1</code>、<code>userLoginThreadPool-5</code></p>
 <h3 id="5、正确配置线程池参数"><a href="#5、正确配置线程池参数" class="headerlink" title="5、正确配置线程池参数"></a>5、正确配置线程池参数</h3><ul>
-<li><strong>核心线程数</strong>：如果是IO密集型任务，则设置为2N+1，如果是CPU密集型任务，则设置为N+1</li>
+<li><strong>核心线程数</strong>：如果是IO密集型任务，则设置为2N，如果是CPU密集型任务，则设置为N+1</li>
 <li><strong>最大线程数</strong>：一般和核心线程数相等，避免出现频繁的线程创建销毁</li>
 <li><strong>拒绝策略</strong>：根据业务场景选择合适的拒绝策略，一般默认选择AbortPolicy即可</li>
 </ul>
+<h2 id="二、Q-amp-A"><a href="#二、Q-amp-A" class="headerlink" title="二、Q&amp;A"></a>二、Q&amp;A</h2><h3 id="1、线程池的阻塞队列要设置多大合适？"><a href="#1、线程池的阻塞队列要设置多大合适？" class="headerlink" title="1、线程池的阻塞队列要设置多大合适？"></a>1、线程池的阻塞队列要设置多大合适？</h3><p>正常情况下，我们的阻塞大小都是设置几百即可，太大的话消费缓慢，太小的话会拒绝太多请求。</p>
+<p>但如果从科学的角度来看，阻塞队列的大小决定了满之后请求的效率。</p>
+<p>打个比方，我们有一个接口，它的平均耗时是<code>50ms</code>，系统超时时间是<code>3000ms</code></p>
+<ul>
+<li>那么最大线程数为1的情况下，理论上每秒可以处理20个请求</li>
+<li>假设阻塞队列最后一个元素执行完刚好超时，也就是<code>3000ms</code>，那么阻塞队列的大小就是<code>3000ms</code>/<code>50ms</code>=60（也就是说，最大线程为1，阻塞队列为60，最差情况请求耗时为3000ms）</li>
+</ul>
+<p>那如果我们最大线程数调整为5，那么相对应的阻塞队列大小就可以调整为<code>3000ms</code>/<code>50ms</code>*5=300（也就是说，最大线程为5，阻塞队列为300，最差情况请求耗时为15000ms）</p>
+<p>但如果我们调整阻塞队列为100，就会出现队列满之后的请求延时较高，具体计算为<code>50ms</code><em>5</em>100=<code>15000ms</code>（也就是说，最大线程为5，阻塞队列为100，最差情况请求耗时为15000ms）</p>
+<p><strong>结论</strong>：所以说，阻塞队列大小的设置一般要参考最大线程数、请求平均时延、请求超时时延等因素综合考虑得到一个合理的值，不应该过大，也不应该过小。</p>
+<h3 id="2、线程池的线程数为什么要根据CPU核心数去设置？"><a href="#2、线程池的线程数为什么要根据CPU核心数去设置？" class="headerlink" title="2、线程池的线程数为什么要根据CPU核心数去设置？"></a>2、线程池的线程数为什么要根据CPU核心数去设置？</h3><p>我们知道，线程池线程数的最佳实践是根据CPU核心数来计算：</p>
+<ul>
+<li><strong>CPU密集型</strong>：CPU核心数+1</li>
+<li><strong>IO密集型</strong>：2*CPU核心数</li>
+</ul>
+<blockquote>
+<p>为什么CPU密集型的线程数是CPU核心数+1？</p>
+</blockquote>
+<p>CPU密集型指的是使用CPU计算，比如我使用线程打印1到100，那是不是线程越多越好呢？答案不是，因为我们要考虑到CPU核心数，如果只有1个CPU核心，那么越多的线程只会带来越多的线程切换导致的性能消耗。（相比之下，用1个线程去打印1到100效率更高）</p>
+<p>所以按理说，CPU核心数有多少，那么线程数设置多少就行，那么多出来的1个线程是有什么用呢？是为了防止某个线程阻塞导致CPU没有跑满，所以额外加了1个线程。</p>
+<blockquote>
+<p>为什么IO密集型的线程数是2*CPU核心数？</p>
+</blockquote>
+<p>IO密集型指的是IO操作比较多的任务，比如网络IO、磁盘IO等，这些都不涉及CPU使用，但是由于IO需要耗时，所以线程数要比CPU密集型的线程数多。防止线程都阻塞在IO上，导致CPU没活干了，所以线程数我们给设置为2<em>CPU核心数。（当然，具体参数还需要看具体场景来调整，比如通过压测来确定最佳线程数，避免说2</em>CPU核心数的线程也都阻塞在IO上了）</p>
 
                 
             </div>
@@ -989,7 +1013,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">100.7k</span>&nbsp;字
+                class="white-color">107.4k</span>&nbsp;字
             
             
             
