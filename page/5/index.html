@@ -320,6 +320,132 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/09/28/trouble/xian-shang-redis-de-zset-ji-he-zhan-yong-nei-cun-guo-da-wen-ti-fen-xi/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="线上Redis的Zset集合占用内存过大问题分析">
+                            
+                            <span class="card-title">线上Redis的Zset集合占用内存过大问题分析</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、背景有一天，企微收到了一条告警：Redis实例内存达到80%已自动扩容。通过分析内存变化曲线，发现是近几天才开始涨得比较快。通过大key分析拿到了几个key，命名分别是ts_file_0、ts_file_1、…、ts_file_9，很明
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="post-category">
+                                    线上问题排查
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Redis/">
+                            <span class="chip bg-color">Redis</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/20/trouble/mei-zuo-xian-cheng-chi-ge-chi-dao-zhi-de-xian-shang-gu-zhang-fen-xi/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="没做线程池隔离导致的线上故障分析">
+                            
+                            <span class="card-title">没做线程池隔离导致的线上故障分析</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、背景线上服务监控告警某个服务接口大量失败，先访问出问题的机器，拿到异常堆栈，然后临时紧急重启后正常。
+异常堆栈信息如下：[DUBBO] Thread pool is EXHAUSTED! Thread Name: DubboServer
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-20
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="post-category">
+                                    线上问题排查
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2023/09/19/redis/wei-shi-me-redis-ji-qun-de-zui-da-cao-shu-shi-16384/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="为什么Redis集群的最大槽数是16384？">
+                            
+                            <span class="card-title">为什么Redis集群的最大槽数是16384？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、为什么Redis集群的最大槽数是16384？这里说到的Redis集群指的是Redis Cluster集群，它用了哈希槽（Hash Slot）来实现数据的分片，key查找的时候会通过CRC16算法取模后找到对应的Slot槽。（集群介绍可参
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Redis/" class="post-category">
+                                    Redis
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/09/18/distributed/shi-me-shi-liang-jie-duan-ti-jiao-he-san-jie-duan-ti-jiao/">
                         <div class="card-image">
                             
@@ -715,130 +841,6 @@ Consumer端从Broker将消息拉取并消费
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/13/kafka/shi-me-shi-kafka-de-chong-ping-heng-ji-zhi/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="什么是Kafka的重平衡机制？">
-                            
-                            <span class="card-title">什么是Kafka的重平衡机制？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、什么是Kafka的重平衡机制？Kafka的重平衡（Rebalance）机制指的是消费者组（Consumer Group）新增或删除消费者（Consumer）时，Kafka集群会重新分配topic分区给各个消费者，以保证每个消费者消费的分
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Kafka/" class="post-category">
-                                    Kafka
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/13/kafka/shi-me-shi-xiao-xi-dui-lie/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="什么是消息队列？">
-                            
-                            <span class="card-title">什么是消息队列？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、什么是消息队列？消息队列（Message Queue），简称MQ，是一种应用间的通信方式，主要由三部分组成：
-
-生产者（Producer）：负责消息发送
-代理（Broker）：负责消息存储
-消费者（Consumer）：负责消息消费
-
-二
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Kafka/" class="post-category">
-                                    Kafka
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/09/13/redis/ru-he-ti-gao-huan-cun-ming-zhong-lu/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="如何提高缓存命中率？">
-                            
-                            <span class="card-title">如何提高缓存命中率？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、什么是缓存命中率？如果我们使用redis作为缓存数据库，一般会用缓存命中率来评判对系统的性能（抗并发性）有多大的提升。通常来说，命中率越高，表示使用缓存效果越高，同时系统性能越好、抗并发能力越强。
-缓存命中率指的是客户端查询语句查询re
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Redis/" class="post-category">
-                                    Redis
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -941,7 +943,7 @@ Consumer端从Broker将消息拉取并消费
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">117.8k</span>&nbsp;字
+                class="white-color">121k</span>&nbsp;字
             
             
             
